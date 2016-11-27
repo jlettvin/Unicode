@@ -1,1 +1,1 @@
-# Unicode
+# Unicode## Node: an O(1) state transition mechanismNode acts as an O(1) dictionary to translateUnicode Codepoints or Unicode Codepoint classifications into table numbers.This enables rapid state machine operations.
