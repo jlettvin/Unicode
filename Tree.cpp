@@ -1,0 +1,99 @@
+/* Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/**
+ * \class Tree
+ *
+ * \ingroup jlettvin
+ *
+ * \brief Create an O(1) association between codepoint and indices.
+ *
+ * Tree supports building word trees for fast lookup and canonicalization.
+ *
+ * \author Jonathan D. Lettvin
+ * jlettvin@gmail.com
+ *
+ * \ version 0.0.1
+ *
+ * \date 2016/11/27 08:14
+ *
+ * \license GPLv3
+ *
+ * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+ *
+ * TODO Implement the functions.
+ */
+#include <iostream>
+#include <iomanip>
+#include <limits>
+
+#include "Tree.h"  ///< cpplint complains even though existing file is included
+
+namespace jlettvin {
+
+    using std::endl;
+    using std::cout;
+    using std::hex;
+    using std::setw;
+    using std::setfill;
+    using std::ostream;
+
+    // local:
+    /** \brief enable use of cout << T << std::endl;
+     */
+    template<typename T1>
+    ostream& operator <<(ostream& o, const vector<T1>& v) {
+        o << setw(1) << setfill(' ') << "[";
+        if (!v.empty()) {
+            typename vector<T1>::const_iterator iter;
+            for (iter = v.begin(); iter != --v.end(); ++iter)
+                o << hex << setw(6) << setfill(' ') << *iter << ' ';
+            o << hex << setw(6) << setfill(' ') << *--v.end();
+        }
+        o << setw(1) << setfill(' ') << "]" << endl;
+        return o;
+    }
+
+    const size_t Tree::count = 0x110000;  ///< Count of codepoints in Unicode
+    const Tree::vustr* Tree::nonep = new vustr();
+    const Tree::vustr& Tree::none = *nonep;
+    const Tree::ustr Tree::empty = U"";
+
+    // private:
+
+    // public:
+    /** \brief Constructor
+     */
+    Tree::Tree() { }
+
+    /** \brief Destructor has no responsibilities */
+    Tree::~Tree() { }
+
+    /** \brief Size is best retrieved from the count of dictionary keys.
+     * \return size
+     */
+    size_t Tree::size() const { return 0; }
+
+    /** \brief peek O(N) lookup around which this class is focused.
+     * \param token
+     * \return assoc
+     */
+    const Tree::vustr& Tree::peek(const Tree::ustr& token) const {
+        cout << sizeof(token) << endl;
+        return none;
+    }
+
+    /** \brief poke O(N) table and backup dict insertion.
+     * \param token
+     * \param assoc is a list of canonical tokens
+     */
+    void Tree::poke(const Tree::ustr& token, const Tree::ustr& canonical) {
+        cout << sizeof(token) << '(' << sizeof(canonical) << ')' << endl;
+    }
+
+    /** \brief drop mechanism for removing a codepoint:assoc from the loopup.
+     * \param token
+     */
+    void Tree::drop(const Tree::ustr& token) {
+        cout << sizeof(token) << endl;
+    }
+
+}  // namespace jlettvin

@@ -1,0 +1,127 @@
+\hypertarget{classjlettvin_1_1_tree}{}\section{jlettvin\+:\+:Tree Class Reference}
+\label{classjlettvin_1_1_tree}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classjlettvin_1_1_tree_ad376a7c639d857312f5de2ef47482f68}{Tree} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classjlettvin_1_1_tree_abdc38545cf3f588725b5d8b8075b3866}{$\sim$\+Tree} ()
+\begin{DoxyCompactList}\small\item\em Destructor has no responsibilities. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{classjlettvin_1_1_tree_a1edf6251d8a3aa6a3a40d261339b83c6}{size} () const 
+\begin{DoxyCompactList}\small\item\em Size is best retrieved from the count of dictionary keys. \end{DoxyCompactList}\item 
+const vustr \& \hyperlink{classjlettvin_1_1_tree_ade38eb49629974e278de81cbc40a4528}{peek} (const ustr \&token) const 
+\begin{DoxyCompactList}\small\item\em peek O(\+N) lookup around which this class is focused. \end{DoxyCompactList}\item 
+void \hyperlink{classjlettvin_1_1_tree_a9449aa28ef4a7cafde2134206ba2a238}{poke} (const ustr \&token, const ustr \&canonical=empty)
+\begin{DoxyCompactList}\small\item\em poke O(\+N) table and backup dict insertion. \end{DoxyCompactList}\item 
+void \hyperlink{classjlettvin_1_1_tree_af6eacfd1dc52c39d9363857ea9aa6ac9}{drop} (const ustr \&token)
+\begin{DoxyCompactList}\small\item\em drop mechanism for removing a codepoint\+:assoc from the loopup. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classjlettvin_1_1_tree_ad376a7c639d857312f5de2ef47482f68}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!Tree@{Tree}}
+\index{Tree@{Tree}!jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
+\subsubsection[{Tree()}]{\setlength{\rightskip}{0pt plus 5cm}Tree\+::\+Tree (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classjlettvin_1_1_tree_ad376a7c639d857312f5de2ef47482f68}
+
+
+Constructor. 
+
+Constructor for a Code Point Table for O(1) lookup \hypertarget{classjlettvin_1_1_tree_abdc38545cf3f588725b5d8b8075b3866}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!````~Tree@{$\sim$\+Tree}}
+\index{````~Tree@{$\sim$\+Tree}!jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
+\subsubsection[{$\sim$\+Tree()}]{\setlength{\rightskip}{0pt plus 5cm}Tree\+::$\sim$\+Tree (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classjlettvin_1_1_tree_abdc38545cf3f588725b5d8b8075b3866}
+
+
+Destructor has no responsibilities. 
+
+Destructor for a Code Point Table for O(1) lookup 
+
+\subsection{Member Function Documentation}
+\hypertarget{classjlettvin_1_1_tree_af6eacfd1dc52c39d9363857ea9aa6ac9}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!drop@{drop}}
+\index{drop@{drop}!jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
+\subsubsection[{drop(const ustr \&token)}]{\setlength{\rightskip}{0pt plus 5cm}void Tree\+::drop (
+\begin{DoxyParamCaption}
+\item[{const ustr \&}]{token}
+\end{DoxyParamCaption}
+)}\label{classjlettvin_1_1_tree_af6eacfd1dc52c39d9363857ea9aa6ac9}
+
+
+drop mechanism for removing a codepoint\+:assoc from the loopup. 
+
+Delete a codepoint\+:association from table and dict
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classjlettvin_1_1_tree_ade38eb49629974e278de81cbc40a4528}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!peek@{peek}}
+\index{peek@{peek}!jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
+\subsubsection[{peek(const ustr \&token) const }]{\setlength{\rightskip}{0pt plus 5cm}const Tree\+::vustr \& Tree\+::peek (
+\begin{DoxyParamCaption}
+\item[{const ustr \&}]{token}
+\end{DoxyParamCaption}
+) const}\label{classjlettvin_1_1_tree_ade38eb49629974e278de81cbc40a4528}
+
+
+peek O(\+N) lookup around which this class is focused. 
+
+Lookup index associated with table (0 means error)
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+assoc 
+\end{DoxyReturn}
+\hypertarget{classjlettvin_1_1_tree_a9449aa28ef4a7cafde2134206ba2a238}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!poke@{poke}}
+\index{poke@{poke}!jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
+\subsubsection[{poke(const ustr \&token, const ustr \&canonical=empty)}]{\setlength{\rightskip}{0pt plus 5cm}void Tree\+::poke (
+\begin{DoxyParamCaption}
+\item[{const ustr \&}]{token, }
+\item[{const ustr \&}]{canonical = {\ttfamily empty}}
+\end{DoxyParamCaption}
+)}\label{classjlettvin_1_1_tree_a9449aa28ef4a7cafde2134206ba2a238}
+
+
+poke O(\+N) table and backup dict insertion. 
+
+Insert a new codepoint\+:association pair into table and dict
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & \\
+\hline
+{\em assoc} & is a list of canonical tokens \\
+\hline
+\end{DoxyParams}
+\hypertarget{classjlettvin_1_1_tree_a1edf6251d8a3aa6a3a40d261339b83c6}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!size@{size}}
+\index{size@{size}!jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
+\subsubsection[{size() const }]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t Tree\+::size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{classjlettvin_1_1_tree_a1edf6251d8a3aa6a3a40d261339b83c6}
+
+
+Size is best retrieved from the count of dictionary keys. 
+
+Number of codepoints in table
+
+\begin{DoxyReturn}{Returns}
+size 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Tree.\+h\item 
+Tree.\+cpp\end{DoxyCompactItemize}
