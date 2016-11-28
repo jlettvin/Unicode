@@ -19,6 +19,10 @@
  *
  * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  *
+ * TODO make results of peek be a list of canonical:probability pairs.
+ * If a token equals a canonical token, this has a relative probability P = 1.
+ * If a Levenshtein1 token equals a canonical token of length 10, P = 0.9.
+ * Fat finger statistics should apply for single-hand or both-hand offsets.
  */
 #ifndef   TREE_H_
 #define   TREE_H_
