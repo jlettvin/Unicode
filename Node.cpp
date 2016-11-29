@@ -35,22 +35,6 @@ namespace jlettvin {
     using std::setfill;
     using std::ostream;
 
-    // local:
-    /** \brief enable use of cout << T << std::endl;
-     */
-    template<typename T1>
-    ostream& operator <<(ostream& o, const vector<T1>& v) {
-        o << setw(1) << setfill(' ') << "[";
-        if (!v.empty()) {
-            typename vector<T1>::const_iterator iter;
-            for (iter = v.begin(); iter != --v.end(); ++iter)
-                o << hex << setw(6) << setfill(' ') << *iter << ' ';
-            o << hex << setw(6) << setfill(' ') << *--v.end();
-        }
-        o << setw(1) << setfill(' ') << "]" << endl;
-        return o;
-    }
-
     // private:
     /** \brief DRY initializer */
     void Node::initialize() {
