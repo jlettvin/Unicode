@@ -43,6 +43,11 @@ using std::pair;
 
 /* Prefix string literal with U to make it 32bit wide: U"hello world" */
 
+/** \class Tree
+ *
+ * \brief dictionary equivalent interface: high performance u32string lookup.
+ *
+ */
 class Tree {
  private:
      typedef u32string ustr;

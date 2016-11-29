@@ -21,8 +21,7 @@ LIBOPT=$(MACDYLIBOPT)
 
 # all #########################################################################
 .PHONY:
-all:	$(LIBRARY) test_Node.out test_Tree.out lint valgrind doxygen
-	@$(call timestamp,$@)
+all:	begin $(LIBRARY) test_Node.out test_Tree.out lint valgrind doxygen end
 
 
 # clean #######################################################################
@@ -36,6 +35,16 @@ clean:
 
 
 # documentation ###############################################################
+.PHONY:
+begin:
+	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv make'
+	@$(call timestamp,$@)
+
+.PHONY:
+end:
+	@$(call timestamp,$@)
+	@echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ make'
+
 .PHONY:
 doxygen:
 	@doxygen > doxygen.out 2>&1

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['node',['Node',['../class_node.html',1,'Node'],['../classjlettvin_1_1_node.html#ad7a34779cad45d997bfd6d3d8043c75f',1,'jlettvin::Node::Node()']]],
-  ['node',['Node',['../classjlettvin_1_1_node.html',1,'jlettvin']]]
+  ['m_5fiter',['M_iter',['../namespacejlettvin.html#adb899a2c00ed7361dbc22a0bc907f88c',1,'jlettvin']]],
+  ['m_5ftype',['M_type',['../namespacejlettvin.html#a37ff8ef881a4ed6efce44bac38621732',1,'jlettvin']]]
 ];

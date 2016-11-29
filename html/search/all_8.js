@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['t_5fiter',['T_iter',['../namespacejlettvin.html#a717af5c4fa2045ec8271403a711500be',1,'jlettvin']]],
-  ['t_5ftype',['T_type',['../namespacejlettvin.html#a437d12ab773a8e62c0ffce16e6423bb5',1,'jlettvin']]],
-  ['tree',['Tree',['../class_tree.html',1,'Tree'],['../classjlettvin_1_1_tree.html#ad376a7c639d857312f5de2ef47482f68',1,'jlettvin::Tree::Tree()']]],
-  ['tree',['Tree',['../classjlettvin_1_1_tree.html',1,'jlettvin']]]
+  ['size',['size',['../classjlettvin_1_1_node.html#ae2983972c965d0875ea34aa15aee2564',1,'jlettvin::Node::size()'],['../classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6',1,'jlettvin::Tree::size()']]],
+  ['subtable_5ft',['subtable_t',['../namespacejlettvin.html#a7133ba660d288e5f368d7285843739c8',1,'jlettvin']]]
 ];

@@ -32,6 +32,11 @@ using std::vector;
 using std::map;
 
 namespace       jlettvin {
+/** \class Node
+ *
+ * \brief dictionary equivalent interface: high performance codepoint lookup.
+ *
+ */
 class Node {
  private:
 
@@ -48,7 +53,7 @@ class Node {
         *last = *next;
         *next = T[*last][index];
         if (*next == 0L) {
-            T.push_back(entry_t(8, 0L));
+            T.push_back(subtable_t(8, 0L));
             T[*last][index] = N;
             *next = N++;
         }

@@ -15,7 +15,7 @@
  *
  * \date 2016/11/27 08:14
  *
- * \license GPLv3
+ * license GPLv3
  *
  * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  *
@@ -55,8 +55,8 @@ namespace jlettvin {
     /** \brief DRY initializer */
     void Node::initialize() {
         T.clear();
-        T.push_back(entry_t(8, 0L));
-        T.push_back(entry_t(8, 0L));
+        T.push_back(subtable_t(8, 0L));
+        T.push_back(subtable_t(8, 0L));
         N = 2;
     }
 

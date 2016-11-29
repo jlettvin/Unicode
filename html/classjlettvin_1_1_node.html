@@ -95,6 +95,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">jlettvin::Node Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>dictionary equivalent interface: high performance codepoint lookup.  
+ <a href="classjlettvin_1_1_node.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_node_8h_source.html">Node.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -107,17 +112,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae2983972c965d0875ea34aa15aee2564"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#ae2983972c965d0875ea34aa15aee2564">size</a> () const </td></tr>
 <tr class="memdesc:ae2983972c965d0875ea34aa15aee2564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size is best retrieved from the count of dictionary keys.  <a href="#ae2983972c965d0875ea34aa15aee2564">More...</a><br /></td></tr>
 <tr class="separator:ae2983972c965d0875ea34aa15aee2564"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a976b319d4793fcc839604d62987fe01e"><td class="memItemLeft" align="right" valign="top">target_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a976b319d4793fcc839604d62987fe01e">peek</a> (const codepoint_t codepoint) const </td></tr>
+<tr class="memitem:a976b319d4793fcc839604d62987fe01e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacejlettvin.html#ac925326f2732a65f4e3caaea182401a9">target_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a976b319d4793fcc839604d62987fe01e">peek</a> (const <a class="el" href="namespacejlettvin.html#a5c480560edc7a71c9f5ae6dad14e6fec">codepoint_t</a> codepoint) const </td></tr>
 <tr class="memdesc:a976b319d4793fcc839604d62987fe01e"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek O(1) lookup around which this class is focused.  <a href="#a976b319d4793fcc839604d62987fe01e">More...</a><br /></td></tr>
 <tr class="separator:a976b319d4793fcc839604d62987fe01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a599100f6c058d238fb28f15a60d3ae9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a599100f6c058d238fb28f15a60d3ae9f">poke</a> (const codepoint_t codepoint, const target_t association)</td></tr>
+<tr class="memitem:a599100f6c058d238fb28f15a60d3ae9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a599100f6c058d238fb28f15a60d3ae9f">poke</a> (const <a class="el" href="namespacejlettvin.html#a5c480560edc7a71c9f5ae6dad14e6fec">codepoint_t</a> codepoint, const <a class="el" href="namespacejlettvin.html#ac925326f2732a65f4e3caaea182401a9">target_t</a> association)</td></tr>
 <tr class="memdesc:a599100f6c058d238fb28f15a60d3ae9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">poke ~O(1) table and backup dict insertion.  <a href="#a599100f6c058d238fb28f15a60d3ae9f">More...</a><br /></td></tr>
 <tr class="separator:a599100f6c058d238fb28f15a60d3ae9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a516768e6fc7505a9e96d9ade87f11148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a516768e6fc7505a9e96d9ade87f11148">drop</a> (const codepoint_t codepoint)</td></tr>
+<tr class="memitem:a516768e6fc7505a9e96d9ade87f11148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a516768e6fc7505a9e96d9ade87f11148">drop</a> (const <a class="el" href="namespacejlettvin.html#a5c480560edc7a71c9f5ae6dad14e6fec">codepoint_t</a> codepoint)</td></tr>
 <tr class="memdesc:a516768e6fc7505a9e96d9ade87f11148"><td class="mdescLeft">&#160;</td><td class="mdescRight">drop mechanism for removing a codepoint:assoc from the loopup.  <a href="#a516768e6fc7505a9e96d9ade87f11148">More...</a><br /></td></tr>
 <tr class="separator:a516768e6fc7505a9e96d9ade87f11148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>dictionary equivalent interface: high performance codepoint lookup. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad7a34779cad45d997bfd6d3d8043c75f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +169,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void Node::drop </td>
           <td>(</td>
-          <td class="paramtype">const codepoint_t&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacejlettvin.html#a5c480560edc7a71c9f5ae6dad14e6fec">codepoint_t</a>&#160;</td>
           <td class="paramname"><em>codepoint</em></td><td>)</td>
           <td></td>
         </tr>
@@ -173,7 +180,7 @@ Public Member Functions</h2></td></tr>
 <p>Delete a codepoint:association from table and dict</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">codepoint</td><td>It is poorly implemented, rebuilding the <a class="el" href="classjlettvin_1_1_node.html">Node</a> from scratch and then re-inserting all the associations from the dictionary. TODO there must be a better way than rebuilding from scratch. </td></tr>
+    <tr><td class="paramname">codepoint</td><td>It is poorly implemented, rebuilding the <a class="el" href="classjlettvin_1_1_node.html" title="dictionary equivalent interface: high performance codepoint lookup. ">Node</a> from scratch and then re-inserting all the associations from the dictionary. TODO there must be a better way than rebuilding from scratch. </td></tr>
   </table>
   </dd>
 </dl>
@@ -185,9 +192,9 @@ Public Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">target_t Node::peek </td>
+          <td class="memname"><a class="el" href="namespacejlettvin.html#ac925326f2732a65f4e3caaea182401a9">target_t</a> Node::peek </td>
           <td>(</td>
-          <td class="paramtype">const codepoint_t&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacejlettvin.html#a5c480560edc7a71c9f5ae6dad14e6fec">codepoint_t</a>&#160;</td>
           <td class="paramname"><em>codepoint</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -214,13 +221,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void Node::poke </td>
           <td>(</td>
-          <td class="paramtype">const codepoint_t&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacejlettvin.html#a5c480560edc7a71c9f5ae6dad14e6fec">codepoint_t</a>&#160;</td>
           <td class="paramname"><em>codepoint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const target_t&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespacejlettvin.html#ac925326f2732a65f4e3caaea182401a9">target_t</a>&#160;</td>
           <td class="paramname"><em>assoc</em>&#160;</td>
         </tr>
         <tr>

@@ -9,28 +9,28 @@ $<$ cpplint complains even though existing file is included
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{classjlettvin_1_1_node}{Node}
-\item 
+\begin{DoxyCompactList}\small\item\em dictionary equivalent interface\+: high performance codepoint lookup. \end{DoxyCompactList}\item 
 class \hyperlink{classjlettvin_1_1_tree}{Tree}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em dictionary equivalent interface\+: high performance u32string lookup. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{}typedef size\+\_\+t {\bfseries codepoint\+\_\+t}\label{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}
+\hypertarget{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{}typedef size\+\_\+t \hyperlink{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{codepoint\+\_\+t}\label{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}
 
-\item 
-\hypertarget{namespacejlettvin_ac925326f2732a65f4e3caaea182401a9}{}typedef size\+\_\+t {\bfseries target\+\_\+t}\label{namespacejlettvin_ac925326f2732a65f4e3caaea182401a9}
+\begin{DoxyCompactList}\small\item\em clear type of codepoint \end{DoxyCompactList}\item 
+\hypertarget{namespacejlettvin_ac925326f2732a65f4e3caaea182401a9}{}typedef size\+\_\+t \hyperlink{namespacejlettvin_ac925326f2732a65f4e3caaea182401a9}{target\+\_\+t}\label{namespacejlettvin_ac925326f2732a65f4e3caaea182401a9}
 
-\item 
-\hypertarget{namespacejlettvin_af3d2e8320ecb86b316e2069e9de6e8f2}{}typedef size\+\_\+t {\bfseries either\+\_\+t}\label{namespacejlettvin_af3d2e8320ecb86b316e2069e9de6e8f2}
+\begin{DoxyCompactList}\small\item\em clear type of result \end{DoxyCompactList}\item 
+\hypertarget{namespacejlettvin_af3d2e8320ecb86b316e2069e9de6e8f2}{}typedef size\+\_\+t \hyperlink{namespacejlettvin_af3d2e8320ecb86b316e2069e9de6e8f2}{either\+\_\+t}\label{namespacejlettvin_af3d2e8320ecb86b316e2069e9de6e8f2}
 
-\item 
-\hypertarget{namespacejlettvin_a528bb6b8bb0e10f4e288fcfd3a77ecea}{}typedef vector$<$ either\+\_\+t $>$ \hyperlink{namespacejlettvin_a528bb6b8bb0e10f4e288fcfd3a77ecea}{entry\+\_\+t}\label{namespacejlettvin_a528bb6b8bb0e10f4e288fcfd3a77ecea}
+\begin{DoxyCompactList}\small\item\em ambiguous type \end{DoxyCompactList}\item 
+\hypertarget{namespacejlettvin_a7133ba660d288e5f368d7285843739c8}{}typedef vector$<$ \hyperlink{namespacejlettvin_af3d2e8320ecb86b316e2069e9de6e8f2}{either\+\_\+t} $>$ \hyperlink{namespacejlettvin_a7133ba660d288e5f368d7285843739c8}{subtable\+\_\+t}\label{namespacejlettvin_a7133ba660d288e5f368d7285843739c8}
 
 \begin{DoxyCompactList}\small\item\em type of table entry \end{DoxyCompactList}\item 
-\hypertarget{namespacejlettvin_a437d12ab773a8e62c0ffce16e6423bb5}{}typedef vector$<$ \hyperlink{namespacejlettvin_a528bb6b8bb0e10f4e288fcfd3a77ecea}{entry\+\_\+t} $>$ \hyperlink{namespacejlettvin_a437d12ab773a8e62c0ffce16e6423bb5}{T\+\_\+type}\label{namespacejlettvin_a437d12ab773a8e62c0ffce16e6423bb5}
+\hypertarget{namespacejlettvin_a7791a7f100e442c5b74a901442cd3197}{}typedef vector$<$ \hyperlink{namespacejlettvin_a7133ba660d288e5f368d7285843739c8}{subtable\+\_\+t} $>$ \hyperlink{namespacejlettvin_a7791a7f100e442c5b74a901442cd3197}{T\+\_\+type}\label{namespacejlettvin_a7791a7f100e442c5b74a901442cd3197}
 
 \begin{DoxyCompactList}\small\item\em type of table \end{DoxyCompactList}\item 
-\hypertarget{namespacejlettvin_a37ff8ef881a4ed6efce44bac38621732}{}typedef map$<$ codepoint\+\_\+t, target\+\_\+t $>$ \hyperlink{namespacejlettvin_a37ff8ef881a4ed6efce44bac38621732}{M\+\_\+type}\label{namespacejlettvin_a37ff8ef881a4ed6efce44bac38621732}
+\hypertarget{namespacejlettvin_a37ff8ef881a4ed6efce44bac38621732}{}typedef map$<$ \hyperlink{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{codepoint\+\_\+t}, \hyperlink{namespacejlettvin_ac925326f2732a65f4e3caaea182401a9}{target\+\_\+t} $>$ \hyperlink{namespacejlettvin_a37ff8ef881a4ed6efce44bac38621732}{M\+\_\+type}\label{namespacejlettvin_a37ff8ef881a4ed6efce44bac38621732}
 
 \begin{DoxyCompactList}\small\item\em type of dict \end{DoxyCompactList}\item 
 \hypertarget{namespacejlettvin_a717af5c4fa2045ec8271403a711500be}{}typedef T\+\_\+type\+::const\+\_\+iterator \hyperlink{namespacejlettvin_a717af5c4fa2045ec8271403a711500be}{T\+\_\+iter}\label{namespacejlettvin_a717af5c4fa2045ec8271403a711500be}

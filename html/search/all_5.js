@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['omni',['Omni',['../class_omni.html',1,'']]],
-  ['operator_3c_3c',['operator&lt;&lt;',['../namespacejlettvin.html#a240221b0ca26041fcbd1bd192beda4bb',1,'jlettvin']]]
+  ['node',['Node',['../class_node.html',1,'Node'],['../classjlettvin_1_1_node.html#ad7a34779cad45d997bfd6d3d8043c75f',1,'jlettvin::Node::Node()']]],
+  ['node',['Node',['../classjlettvin_1_1_node.html',1,'jlettvin']]]
 ];
