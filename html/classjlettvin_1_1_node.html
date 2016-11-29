@@ -99,7 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad7a34779cad45d997bfd6d3d8043c75f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#ad7a34779cad45d997bfd6d3d8043c75f">Node</a> ()</td></tr>
-<tr class="memdesc:ad7a34779cad45d997bfd6d3d8043c75f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor This could use C++ instance initializers but because <a class="el" href="classjlettvin_1_1_node.html#aa2cf237ff4b2d21d7439ccf2c56185db" title="drop mechanism for removing a codepoint:assoc from the loopup. ">Node::drop()</a> needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the DRY principle.  <a href="#ad7a34779cad45d997bfd6d3d8043c75f">More...</a><br /></td></tr>
+<tr class="memdesc:ad7a34779cad45d997bfd6d3d8043c75f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor This could use C++ instance initializers but because <a class="el" href="classjlettvin_1_1_node.html#a516768e6fc7505a9e96d9ade87f11148" title="drop mechanism for removing a codepoint:assoc from the loopup. ">Node::drop()</a> needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the DRY principle.  <a href="#ad7a34779cad45d997bfd6d3d8043c75f">More...</a><br /></td></tr>
 <tr class="separator:ad7a34779cad45d997bfd6d3d8043c75f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0840c3cb5c7159be6d992adecd2097c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#aa0840c3cb5c7159be6d992adecd2097c">~Node</a> ()</td></tr>
 <tr class="memdesc:aa0840c3cb5c7159be6d992adecd2097c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor has no responsibilities.  <a href="#aa0840c3cb5c7159be6d992adecd2097c">More...</a><br /></td></tr>
@@ -107,15 +107,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae2983972c965d0875ea34aa15aee2564"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#ae2983972c965d0875ea34aa15aee2564">size</a> () const </td></tr>
 <tr class="memdesc:ae2983972c965d0875ea34aa15aee2564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size is best retrieved from the count of dictionary keys.  <a href="#ae2983972c965d0875ea34aa15aee2564">More...</a><br /></td></tr>
 <tr class="separator:ae2983972c965d0875ea34aa15aee2564"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3e572b02d7675ddb110566c2d25ef10"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#af3e572b02d7675ddb110566c2d25ef10">peek</a> (const size_t codepoint) const </td></tr>
-<tr class="memdesc:af3e572b02d7675ddb110566c2d25ef10"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek O(1) lookup around which this class is focused.  <a href="#af3e572b02d7675ddb110566c2d25ef10">More...</a><br /></td></tr>
-<tr class="separator:af3e572b02d7675ddb110566c2d25ef10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0710c9ba361bc74e0c49b6acf3af4b39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a0710c9ba361bc74e0c49b6acf3af4b39">poke</a> (const size_t codepoint, const size_t association)</td></tr>
-<tr class="memdesc:a0710c9ba361bc74e0c49b6acf3af4b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">poke ~O(1) table and backup dict insertion.  <a href="#a0710c9ba361bc74e0c49b6acf3af4b39">More...</a><br /></td></tr>
-<tr class="separator:a0710c9ba361bc74e0c49b6acf3af4b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2cf237ff4b2d21d7439ccf2c56185db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#aa2cf237ff4b2d21d7439ccf2c56185db">drop</a> (const size_t codepoint)</td></tr>
-<tr class="memdesc:aa2cf237ff4b2d21d7439ccf2c56185db"><td class="mdescLeft">&#160;</td><td class="mdescRight">drop mechanism for removing a codepoint:assoc from the loopup.  <a href="#aa2cf237ff4b2d21d7439ccf2c56185db">More...</a><br /></td></tr>
-<tr class="separator:aa2cf237ff4b2d21d7439ccf2c56185db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a976b319d4793fcc839604d62987fe01e"><td class="memItemLeft" align="right" valign="top">target_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a976b319d4793fcc839604d62987fe01e">peek</a> (const codepoint_t codepoint) const </td></tr>
+<tr class="memdesc:a976b319d4793fcc839604d62987fe01e"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek O(1) lookup around which this class is focused.  <a href="#a976b319d4793fcc839604d62987fe01e">More...</a><br /></td></tr>
+<tr class="separator:a976b319d4793fcc839604d62987fe01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a599100f6c058d238fb28f15a60d3ae9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a599100f6c058d238fb28f15a60d3ae9f">poke</a> (const codepoint_t codepoint, const target_t association)</td></tr>
+<tr class="memdesc:a599100f6c058d238fb28f15a60d3ae9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">poke ~O(1) table and backup dict insertion.  <a href="#a599100f6c058d238fb28f15a60d3ae9f">More...</a><br /></td></tr>
+<tr class="separator:a599100f6c058d238fb28f15a60d3ae9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a516768e6fc7505a9e96d9ade87f11148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_node.html#a516768e6fc7505a9e96d9ade87f11148">drop</a> (const codepoint_t codepoint)</td></tr>
+<tr class="memdesc:a516768e6fc7505a9e96d9ade87f11148"><td class="mdescLeft">&#160;</td><td class="mdescRight">drop mechanism for removing a codepoint:assoc from the loopup.  <a href="#a516768e6fc7505a9e96d9ade87f11148">More...</a><br /></td></tr>
+<tr class="separator:a516768e6fc7505a9e96d9ade87f11148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad7a34779cad45d997bfd6d3d8043c75f"></a>
@@ -131,7 +131,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor This could use C++ instance initializers but because <a class="el" href="classjlettvin_1_1_node.html#aa2cf237ff4b2d21d7439ccf2c56185db" title="drop mechanism for removing a codepoint:assoc from the loopup. ">Node::drop()</a> needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the DRY principle. </p>
+<p>Constructor This could use C++ instance initializers but because <a class="el" href="classjlettvin_1_1_node.html#a516768e6fc7505a9e96d9ade87f11148" title="drop mechanism for removing a codepoint:assoc from the loopup. ">Node::drop()</a> needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the DRY principle. </p>
 <p>Constructor for a Code Point Table for O(1) lookup </p>
 
 </div>
@@ -155,14 +155,14 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aa2cf237ff4b2d21d7439ccf2c56185db"></a>
+<a class="anchor" id="a516768e6fc7505a9e96d9ade87f11148"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Node::drop </td>
           <td>(</td>
-          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramtype">const codepoint_t&#160;</td>
           <td class="paramname"><em>codepoint</em></td><td>)</td>
           <td></td>
         </tr>
@@ -180,14 +180,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af3e572b02d7675ddb110566c2d25ef10"></a>
+<a class="anchor" id="a976b319d4793fcc839604d62987fe01e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t Node::peek </td>
+          <td class="memname">target_t Node::peek </td>
           <td>(</td>
-          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramtype">const codepoint_t&#160;</td>
           <td class="paramname"><em>codepoint</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -207,20 +207,20 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0710c9ba361bc74e0c49b6acf3af4b39"></a>
+<a class="anchor" id="a599100f6c058d238fb28f15a60d3ae9f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Node::poke </td>
           <td>(</td>
-          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramtype">const codepoint_t&#160;</td>
           <td class="paramname"><em>codepoint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramtype">const target_t&#160;</td>
           <td class="paramname"><em>assoc</em>&#160;</td>
         </tr>
         <tr>

@@ -4,13 +4,24 @@
 
 # TODO use strip on library executables.
 
-timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
-COPTS=-std=c++11 -O3 -Wall -Wextra -Werror
 
+timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
+COPTS=-std=c++11 -O3 -Wall -Wextra -Werror -fPIC -g
+VERSION=0.0.1
+
+MACDYLIB=libjlettvin.dylib
+MACDYLIBOPT=
+
+LINUXLIB=libjlettvin.so.$(VERSION)
+LINUXLIBOPT=-L. -ljlettvin
+
+CURDIR=.
+LIBRARY=$(MACDYLIB)
+LIBOPT=$(MACDYLIBOPT)
 
 # all #########################################################################
 .PHONY:
-all:	test_Node.out test_Tree.out lint valgrind doxygen
+all:	$(LIBRARY) test_Node.out test_Tree.out lint valgrind doxygen
 	@$(call timestamp,$@)
 
 
@@ -19,7 +30,8 @@ all:	test_Node.out test_Tree.out lint valgrind doxygen
 clean:
 	@rm -f *.o *.out *.lint *.valgrind
 	@rm -f test_Node test_Tree
-	@rm -fr test_Node.dSym
+	@rm -f $(LIBRARY)
+	@rm -fr test_*.dSYM
 	@$(call timestamp,$@)
 
 
@@ -51,12 +63,12 @@ lint:	\
 
 
 # unit tests ##################################################################
-test_Node:	test_Node.cpp Node.o
-	@g++ $(COPTS) -o $@ $^
+test_Node:	test_Node.cpp $(LIBRARY)
+	@g++ $(COPTS) -o $@ $^ $(LIBOPT)
 	@$(call timestamp,$@)
 
-test_Tree:	test_Tree.cpp Tree.o Node.o
-	@g++ $(COPTS) -o $@ $^
+test_Tree:	test_Tree.cpp
+	@g++ $(COPTS) -o $@ $^ $(LIBOPT)
 	@$(call timestamp,$@)
 
 
@@ -102,10 +114,28 @@ test_Tree.cpp.lint:	test_Tree.cpp
 	@$(call timestamp,$@)
 
 # object files ################################################################
+Unicode.o:	Unicode.cpp
+	@g++ $(COPTS) -c -o $@ $<
+	@$(call timestamp,$@)
+
 Node.o:	Node.cpp
 	@g++ $(COPTS) -c -o $@ $<
 	@$(call timestamp,$@)
 
 Tree.o:	Tree.cpp
 	@g++ $(COPTS) -c -o $@ $<
+	@$(call timestamp,$@)
+
+# 	@g++ -dynamiclib -install_name '$(CURDIR)/hidelib/libmylibrary.dylib' -current_version 1.0 mylibrary.o -o libmylibrary.dylib
+
+$(MACDYLIB):	Node.o Tree.o
+	@g++ \
+		-dynamiclib -undefined suppress -flat_namespace \
+		-install_name '$(CURDIR)/$(MACDYLIB)' -current_version $(VERSION) \
+		$^ \
+		-o $@
+	@$(call timestamp,$@)
+
+$(LINUXLIB):	Node.o Tree.o
+	@g++ -shared -Wl,-soname,libjlettvin.so.1 -lc $^ -o $@
 	@$(call timestamp,$@)

@@ -51,14 +51,12 @@ namespace jlettvin {
         return o;
     }
 
-    const size_t Node::sentinel = 0x10FFFF;  ///< Top codepoint in Unicode
-
     // private:
     /** \brief DRY initializer */
     void Node::initialize() {
         T.clear();
-        T.push_back(vector<size_t>(8, 0L));
-        T.push_back(vector<size_t>(8, 0L));
+        T.push_back(entry_t(8, 0L));
+        T.push_back(entry_t(8, 0L));
         N = 2;
     }
 
@@ -101,7 +99,7 @@ namespace jlettvin {
      * a compromise between speed and size.
      * This is a form of sparse table implementation.
      */
-    size_t Node::peek(const size_t codepoint) const {
+    target_t Node::peek(const codepoint_t codepoint) const {
         return (codepoint > sentinel) ? 0L :
             T[ T[ T[ T[ T[ T[ T[1] Q(6)] Q(5)] Q(4)] Q(3)] Q(2)] Q(1)] Q(0);
     }
@@ -116,12 +114,12 @@ namespace jlettvin {
      * Where a needed layer already exists, it is re-used.
      * Where it does not, it is inserted and then used.
      */
-    void Node::poke(const size_t codepoint, const size_t assoc) {
+    void Node::poke(const codepoint_t codepoint, const target_t assoc) {
         if (codepoint > sentinel) return;
 
         M[codepoint] = assoc;
 
-        size_t last = 0L, next = 1L;
+        either_t last = 0L, next = 1L;
         R(6L); R(5L); R(4L); R(3L); R(2L); R(1L);
         T[next][STEP(codepoint, 0L)] = assoc;
     }
@@ -133,7 +131,7 @@ namespace jlettvin {
      * then re-inserting all the associations from the dictionary.
      * TODO there must be a better way than rebuilding from scratch.
      */
-    void Node::drop(const size_t codepoint) {
+    void Node::drop(const codepoint_t codepoint) {
         M_iter iter;
         iter = M.find(codepoint);
         if (codepoint > sentinel || iter == M.end()) return;

@@ -1,11 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: "djnopstu~",
-  1: "nt",
+  0: "dejmnopstu~",
+  1: "not",
   2: "j",
   3: "dnopst~",
-  4: "u",
-  5: "u"
+  4: "emt",
+  5: "u",
+  6: "u"
 };
 
 var indexSectionNames =
@@ -14,8 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "namespaces",
   3: "functions",
-  4: "groups",
-  5: "pages"
+  4: "typedefs",
+  5: "groups",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -24,7 +26,8 @@ var indexSectionLabels =
   1: "Classes",
   2: "Namespaces",
   3: "Functions",
-  4: "Modules",
-  5: "Pages"
+  4: "Typedefs",
+  5: "Modules",
+  6: "Pages"
 };
 

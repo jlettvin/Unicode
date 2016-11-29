@@ -85,6 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">jlettvin Namespace Reference</div>  </div>
@@ -100,6 +101,38 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html">Tree</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a5c480560edc7a71c9f5ae6dad14e6fec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c480560edc7a71c9f5ae6dad14e6fec"></a>
+typedef size_t&#160;</td><td class="memItemRight" valign="bottom"><b>codepoint_t</b></td></tr>
+<tr class="separator:a5c480560edc7a71c9f5ae6dad14e6fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac925326f2732a65f4e3caaea182401a9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac925326f2732a65f4e3caaea182401a9"></a>
+typedef size_t&#160;</td><td class="memItemRight" valign="bottom"><b>target_t</b></td></tr>
+<tr class="separator:ac925326f2732a65f4e3caaea182401a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3d2e8320ecb86b316e2069e9de6e8f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af3d2e8320ecb86b316e2069e9de6e8f2"></a>
+typedef size_t&#160;</td><td class="memItemRight" valign="bottom"><b>either_t</b></td></tr>
+<tr class="separator:af3d2e8320ecb86b316e2069e9de6e8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a528bb6b8bb0e10f4e288fcfd3a77ecea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a528bb6b8bb0e10f4e288fcfd3a77ecea"></a>
+typedef vector&lt; either_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#a528bb6b8bb0e10f4e288fcfd3a77ecea">entry_t</a></td></tr>
+<tr class="memdesc:a528bb6b8bb0e10f4e288fcfd3a77ecea"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of table entry <br /></td></tr>
+<tr class="separator:a528bb6b8bb0e10f4e288fcfd3a77ecea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a437d12ab773a8e62c0ffce16e6423bb5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a437d12ab773a8e62c0ffce16e6423bb5"></a>
+typedef vector&lt; <a class="el" href="namespacejlettvin.html#a528bb6b8bb0e10f4e288fcfd3a77ecea">entry_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#a437d12ab773a8e62c0ffce16e6423bb5">T_type</a></td></tr>
+<tr class="memdesc:a437d12ab773a8e62c0ffce16e6423bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of table <br /></td></tr>
+<tr class="separator:a437d12ab773a8e62c0ffce16e6423bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37ff8ef881a4ed6efce44bac38621732"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37ff8ef881a4ed6efce44bac38621732"></a>
+typedef map&lt; codepoint_t, target_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#a37ff8ef881a4ed6efce44bac38621732">M_type</a></td></tr>
+<tr class="memdesc:a37ff8ef881a4ed6efce44bac38621732"><td class="mdescLeft">&#160;</td><td class="mdescRight">type of dict <br /></td></tr>
+<tr class="separator:a37ff8ef881a4ed6efce44bac38621732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a717af5c4fa2045ec8271403a711500be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a717af5c4fa2045ec8271403a711500be"></a>
+typedef T_type::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#a717af5c4fa2045ec8271403a711500be">T_iter</a></td></tr>
+<tr class="memdesc:a717af5c4fa2045ec8271403a711500be"><td class="mdescLeft">&#160;</td><td class="mdescRight">table iterator <br /></td></tr>
+<tr class="separator:a717af5c4fa2045ec8271403a711500be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb899a2c00ed7361dbc22a0bc907f88c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb899a2c00ed7361dbc22a0bc907f88c"></a>
+typedef M_type::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#adb899a2c00ed7361dbc22a0bc907f88c">M_iter</a></td></tr>
+<tr class="memdesc:adb899a2c00ed7361dbc22a0bc907f88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">dict iterator <br /></td></tr>
+<tr class="separator:adb899a2c00ed7361dbc22a0bc907f88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

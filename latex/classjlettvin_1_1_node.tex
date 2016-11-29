@@ -4,16 +4,16 @@
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classjlettvin_1_1_node_ad7a34779cad45d997bfd6d3d8043c75f}{Node} ()
-\begin{DoxyCompactList}\small\item\em Constructor This could use C++ instance initializers but because \hyperlink{classjlettvin_1_1_node_aa2cf237ff4b2d21d7439ccf2c56185db}{Node\+::drop()} needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the D\+R\+Y principle. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Constructor This could use C++ instance initializers but because \hyperlink{classjlettvin_1_1_node_a516768e6fc7505a9e96d9ade87f11148}{Node\+::drop()} needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the D\+R\+Y principle. \end{DoxyCompactList}\item 
 \hyperlink{classjlettvin_1_1_node_aa0840c3cb5c7159be6d992adecd2097c}{$\sim$\+Node} ()
 \begin{DoxyCompactList}\small\item\em Destructor has no responsibilities. \end{DoxyCompactList}\item 
 size\+\_\+t \hyperlink{classjlettvin_1_1_node_ae2983972c965d0875ea34aa15aee2564}{size} () const 
 \begin{DoxyCompactList}\small\item\em Size is best retrieved from the count of dictionary keys. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{classjlettvin_1_1_node_af3e572b02d7675ddb110566c2d25ef10}{peek} (const size\+\_\+t codepoint) const 
+target\+\_\+t \hyperlink{classjlettvin_1_1_node_a976b319d4793fcc839604d62987fe01e}{peek} (const codepoint\+\_\+t codepoint) const 
 \begin{DoxyCompactList}\small\item\em peek O(1) lookup around which this class is focused. \end{DoxyCompactList}\item 
-void \hyperlink{classjlettvin_1_1_node_a0710c9ba361bc74e0c49b6acf3af4b39}{poke} (const size\+\_\+t codepoint, const size\+\_\+t association)
+void \hyperlink{classjlettvin_1_1_node_a599100f6c058d238fb28f15a60d3ae9f}{poke} (const codepoint\+\_\+t codepoint, const target\+\_\+t association)
 \begin{DoxyCompactList}\small\item\em poke $\sim$\+O(1) table and backup dict insertion. \end{DoxyCompactList}\item 
-void \hyperlink{classjlettvin_1_1_node_aa2cf237ff4b2d21d7439ccf2c56185db}{drop} (const size\+\_\+t codepoint)
+void \hyperlink{classjlettvin_1_1_node_a516768e6fc7505a9e96d9ade87f11148}{drop} (const codepoint\+\_\+t codepoint)
 \begin{DoxyCompactList}\small\item\em drop mechanism for removing a codepoint\+:assoc from the loopup. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -27,7 +27,7 @@ void \hyperlink{classjlettvin_1_1_node_aa2cf237ff4b2d21d7439ccf2c56185db}{drop} 
 )}\label{classjlettvin_1_1_node_ad7a34779cad45d997bfd6d3d8043c75f}
 
 
-Constructor This could use C++ instance initializers but because \hyperlink{classjlettvin_1_1_node_aa2cf237ff4b2d21d7439ccf2c56185db}{Node\+::drop()} needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the D\+R\+Y principle. 
+Constructor This could use C++ instance initializers but because \hyperlink{classjlettvin_1_1_node_a516768e6fc7505a9e96d9ade87f11148}{Node\+::drop()} needs to perform the same function it is refactored into a single call so changes to initialization happen in one place following the D\+R\+Y principle. 
 
 Constructor for a Code Point Table for O(1) lookup \hypertarget{classjlettvin_1_1_node_aa0840c3cb5c7159be6d992adecd2097c}{}\index{jlettvin\+::\+Node@{jlettvin\+::\+Node}!````~Node@{$\sim$\+Node}}
 \index{````~Node@{$\sim$\+Node}!jlettvin\+::\+Node@{jlettvin\+::\+Node}}
@@ -43,13 +43,13 @@ Destructor has no responsibilities.
 Destructor for a Code Point Table for O(1) lookup 
 
 \subsection{Member Function Documentation}
-\hypertarget{classjlettvin_1_1_node_aa2cf237ff4b2d21d7439ccf2c56185db}{}\index{jlettvin\+::\+Node@{jlettvin\+::\+Node}!drop@{drop}}
+\hypertarget{classjlettvin_1_1_node_a516768e6fc7505a9e96d9ade87f11148}{}\index{jlettvin\+::\+Node@{jlettvin\+::\+Node}!drop@{drop}}
 \index{drop@{drop}!jlettvin\+::\+Node@{jlettvin\+::\+Node}}
-\subsubsection[{drop(const size\+\_\+t codepoint)}]{\setlength{\rightskip}{0pt plus 5cm}void Node\+::drop (
+\subsubsection[{drop(const codepoint\+\_\+t codepoint)}]{\setlength{\rightskip}{0pt plus 5cm}void Node\+::drop (
 \begin{DoxyParamCaption}
-\item[{const size\+\_\+t}]{codepoint}
+\item[{const codepoint\+\_\+t}]{codepoint}
 \end{DoxyParamCaption}
-)}\label{classjlettvin_1_1_node_aa2cf237ff4b2d21d7439ccf2c56185db}
+)}\label{classjlettvin_1_1_node_a516768e6fc7505a9e96d9ade87f11148}
 
 
 drop mechanism for removing a codepoint\+:assoc from the loopup. 
@@ -61,13 +61,13 @@ Delete a codepoint\+:association from table and dict
 {\em codepoint} & It is poorly implemented, rebuilding the \hyperlink{classjlettvin_1_1_node}{Node} from scratch and then re-\/inserting all the associations from the dictionary. T\+O\+D\+O there must be a better way than rebuilding from scratch. \\
 \hline
 \end{DoxyParams}
-\hypertarget{classjlettvin_1_1_node_af3e572b02d7675ddb110566c2d25ef10}{}\index{jlettvin\+::\+Node@{jlettvin\+::\+Node}!peek@{peek}}
+\hypertarget{classjlettvin_1_1_node_a976b319d4793fcc839604d62987fe01e}{}\index{jlettvin\+::\+Node@{jlettvin\+::\+Node}!peek@{peek}}
 \index{peek@{peek}!jlettvin\+::\+Node@{jlettvin\+::\+Node}}
-\subsubsection[{peek(const size\+\_\+t codepoint) const }]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t Node\+::peek (
+\subsubsection[{peek(const codepoint\+\_\+t codepoint) const }]{\setlength{\rightskip}{0pt plus 5cm}target\+\_\+t Node\+::peek (
 \begin{DoxyParamCaption}
-\item[{const size\+\_\+t}]{codepoint}
+\item[{const codepoint\+\_\+t}]{codepoint}
 \end{DoxyParamCaption}
-) const}\label{classjlettvin_1_1_node_af3e572b02d7675ddb110566c2d25ef10}
+) const}\label{classjlettvin_1_1_node_a976b319d4793fcc839604d62987fe01e}
 
 
 peek O(1) lookup around which this class is focused. 
@@ -82,14 +82,14 @@ Lookup index associated with table (0 means error)
 \begin{DoxyReturn}{Returns}
 assoc
 \end{DoxyReturn}
-A codepoint is cut into 7 3bit chunks which are used to dereference the table 7 times after which the last dereference produces the associated value. The number 7 and 3 bits is chosen because 7$\ast$3 = 21 where 21 bits is the number of bits needed for Unicode codepoints up to the value 0x10\+F\+F\+F\+F (max). It also is parsimonious of space enabling a compromise between speed and size. This is a form of sparse table implementation. \hypertarget{classjlettvin_1_1_node_a0710c9ba361bc74e0c49b6acf3af4b39}{}\index{jlettvin\+::\+Node@{jlettvin\+::\+Node}!poke@{poke}}
+A codepoint is cut into 7 3bit chunks which are used to dereference the table 7 times after which the last dereference produces the associated value. The number 7 and 3 bits is chosen because 7$\ast$3 = 21 where 21 bits is the number of bits needed for Unicode codepoints up to the value 0x10\+F\+F\+F\+F (max). It also is parsimonious of space enabling a compromise between speed and size. This is a form of sparse table implementation. \hypertarget{classjlettvin_1_1_node_a599100f6c058d238fb28f15a60d3ae9f}{}\index{jlettvin\+::\+Node@{jlettvin\+::\+Node}!poke@{poke}}
 \index{poke@{poke}!jlettvin\+::\+Node@{jlettvin\+::\+Node}}
-\subsubsection[{poke(const size\+\_\+t codepoint, const size\+\_\+t association)}]{\setlength{\rightskip}{0pt plus 5cm}void Node\+::poke (
+\subsubsection[{poke(const codepoint\+\_\+t codepoint, const target\+\_\+t association)}]{\setlength{\rightskip}{0pt plus 5cm}void Node\+::poke (
 \begin{DoxyParamCaption}
-\item[{const size\+\_\+t}]{codepoint, }
-\item[{const size\+\_\+t}]{assoc}
+\item[{const codepoint\+\_\+t}]{codepoint, }
+\item[{const target\+\_\+t}]{assoc}
 \end{DoxyParamCaption}
-)}\label{classjlettvin_1_1_node_a0710c9ba361bc74e0c49b6acf3af4b39}
+)}\label{classjlettvin_1_1_node_a599100f6c058d238fb28f15a60d3ae9f}
 
 
 poke $\sim$\+O(1) table and backup dict insertion. 

@@ -52,7 +52,6 @@ namespace jlettvin {
         return o;
     }
 
-    const size_t Tree::sentinel = 0x10FFFF;  ///< top codepoint in Unicode
     const Tree::vprustr* Tree::nonep = new vprustr();
     const Tree::vprustr& Tree::none = *nonep;
     const Tree::ustr Tree::empty = U"";

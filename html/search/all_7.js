@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['unicode_20algorithms',['Unicode Algorithms',['../group__jlettvin.html',1,'']]],
-  ['unicode',['Unicode',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['size',['size',['../classjlettvin_1_1_node.html#ae2983972c965d0875ea34aa15aee2564',1,'jlettvin::Node::size()'],['../classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6',1,'jlettvin::Tree::size()']]]
 ];

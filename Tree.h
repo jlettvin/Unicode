@@ -50,7 +50,6 @@ class Tree {
      typedef pair<u32string, float> prustr;
      typedef vector<prustr> vprustr;
 
-     static const size_t sentinel;
      static const vprustr* nonep;
      static const vprustr& none;
      static const ustr empty;
