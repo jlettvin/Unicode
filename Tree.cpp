@@ -52,9 +52,9 @@ namespace jlettvin {
         return o;
     }
 
-    const size_t Tree::count = 0x110000;  ///< Count of codepoints in Unicode
-    const Tree::vustr* Tree::nonep = new vustr();
-    const Tree::vustr& Tree::none = *nonep;
+    const size_t Tree::sentinel = 0x10FFFF;  ///< top codepoint in Unicode
+    const Tree::vprustr* Tree::nonep = new vprustr();
+    const Tree::vprustr& Tree::none = *nonep;
     const Tree::ustr Tree::empty = U"";
 
     // private:
@@ -76,17 +76,25 @@ namespace jlettvin {
      * \param token
      * \return assoc
      */
-    const Tree::vustr& Tree::peek(const Tree::ustr& token) const {
+    const Tree::vprustr& Tree::peek(const Tree::ustr& token) const {
         cout << sizeof(token) << endl;
         return none;
     }
 
     /** \brief poke O(N) table and backup dict insertion.
      * \param token
-     * \param assoc is a list of canonical tokens
+     * \param canonical is a possible canonical version of token
+     * \param score is a relative probability of token to canonical match
      */
-    void Tree::poke(const Tree::ustr& token, const Tree::ustr& canonical) {
-        cout << sizeof(token) << '(' << sizeof(canonical) << ')' << endl;
+    void Tree::poke(
+            const Tree::ustr& token,
+            const Tree::ustr& canonical,
+            const float score)
+    {
+        cout <<
+            sizeof(token) <<
+            '(' << sizeof(canonical) << ')' <<
+            score << endl;
     }
 
     /** \brief drop mechanism for removing a codepoint:assoc from the loopup.

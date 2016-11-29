@@ -51,7 +51,7 @@ namespace jlettvin {
         return o;
     }
 
-    const size_t Node::count = 0x110000;  ///< Count of codepoints in Unicode
+    const size_t Node::sentinel = 0x10FFFF;  ///< Top codepoint in Unicode
 
     // private:
     /** \brief DRY initializer */
@@ -102,7 +102,7 @@ namespace jlettvin {
      * This is a form of sparse table implementation.
      */
     size_t Node::peek(const size_t codepoint) const {
-        return (codepoint >= count) ? 0L :
+        return (codepoint > sentinel) ? 0L :
             T[ T[ T[ T[ T[ T[ T[1] Q(6)] Q(5)] Q(4)] Q(3)] Q(2)] Q(1)] Q(0);
     }
 
@@ -117,7 +117,7 @@ namespace jlettvin {
      * Where it does not, it is inserted and then used.
      */
     void Node::poke(const size_t codepoint, const size_t assoc) {
-        if (codepoint >= count) return;
+        if (codepoint > sentinel) return;
 
         M[codepoint] = assoc;
 
@@ -136,7 +136,7 @@ namespace jlettvin {
     void Node::drop(const size_t codepoint) {
         M_iter iter;
         iter = M.find(codepoint);
-        if (codepoint >= count || iter == M.end()) return;
+        if (codepoint > sentinel || iter == M.end()) return;
         M.erase(iter);
         initialize();
         for (iter=M.begin(); iter != M.end(); ++iter)

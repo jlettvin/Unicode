@@ -40,7 +40,7 @@ class Node {
         typedef T_type::const_iterator T_iter;      ///< table iterator
         typedef M_type::const_iterator M_iter;      ///< dict iterator
 
-        static const size_t count;                  ///< legal codepoints
+        static const size_t sentinel;               ///< legal codepoints
 
         T_type T;   ///< O(1) lookup table for codepoint:index associations
         M_type M;   ///< dictionary of codepoints for use in Node::drop()

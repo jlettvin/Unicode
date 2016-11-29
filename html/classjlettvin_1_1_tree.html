@@ -107,12 +107,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1edf6251d8a3aa6a3a40d261339b83c6"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6">size</a> () const </td></tr>
 <tr class="memdesc:a1edf6251d8a3aa6a3a40d261339b83c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size is best retrieved from the count of dictionary keys.  <a href="#a1edf6251d8a3aa6a3a40d261339b83c6">More...</a><br /></td></tr>
 <tr class="separator:a1edf6251d8a3aa6a3a40d261339b83c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade38eb49629974e278de81cbc40a4528"><td class="memItemLeft" align="right" valign="top">const vustr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html#ade38eb49629974e278de81cbc40a4528">peek</a> (const ustr &amp;token) const </td></tr>
-<tr class="memdesc:ade38eb49629974e278de81cbc40a4528"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek O(N) lookup around which this class is focused.  <a href="#ade38eb49629974e278de81cbc40a4528">More...</a><br /></td></tr>
-<tr class="separator:ade38eb49629974e278de81cbc40a4528"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9449aa28ef4a7cafde2134206ba2a238"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html#a9449aa28ef4a7cafde2134206ba2a238">poke</a> (const ustr &amp;token, const ustr &amp;canonical=empty)</td></tr>
-<tr class="memdesc:a9449aa28ef4a7cafde2134206ba2a238"><td class="mdescLeft">&#160;</td><td class="mdescRight">poke O(N) table and backup dict insertion.  <a href="#a9449aa28ef4a7cafde2134206ba2a238">More...</a><br /></td></tr>
-<tr class="separator:a9449aa28ef4a7cafde2134206ba2a238"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65746e86398aa8215481ffafdd8fa02d"><td class="memItemLeft" align="right" valign="top">const vprustr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html#a65746e86398aa8215481ffafdd8fa02d">peek</a> (const ustr &amp;token) const </td></tr>
+<tr class="memdesc:a65746e86398aa8215481ffafdd8fa02d"><td class="mdescLeft">&#160;</td><td class="mdescRight">peek O(N) lookup around which this class is focused.  <a href="#a65746e86398aa8215481ffafdd8fa02d">More...</a><br /></td></tr>
+<tr class="separator:a65746e86398aa8215481ffafdd8fa02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ffabbc1a6b81df085827f3ed851f061"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html#a3ffabbc1a6b81df085827f3ed851f061">poke</a> (const ustr &amp;token, const ustr &amp;canonical=empty, const float score=1.0)</td></tr>
+<tr class="memdesc:a3ffabbc1a6b81df085827f3ed851f061"><td class="mdescLeft">&#160;</td><td class="mdescRight">poke O(N) table and backup dict insertion.  <a href="#a3ffabbc1a6b81df085827f3ed851f061">More...</a><br /></td></tr>
+<tr class="separator:a3ffabbc1a6b81df085827f3ed851f061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6eacfd1dc52c39d9363857ea9aa6ac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html#af6eacfd1dc52c39d9363857ea9aa6ac9">drop</a> (const ustr &amp;token)</td></tr>
 <tr class="memdesc:af6eacfd1dc52c39d9363857ea9aa6ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">drop mechanism for removing a codepoint:assoc from the loopup.  <a href="#af6eacfd1dc52c39d9363857ea9aa6ac9">More...</a><br /></td></tr>
 <tr class="separator:af6eacfd1dc52c39d9363857ea9aa6ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,12 +180,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ade38eb49629974e278de81cbc40a4528"></a>
+<a class="anchor" id="a65746e86398aa8215481ffafdd8fa02d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const Tree::vustr &amp; Tree::peek </td>
+          <td class="memname">const Tree::vprustr &amp; Tree::peek </td>
           <td>(</td>
           <td class="paramtype">const ustr &amp;&#160;</td>
           <td class="paramname"><em>token</em></td><td>)</td>
@@ -206,7 +206,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9449aa28ef4a7cafde2134206ba2a238"></a>
+<a class="anchor" id="a3ffabbc1a6b81df085827f3ed851f061"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -220,7 +220,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const ustr &amp;&#160;</td>
-          <td class="paramname"><em>canonical</em> = <code>empty</code>&#160;</td>
+          <td class="paramname"><em>canonical</em> = <code>empty</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>score</em> = <code>1.0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -235,7 +241,8 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">token</td><td></td></tr>
-    <tr><td class="paramname">assoc</td><td>is a list of canonical tokens </td></tr>
+    <tr><td class="paramname">canonical</td><td>is a possible canonical version of token </td></tr>
+    <tr><td class="paramname">score</td><td>is a relative probability of token to canonical match </td></tr>
   </table>
   </dd>
 </dl>
