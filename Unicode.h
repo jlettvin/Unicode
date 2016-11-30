@@ -22,6 +22,7 @@
  */
 
 #include <iostream>
+#include <bitset>
 #include <vector>
 #include <map>
 
@@ -34,6 +35,7 @@ namespace jlettvin {
     using std::setw;
     using std::setfill;
     using std::ostream;
+    using std::bitset;
 
     typedef unsigned char u8_t;                   ///< buffer element type
 
@@ -96,9 +98,11 @@ namespace jlettvin {
      * 6 opcodes: dereference byte, increment, shift, mask, cast, goto dd
      * 2 opcodes: update head, return
      * 34 total opcodes 
+     *
+     * TODO fix so it works
      */
     inline char32_t
-    UTF8_to_32(const u8_t *buf, size_t& head, const size_t tail) {
+    UTF8_to_char32_t(const u8_t *buf, size_t& head, const size_t tail) {
         // hello="hello"; hello[head] == 'h'; hello[tail] == '\0';
         // Bytes being ingested have this pattern with bit indices
         // shown as uppercase letters from the high bit to the low bit:
@@ -137,35 +141,34 @@ namespace jlettvin {
         static const void *tailed[] = { &&err, &&enough };
 
         size_t off = head, high;
-        u8_t _ = 0, a, b, c, d;
+        char32_t _ = 0;
+        u8_t a, b, c, d;
 
         goto *headed[static_cast<size_t>(head < tail)];
-ingest:
-        a = buf[off++];
+ingest: a = buf[off++];
         high = static_cast<size_t>((a >> 3) & 0x1f);
         goto *tailed[static_cast<size_t>(need[high] <= (tail - head))];
 enough: goto *alabel[high];
-
 a1e:    b = buf[off++]; goto *dblabel[static_cast<char32_t>((b >> 6) & 0x3)];
 db:     c = buf[off++]; goto *dclabel[static_cast<char32_t>((c >> 6) & 0x3)];
 dc:     d = buf[off++]; goto *ddlabel[static_cast<char32_t>((d >> 6) & 0x3)];
-dd:     _ = static_cast<char32_t>((a & 0x07) << 0x12) +
-            static_cast<char32_t>((b & 0x3f) << 0x0c) +
-            static_cast<char32_t>((c & 0x3f) << 0x06) +
-            static_cast<char32_t>((d & 0x3f));
-        goto done;
+dd:     _ = (static_cast<char32_t>(a & 0x07) << 0x12) +
+            (static_cast<char32_t>(b & 0x3f) << 0x0c) +
+            (static_cast<char32_t>(c & 0x3f) << 0x06) +
+            (static_cast<char32_t>(d & 0x3f));
+        head = off; return _;
 a1d:    b = buf[off++]; goto *cblabel[static_cast<char32_t>((b >> 6) & 0x3)];
 cb:     c = buf[off++]; goto *cclabel[static_cast<char32_t>((c >> 6) & 0x3)];
-cc:     _ = static_cast<char32_t>((a & 0x0f) << 0x0c) +
-            static_cast<char32_t>((b & 0x3f) << 0x06) +
-            static_cast<char32_t>((c & 0x3f));
-        goto done;
+cc:     _ = (static_cast<char32_t>(a & 0x0f) << 0x0c) +
+            (static_cast<char32_t>(b & 0x3f) << 0x06) +
+            (static_cast<char32_t>(c & 0x3f));
+        head = off; return _;
 a1c:    b = buf[off++]; goto *bblabel[static_cast<char32_t>((b >> 6) & 0x3)];
-bb:     _ = static_cast<char32_t>((a & 0x1f) << 0x06) +
-            static_cast<char32_t>((b & 0x3f));
-        goto done;
+bb:     _ = (static_cast<char32_t>(a & 0x1f) << 0x06) +
+            (static_cast<char32_t>(b & 0x3f));
+        head = off; return _;
 a00:    _ = static_cast<char32_t>(a);
-done:   head = off; return _;
+        head = off; return _;
 err:    return static_cast<char32_t>(_);
     }
 }

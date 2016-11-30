@@ -150,13 +150,13 @@ template&lt;typename T1 &gt; </td></tr>
 <tr class="memitem:ae776f6a66f5697c5cb2afb2c6efdbfd7"><td class="memTemplItemLeft" align="right" valign="top">ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#ae776f6a66f5697c5cb2afb2c6efdbfd7">operator&lt;&lt;</a> (ostream &amp;o, const vector&lt; T1 &gt; &amp;v)</td></tr>
 <tr class="memdesc:ae776f6a66f5697c5cb2afb2c6efdbfd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">enable use of cout &lt;&lt; T &lt;&lt; std::endl; <br /></td></tr>
 <tr class="separator:ae776f6a66f5697c5cb2afb2c6efdbfd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a2e190b8a55c88146ad1fbadc513891"><td class="memItemLeft" align="right" valign="top">char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#a6a2e190b8a55c88146ad1fbadc513891">UTF8_to_32</a> (const <a class="el" href="namespacejlettvin.html#a4353bc2d0fd0c93be11f896748588178">u8_t</a> *buf, size_t &amp;head, const size_t tail)</td></tr>
-<tr class="separator:a6a2e190b8a55c88146ad1fbadc513891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ebf4aec550f0def0ef166cac6ad1c6"><td class="memItemLeft" align="right" valign="top">char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#a28ebf4aec550f0def0ef166cac6ad1c6">UTF8_to_char32_t</a> (const <a class="el" href="namespacejlettvin.html#a4353bc2d0fd0c93be11f896748588178">u8_t</a> *buf, size_t &amp;head, const size_t tail)</td></tr>
+<tr class="separator:a28ebf4aec550f0def0ef166cac6ad1c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>&lt; cpplint complains even though existing file is included </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a6a2e190b8a55c88146ad1fbadc513891"></a>
+<a class="anchor" id="a28ebf4aec550f0def0ef166cac6ad1c6"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -164,7 +164,7 @@ template&lt;typename T1 &gt; </td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char32_t jlettvin::UTF8_to_32 </td>
+          <td class="memname">char32_t jlettvin::UTF8_to_char32_t </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacejlettvin.html#a4353bc2d0fd0c93be11f896748588178">u8_t</a> *&#160;</td>
           <td class="paramname"><em>buf</em>, </td>
@@ -203,7 +203,8 @@ template&lt;typename T1 &gt; </td></tr>
   </dd>
 </dl>
 <p>This function is designed to make conversion efficient. It uses the gnu c++ compiler support for computed goto to eliminate the need for branch points.</p>
-<p>Review of a least and most costly execution in opcode counts. No stack frame is generated or discarded (inline). The caller provides room in its stack frame for this function. Least: 2 opcodes: compare head to tail, goto err; 2 opcodes: cast byte 0 to 32 bit return (essentially a goto) Most: 2 opcodes: compare head to tail goto ingest 6 opcodes: dereference byte, increment, shift, mask, cast, goto enough 6 opcodes: dereference byte, increment, shift, mask, cast, goto a1e 6 opcodes: dereference byte, increment, shift, mask, cast, goto db 6 opcodes: dereference byte, increment, shift, mask, cast, goto dc 6 opcodes: dereference byte, increment, shift, mask, cast, goto dd 2 opcodes: update head, return </p>
+<p>Review of a least and most costly execution in opcode counts. No stack frame is generated or discarded (inline). The caller provides room in its stack frame for this function. Least: 2 opcodes: compare head to tail, goto err; 2 opcodes: cast byte 0 to 32 bit return (essentially a goto) Most: 2 opcodes: compare head to tail goto ingest 6 opcodes: dereference byte, increment, shift, mask, cast, goto enough 6 opcodes: dereference byte, increment, shift, mask, cast, goto a1e 6 opcodes: dereference byte, increment, shift, mask, cast, goto db 6 opcodes: dereference byte, increment, shift, mask, cast, goto dc 6 opcodes: dereference byte, increment, shift, mask, cast, goto dd 2 opcodes: update head, return 34 total opcodes</p>
+<p>TODO fix so it works </p>
 
 </div>
 </div>

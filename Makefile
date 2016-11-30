@@ -62,7 +62,7 @@ all:	begin $(LIBRARY) out lint valgrind doxygen end
 .PHONY:
 clean:
 	@rm -f *.o *.out *.lint *.valgrind
-	@rm -f test_Node test_Tree
+	@rm -f test_Unicode test_Node test_Tree
 	@rm -f $(LIBRARY)
 	@rm -fr test_*.dSYM
 	@$(call timestamp,$@)
@@ -85,11 +85,19 @@ doxygen:
 
 # unit tests ##################################################################
 
-out:	test_Node.out test_Tree.out
+out:	test_Unicode.out test_Node.out test_Tree.out
+	@./test_Unicode "hello world"
+	@echo "hello world: [U+68 U+65 U+6c U+6c U+6f U+20 U+77 U+6f U+72 U+6c U+64]"
+	@./test_Unicode "愚公移山"
+	@echo '愚公移山: [U+611a U+516c U+79fb U+5c71]'
+
+test_Unicode.out:	test_Unicode
 
 test_Node.out:	test_Node
 
 test_Tree.out:	test_Tree
+
+test_Unicode:	test_Unicode.cpp
 
 test_Node:	test_Node.cpp $(LIBRARY)
 
@@ -99,9 +107,12 @@ test_Tree:	test_Tree.cpp $(LIBRARY)
 
 .PHONY:
 valgrind:	\
+	test_Unicode.cpp.valgrind \
 	test_Node.cpp.valgrind \
 	test_Tree.cpp.valgrind
 	@$(call timestamp,$@)
+
+test_Unicode.cpp.valgrind:	test_Unicode
 
 test_Node.cpp.valgrind:	test_Node
 
@@ -115,9 +126,12 @@ lint:	\
 	Tree.h.lint \
 	Node.cpp.lint \
 	Tree.cpp.lint \
+	test_Unicode.cpp.lint \
 	test_Node.cpp.lint \
 	test_Tree.cpp.lint
 	@$(call timestamp,$@)
+
+Unicode.cpp.lint:	Unicode.cpp
 
 Node.cpp.lint:	Node.cpp
 
@@ -126,6 +140,8 @@ Tree.cpp.lint:	Tree.cpp
 Node.h.lint:	Node.h
 
 Tree.h.lint:	Tree.h
+
+test_Unicode.cpp.lint:	test_Unicode.cpp
 
 test_Node.cpp.lint:	test_Node.cpp
 

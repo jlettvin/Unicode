@@ -48,7 +48,7 @@ class \hyperlink{classjlettvin_1_1_tree}{Tree}
 \hypertarget{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{}{\footnotesize template$<$typename T1 $>$ }\\ostream \& \hyperlink{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{operator$<$$<$} (ostream \&o, const vector$<$ T1 $>$ \&v)\label{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}
 
 \begin{DoxyCompactList}\small\item\em enable use of cout $<$$<$ T $<$$<$ std\+::endl; \end{DoxyCompactList}\item 
-char32\+\_\+t \hyperlink{namespacejlettvin_a6a2e190b8a55c88146ad1fbadc513891}{U\+T\+F8\+\_\+to\+\_\+32} (const \hyperlink{namespacejlettvin_a4353bc2d0fd0c93be11f896748588178}{u8\+\_\+t} $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)
+char32\+\_\+t \hyperlink{namespacejlettvin_a28ebf4aec550f0def0ef166cac6ad1c6}{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t} (const \hyperlink{namespacejlettvin_a4353bc2d0fd0c93be11f896748588178}{u8\+\_\+t} $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)
 \end{DoxyCompactItemize}
 
 
@@ -56,15 +56,15 @@ char32\+\_\+t \hyperlink{namespacejlettvin_a6a2e190b8a55c88146ad1fbadc513891}{U\
 $<$ cpplint complains even though existing file is included 
 
 \subsection{Function Documentation}
-\hypertarget{namespacejlettvin_a6a2e190b8a55c88146ad1fbadc513891}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+32@{U\+T\+F8\+\_\+to\+\_\+32}}
-\index{U\+T\+F8\+\_\+to\+\_\+32@{U\+T\+F8\+\_\+to\+\_\+32}!jlettvin@{jlettvin}}
-\subsubsection[{U\+T\+F8\+\_\+to\+\_\+32(const u8\+\_\+t $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)}]{\setlength{\rightskip}{0pt plus 5cm}char32\+\_\+t jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+32 (
+\hypertarget{namespacejlettvin_a28ebf4aec550f0def0ef166cac6ad1c6}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}}
+\index{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}!jlettvin@{jlettvin}}
+\subsubsection[{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t(const u8\+\_\+t $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)}]{\setlength{\rightskip}{0pt plus 5cm}char32\+\_\+t jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t (
 \begin{DoxyParamCaption}
 \item[{const {\bf u8\+\_\+t} $\ast$}]{buf, }
 \item[{size\+\_\+t \&}]{head, }
 \item[{const size\+\_\+t}]{tail}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_a6a2e190b8a55c88146ad1fbadc513891}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_a28ebf4aec550f0def0ef166cac6ad1c6}
 U\+T\+F8\+\_\+to\+\_\+32 converts U\+T\+F8 to internal 32 bit codepoint value.
 
 
@@ -78,4 +78,6 @@ U\+T\+F8\+\_\+to\+\_\+32 converts U\+T\+F8 to internal 32 bit codepoint value.
 \end{DoxyParams}
 This function is designed to make conversion efficient. It uses the gnu c++ compiler support for computed goto to eliminate the need for branch points.
 
-Review of a least and most costly execution in opcode counts. No stack frame is generated or discarded (inline). The caller provides room in its stack frame for this function. Least\+: 2 opcodes\+: compare head to tail, goto err; 2 opcodes\+: cast byte 0 to 32 bit return (essentially a goto) Most\+: 2 opcodes\+: compare head to tail goto ingest 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto enough 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto a1e 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto db 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dc 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dd 2 opcodes\+: update head, return 
+Review of a least and most costly execution in opcode counts. No stack frame is generated or discarded (inline). The caller provides room in its stack frame for this function. Least\+: 2 opcodes\+: compare head to tail, goto err; 2 opcodes\+: cast byte 0 to 32 bit return (essentially a goto) Most\+: 2 opcodes\+: compare head to tail goto ingest 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto enough 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto a1e 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto db 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dc 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dd 2 opcodes\+: update head, return 34 total opcodes
+
+T\+O\+D\+O fix so it works 

@@ -15,13 +15,13 @@ int main(int argc, char **argv) {
     using std::string;
 
     using jlettvin::Node;
+    using jlettvin::sentinel;
 
     while (--argc) cout << *++argv;  ///< Gets rid of "unused" warning.
     cout << endl;
 
     static string failpass[2] = {"[FAIL]", "[PASS]"};
     static string equality[2] = {" != ", " == "};
-    static size_t count = 0x110000;
 
     /** \brief instance a codepoint table */
     Node *cpt = new Node();
@@ -41,7 +41,9 @@ int main(int argc, char **argv) {
         target = ref.peek(source);
         int result = static_cast<int>(target == source);
         string& eq = equality[result];
-        if (!result) result = static_cast<int>(source < 1 || source >= count);
+        if (!result) {
+            result = static_cast<int>(source < 1 || source > sentinel);
+        }
         string& fp = failpass[result];
         cout << fp << ' ' << hex << setw(6) << source << eq << target << endl;
         ++results[result];
