@@ -5,9 +5,14 @@
 # TODO use strip on library executables.
 
 
-timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
-COPTS=-std=c++11 -O3 -Wall -Wextra -Werror -fPIC -g
+# setup #######################################################################
+MODULE=Unicode
 VERSION=0.0.1
+
+timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
+
+COPTS=-std=c++11 -O3 -Wall -Wextra -Werror -fPIC -g
+CURDIR=.
 
 MACDYLIB=libjlettvin.dylib
 MACDYLIBOPT=
@@ -15,14 +20,42 @@ MACDYLIBOPT=
 LINUXLIB=libjlettvin.so.$(VERSION)
 LINUXLIBOPT=-L. -ljlettvin
 
-CURDIR=.
 LIBRARY=$(MACDYLIB)
 LIBOPT=$(MACDYLIBOPT)
 
+# generic rules ###############################################################
+
+%.o	:	%.cpp
+	@g++ $(COPTS) -c -o $@ $<
+	@$(call timestamp,$@)
+
+%	:	%.cpp $(LIBRARY)
+	@g++ $(COPTS) -o $@ $^ $(LIBOPT)
+	@$(call timestamp,$@)
+
+%.out	:	%
+	@-./$< > $@ 2>&1
+	@tail -1 $@
+	@$(call timestamp,$@)
+
+%.cpp.lint	:	%.cpp
+	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
+	@$(call timestamp,$@)
+
+%.h.lint	:	%.h
+	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
+	@$(call timestamp,$@)
+
+%.cpp.valgrind	:	%
+	@-valgrind --error-exitcode=0 ./$< 2>&1 | \
+		grep "ERROR SUMMARY" | \
+		cut -d' ' -f2- > \
+		$@
+	@$(call timestamp,$@)
+
 # all #########################################################################
 .PHONY:
-all:	begin $(LIBRARY) test_Node.out test_Tree.out lint valgrind doxygen end
-
+all:	begin $(LIBRARY) out lint valgrind doxygen end
 
 # clean #######################################################################
 .PHONY:
@@ -32,7 +65,6 @@ clean:
 	@rm -f $(LIBRARY)
 	@rm -fr test_*.dSYM
 	@$(call timestamp,$@)
-
 
 # documentation ###############################################################
 .PHONY:
@@ -50,92 +82,55 @@ doxygen:
 	@doxygen > doxygen.out 2>&1
 	@$(call timestamp,$@)
 
+# unit tests ##################################################################
 
-# metrics #####################################################################
+out:	test_Node.out test_Tree.out
+
 test_Node.out:	test_Node
-	@-./$< > $@ 2>&1
-	@tail -1 $@
-	@$(call timestamp,$@)
 
 test_Tree.out:	test_Tree
-	@-./$< > $@ 2>&1
-	@tail -1 $@
-	@$(call timestamp,$@)
 
-valgrind:	test_Node.cpp.valgrind test_Tree.cpp.valgrind
-	@$(call timestamp,$@)
-
-lint:	\
-	Node.h.lint Node.cpp.lint test_Node.cpp.lint \
-	Tree.h.lint Tree.cpp.lint test_Tree.cpp.lint
-	@$(call timestamp,$@)
-
-
-# unit tests ##################################################################
 test_Node:	test_Node.cpp $(LIBRARY)
-	@g++ $(COPTS) -o $@ $^ $(LIBOPT)
+
+test_Tree:	test_Tree.cpp $(LIBRARY)
+
+# valgrind ####################################################################
+
+.PHONY:
+valgrind:	\
+	test_Node.cpp.valgrind \
+	test_Tree.cpp.valgrind
 	@$(call timestamp,$@)
 
-test_Tree:	test_Tree.cpp
-	@g++ $(COPTS) -o $@ $^ $(LIBOPT)
-	@$(call timestamp,$@)
+test_Node.cpp.valgrind:	test_Node
 
+test_Tree.cpp.valgrind:	test_Tree
 
-# metrics break out ###########################################################
-test_Node.cpp.valgrind:	test_Node.cpp
-	@-valgrind --error-exitcode=0 ./$< 2>&1 | \
-		grep "ERROR SUMMARY" | \
-		cut -d' ' -f2- > \
-		$@
-	@$(call timestamp,$@)
+# lint ########################################################################
 
-test_Tree.cpp.valgrind:	test_Tree.cpp
-	@-valgrind --error-exitcode=0 ./$< 2>&1 | \
-		grep "ERROR SUMMARY" | \
-		cut -d' ' -f2- > \
-		$@
+.PHONY:
+lint:	\
+	Node.h.lint \
+	Tree.h.lint \
+	Node.cpp.lint \
+	Tree.cpp.lint \
+	test_Node.cpp.lint \
+	test_Tree.cpp.lint
 	@$(call timestamp,$@)
 
 Node.cpp.lint:	Node.cpp
-	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
-	@$(call timestamp,$@)
 
 Tree.cpp.lint:	Tree.cpp
-	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
-	@$(call timestamp,$@)
-
 
 Node.h.lint:	Node.h
-	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
-	@$(call timestamp,$@)
 
 Tree.h.lint:	Tree.h
-	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
-	@$(call timestamp,$@)
-
 
 test_Node.cpp.lint:	test_Node.cpp
-	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
-	@$(call timestamp,$@)
 
 test_Tree.cpp.lint:	test_Tree.cpp
-	@-cpplint $< 2>&1 | grep -v "should include its header" > $@
-	@$(call timestamp,$@)
 
-# object files ################################################################
-Unicode.o:	Unicode.cpp
-	@g++ $(COPTS) -c -o $@ $<
-	@$(call timestamp,$@)
-
-Node.o:	Node.cpp
-	@g++ $(COPTS) -c -o $@ $<
-	@$(call timestamp,$@)
-
-Tree.o:	Tree.cpp
-	@g++ $(COPTS) -c -o $@ $<
-	@$(call timestamp,$@)
-
-# 	@g++ -dynamiclib -install_name '$(CURDIR)/hidelib/libmylibrary.dylib' -current_version 1.0 mylibrary.o -o libmylibrary.dylib
+# shared library ##############################################################
 
 $(MACDYLIB):	Node.o Tree.o
 	@g++ \
@@ -148,3 +143,9 @@ $(MACDYLIB):	Node.o Tree.o
 $(LINUXLIB):	Node.o Tree.o
 	@g++ -shared -Wl,-soname,libjlettvin.so.1 -lc $^ -o $@
 	@$(call timestamp,$@)
+
+# object file #################################################################
+
+Node.o:	Node.cpp Node.h Unicode.h
+
+Tree.o:	Tree.cpp Tree.h Node.h Unicode.h

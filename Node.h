@@ -11,11 +11,11 @@
  * \author Jonathan D. Lettvin
  * jlettvin@gmail.com
  *
- * \ version 0.0.1
+ * \version 0.0.1
  *
  * \date 2016/11/27 08:14
  *
- * \license GPLv3
+ * license GPLv3
  *
  * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  *
