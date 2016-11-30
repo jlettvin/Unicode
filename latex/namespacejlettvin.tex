@@ -76,4 +76,6 @@ U\+T\+F8\+\_\+to\+\_\+32 converts U\+T\+F8 to internal 32 bit codepoint value.
 {\em tail} & is the index past the last byte in the buffer.\\
 \hline
 \end{DoxyParams}
-This function is designed to make conversion efficient. It uses the gnu c++ compiler support for computed goto to eliminate the need for branch points. 
+This function is designed to make conversion efficient. It uses the gnu c++ compiler support for computed goto to eliminate the need for branch points.
+
+Review of a least and most costly execution in opcode counts. No stack frame is generated or discarded (inline). The caller provides room in its stack frame for this function. Least\+: 2 opcodes\+: compare head to tail, goto err; 2 opcodes\+: cast byte 0 to 32 bit return (essentially a goto) Most\+: 2 opcodes\+: compare head to tail goto ingest 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto enough 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto a1e 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto db 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dc 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dd 2 opcodes\+: update head, return 

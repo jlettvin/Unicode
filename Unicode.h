@@ -80,6 +80,21 @@ namespace jlettvin {
      * This function is designed to make conversion efficient.
      * It uses the gnu c++ compiler support for computed goto
      * to eliminate the need for branch points.
+     *
+     * Review of a least and most costly execution in opcode counts.
+     * No stack frame is generated or discarded (inline).
+     * The caller provides room in its stack frame for this function.
+     * Least:
+     * 2 opcodes: compare head to tail, goto err;
+     * 2 opcodes: cast byte 0 to 32 bit return (essentially a goto)
+     * Most:
+     * 2 opcodes: compare head to tail goto ingest
+     * 6 opcodes: dereference byte, increment, shift, mask, cast, goto enough
+     * 6 opcodes: dereference byte, increment, shift, mask, cast, goto a1e
+     * 6 opcodes: dereference byte, increment, shift, mask, cast, goto db
+     * 6 opcodes: dereference byte, increment, shift, mask, cast, goto dc
+     * 6 opcodes: dereference byte, increment, shift, mask, cast, goto dd
+     * 2 opcodes: update head, return
      */
     inline char32_t
     UTF8_to_32(const u8_t *buf, size_t& head, const size_t tail) {
