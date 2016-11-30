@@ -95,6 +95,7 @@ namespace jlettvin {
      * 6 opcodes: dereference byte, increment, shift, mask, cast, goto dc
      * 6 opcodes: dereference byte, increment, shift, mask, cast, goto dd
      * 2 opcodes: update head, return
+     * 34 total opcodes 
      */
     inline char32_t
     UTF8_to_32(const u8_t *buf, size_t& head, const size_t tail) {
