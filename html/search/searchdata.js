@@ -3,8 +3,8 @@ var indexSectionsWithContent =
   0: "cdejmnopstu~",
   1: "not",
   2: "j",
-  3: "dnopst~",
-  4: "cemst",
+  3: "dnopstu~",
+  4: "cemstu",
   5: "u",
   6: "u"
 };

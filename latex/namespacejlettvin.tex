@@ -15,6 +15,9 @@ class \hyperlink{classjlettvin_1_1_tree}{Tree}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
+\hypertarget{namespacejlettvin_a4353bc2d0fd0c93be11f896748588178}{}typedef unsigned char \hyperlink{namespacejlettvin_a4353bc2d0fd0c93be11f896748588178}{u8\+\_\+t}\label{namespacejlettvin_a4353bc2d0fd0c93be11f896748588178}
+
+\begin{DoxyCompactList}\small\item\em buffer element type \end{DoxyCompactList}\item 
 \hypertarget{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{}typedef size\+\_\+t \hyperlink{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{codepoint\+\_\+t}\label{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}
 
 \begin{DoxyCompactList}\small\item\em clear type of codepoint \end{DoxyCompactList}\item 
@@ -44,8 +47,33 @@ class \hyperlink{classjlettvin_1_1_tree}{Tree}
 \item 
 \hypertarget{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{}{\footnotesize template$<$typename T1 $>$ }\\ostream \& \hyperlink{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{operator$<$$<$} (ostream \&o, const vector$<$ T1 $>$ \&v)\label{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}
 
-\begin{DoxyCompactList}\small\item\em enable use of cout $<$$<$ T $<$$<$ std\+::endl; \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em enable use of cout $<$$<$ T $<$$<$ std\+::endl; \end{DoxyCompactList}\item 
+char32\+\_\+t \hyperlink{namespacejlettvin_a6a2e190b8a55c88146ad1fbadc513891}{U\+T\+F8\+\_\+to\+\_\+32} (const \hyperlink{namespacejlettvin_a4353bc2d0fd0c93be11f896748588178}{u8\+\_\+t} $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 $<$ cpplint complains even though existing file is included 
+
+\subsection{Function Documentation}
+\hypertarget{namespacejlettvin_a6a2e190b8a55c88146ad1fbadc513891}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+32@{U\+T\+F8\+\_\+to\+\_\+32}}
+\index{U\+T\+F8\+\_\+to\+\_\+32@{U\+T\+F8\+\_\+to\+\_\+32}!jlettvin@{jlettvin}}
+\subsubsection[{U\+T\+F8\+\_\+to\+\_\+32(const u8\+\_\+t $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)}]{\setlength{\rightskip}{0pt plus 5cm}char32\+\_\+t jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+32 (
+\begin{DoxyParamCaption}
+\item[{const {\bf u8\+\_\+t} $\ast$}]{buf, }
+\item[{size\+\_\+t \&}]{head, }
+\item[{const size\+\_\+t}]{tail}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_a6a2e190b8a55c88146ad1fbadc513891}
+U\+T\+F8\+\_\+to\+\_\+32 converts U\+T\+F8 to internal 32 bit codepoint value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & is a buffer full of U\+T\+F8 unsigned bytes. \\
+\hline
+{\em head} & is the index where ingest begins or continues (variable). \\
+\hline
+{\em tail} & is the index past the last byte in the buffer.\\
+\hline
+\end{DoxyParams}
+This function is designed to make conversion efficient. It uses the gnu c++ compiler support for computed goto to eliminate the need for branch points. 

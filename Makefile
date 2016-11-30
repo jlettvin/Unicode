@@ -3,6 +3,7 @@
 # make clean; clear; make
 
 # TODO use strip on library executables.
+# TODO eliminate extra "using" in source, aggregate them in Unicode.h
 
 
 # setup #######################################################################
@@ -11,7 +12,7 @@ VERSION=0.0.1
 
 timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 
-COPTS=-std=c++11 -O3 -Wall -Wextra -Werror -fPIC -g
+COPTS=-std=c++14 -O3 -Wall -Wextra -Werror -fPIC -g
 CURDIR=.
 
 MACDYLIB=libjlettvin.dylib

@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
     using std::setw;
     using std::setfill;
     using std::string;
+    using std::istream;
 
     using jlettvin::Node;
     using jlettvin::Tree;
