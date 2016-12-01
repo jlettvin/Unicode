@@ -50,31 +50,28 @@ namespace jlettvin {
     typedef T_type::const_iterator T_iter;        ///< table iterator
     typedef M_type::const_iterator M_iter;        ///< dict iterator
 
-    typedef union { char32_t wide; ubyte_t thin; } u_32_and_8_t;
-
     static const codepoint_t sentinel = 0x10FFFF; ///< highest legal Unicode
 
-    static const size_t eABCD = 0x03020100;       ///< endian index setter
-    /**
-     * eA, eB, eC, eD are useful for indexing bytes from 32 bit words.
-     * They are guarateed to index the byte containing the same value
-     * regardless of machine endianness because the endian index setter
-     * has the index values jammed together such that they split out
-     * into the correct indices.
+    /** endless is a template function for extracting bytes from 32 bit longs.
+     * endless(a_32_bit_value, unsigned_between_0_and_3)
+     * returns a reference to the same-valued byte invariant of endianness.
      */
-    static const size_t eA = (eABCD>>0x18) & 0xff;
-    static const size_t eB = (eABCD>>0x10) & 0xff;
-    static const size_t eC = (eABCD>>0x08) & 0xff;
-    static const size_t eD = (eABCD>>0x00) & 0xff;
-    /**
-     * ABCD[0] indexes a byte with the same value invariant to endianness.
-     */
-    static const size_t ABCD[4] = { eA, eB, eC, eD };
-    //template<typename L, typename B>
-    //B& byteAt(L& wide, const size_t index) {
-        //u_32_and_8_t *u = &wide;
-        //return u.thin[ABCD[index]];
-    //}
+    template<typename L, typename B>
+    B& endless(L& wide, const size_t index) {
+        /**
+         * These indices address the byte containing the same value in 32 bits
+         * regardless of machine endianness because the endian index setter
+         * has the index values jammed together such that they split out
+         * into the correct indices.
+         * The extra cost is one instruction for one extra indirection.
+         *
+         * size_t funny = 0x76543210;
+         * cout << hex << endless(funny, 0); // will output 10 on all machines.
+        */
+        typedef union { char32_t wide; ubyte_t thin[4]; } invariant;
+        static const invariant u = { .wide = 0x03020100 };
+        return reinterpret_cast<invariant>(wide).thin[u.thin[index]];
+    }
 
     /** \brief enable use of cout << T << std::endl;
      */

@@ -11,9 +11,7 @@ $<$ cpplint complains even though existing file is included
 class \hyperlink{classjlettvin_1_1_node}{Node}
 \begin{DoxyCompactList}\small\item\em dictionary equivalent interface\+: high performance codepoint lookup. \end{DoxyCompactList}\item 
 class \hyperlink{classjlettvin_1_1_tree}{Tree}
-\begin{DoxyCompactList}\small\item\em dictionary equivalent interface\+: high performance u32string lookup. \end{DoxyCompactList}\item 
-union \hyperlink{unionjlettvin_1_1u__32__and__8__t}{u\+\_\+32\+\_\+and\+\_\+8\+\_\+t}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em dictionary equivalent interface\+: high performance u32string lookup. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
@@ -47,6 +45,8 @@ union \hyperlink{unionjlettvin_1_1u__32__and__8__t}{u\+\_\+32\+\_\+and\+\_\+8\+\
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+{\footnotesize template$<$typename L , typename B $>$ }\\B \& \hyperlink{namespacejlettvin_a62857af7d9bba9f83757e8c255c27921}{endless} (L \&wide, const size\+\_\+t index)
+\item 
 \hypertarget{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{}{\footnotesize template$<$typename T1 $>$ }\\ostream \& \hyperlink{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{operator$<$$<$} (ostream \&o, const vector$<$ T1 $>$ \&v)\label{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}
 
 \begin{DoxyCompactList}\small\item\em enable use of cout $<$$<$ T $<$$<$ std\+::endl; \end{DoxyCompactList}\item 
@@ -79,7 +79,17 @@ char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8 converts internal 32 bit codepoints to U\+
 \end{DoxyParams}
 The codepoint is converted to U\+T\+F8 with trailing N\+U\+L bytes such that it is immediately ready for output via std\+::cout.
 
-Branch points are avoided. Maximum cost is 23 Intel opcodes. \hypertarget{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}}
+Branch points are avoided. Maximum cost is 23 Intel opcodes. \hypertarget{namespacejlettvin_a62857af7d9bba9f83757e8c255c27921}{}\index{jlettvin@{jlettvin}!endless@{endless}}
+\index{endless@{endless}!jlettvin@{jlettvin}}
+\subsubsection[{endless(\+L \&wide, const size\+\_\+t index)}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename L , typename B $>$ B\& jlettvin\+::endless (
+\begin{DoxyParamCaption}
+\item[{L \&}]{wide, }
+\item[{const size\+\_\+t}]{index}
+\end{DoxyParamCaption}
+)}\label{namespacejlettvin_a62857af7d9bba9f83757e8c255c27921}
+endless is a template function for extracting bytes from 32 bit longs. endless(a\+\_\+32\+\_\+bit\+\_\+value, unsigned\+\_\+between\+\_\+0\+\_\+and\+\_\+3) returns a reference to the same-\/valued byte invariant of endianness. These indices address the byte containing the same value in 32 bits regardless of machine endianness because the endian index setter has the index values jammed together such that they split out into the correct indices. The extra cost is one instruction for one extra indirection.
+
+size\+\_\+t funny = 0x76543210; cout $<$$<$ hex $<$$<$ endless(funny, 0); // will output 10 on all machines.\hypertarget{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}}
 \index{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}!jlettvin@{jlettvin}}
 \subsubsection[{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t(const ubyte\+\_\+t $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)}]{\setlength{\rightskip}{0pt plus 5cm}char32\+\_\+t jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t (
 \begin{DoxyParamCaption}

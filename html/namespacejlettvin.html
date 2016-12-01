@@ -103,8 +103,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjlettvin_1_1_tree.html">Tree</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">dictionary equivalent interface: high performance u32string lookup.  <a href="classjlettvin_1_1_tree.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionjlettvin_1_1u__32__and__8__t.html">u_32_and_8_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -147,6 +145,9 @@ typedef M_type::const_iterator&#160;</td><td class="memItemRight" valign="bottom
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a62857af7d9bba9f83757e8c255c27921"><td class="memTemplParams" colspan="2">template&lt;typename L , typename B &gt; </td></tr>
+<tr class="memitem:a62857af7d9bba9f83757e8c255c27921"><td class="memTemplItemLeft" align="right" valign="top">B &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#a62857af7d9bba9f83757e8c255c27921">endless</a> (L &amp;wide, const size_t index)</td></tr>
+<tr class="separator:a62857af7d9bba9f83757e8c255c27921"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae776f6a66f5697c5cb2afb2c6efdbfd7"><td class="memTemplParams" colspan="2"><a class="anchor" id="ae776f6a66f5697c5cb2afb2c6efdbfd7"></a>
 template&lt;typename T1 &gt; </td></tr>
 <tr class="memitem:ae776f6a66f5697c5cb2afb2c6efdbfd7"><td class="memTemplItemLeft" align="right" valign="top">ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacejlettvin.html#ae776f6a66f5697c5cb2afb2c6efdbfd7">operator&lt;&lt;</a> (ostream &amp;o, const vector&lt; T1 &gt; &amp;v)</td></tr>
@@ -201,6 +202,37 @@ template&lt;typename T1 &gt; </td></tr>
 </dl>
 <p>The codepoint is converted to UTF8 with trailing NUL bytes such that it is immediately ready for output via std::cout.</p>
 <p>Branch points are avoided. Maximum cost is 23 Intel opcodes. </p>
+
+</div>
+</div>
+<a class="anchor" id="a62857af7d9bba9f83757e8c255c27921"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename L , typename B &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">B&amp; jlettvin::endless </td>
+          <td>(</td>
+          <td class="paramtype">L &amp;&#160;</td>
+          <td class="paramname"><em>wide</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>endless is a template function for extracting bytes from 32 bit longs. endless(a_32_bit_value, unsigned_between_0_and_3) returns a reference to the same-valued byte invariant of endianness. </p>
+<p>These indices address the byte containing the same value in 32 bits regardless of machine endianness because the endian index setter has the index values jammed together such that they split out into the correct indices. The extra cost is one instruction for one extra indirection.</p>
+<p>size_t funny = 0x76543210; cout &lt;&lt; hex &lt;&lt; endless(funny, 0); // will output 10 on all machines.</p>
 
 </div>
 </div>
