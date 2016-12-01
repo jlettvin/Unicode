@@ -1,0 +1,102 @@
+Afrikaans|Afrikaans|Ek het 'n bynaam.  Dwase ou man verskuif berg.  Wat is jou bynaam?
+Albanian|Shqiptar|Pseudonimi im është.  Budallai i moshuar lëviz malet.  Çfarë është pseudonimi juaj?
+Amharic|አማርኛ"|እኔ ቅጽል ስም አለኝ.  ሞኝ አሮጌውን ሰው ተራራ ይናገራቸዋል.  የእርስዎ ቅጽል ምንድን ነው?
+Arabic|العربية|لدي كنية.  رجل يبلغ من العمر أحمق التحولات الجبل.  ما هو لقبك؟
+Armenian|հայերեն|Ես ունեմ մականունը: Անխելք ամյա տղամարդը տեղաշարժեր սարը.  Որն է ձեր մականունը:
+Azerbaijani|Azərbaycan|Mən bir ləqəb var.  Foolish qoca dağ asılıdır.  Sizin ləqəb nədir?
+Basque|Euskal|ezizen bat daukat.  Erhoá zaharra mendian dabilen.  Zein da zure ezizena?
+Belarusian|беларускі|У мяне ёсць мянушка.  Дурны стары зрушвае горы.  Што такое ваш нік?
+Bengali|বাঙালি|আমি একটি ডাকনাম আছে.  বোকা স্বামী পর্বত বদল.  আপনার ডাকনাম কি?
+Bosnian|Bosanski|Imam nadimak.  Budalasti starac pomera planine.  Koji je tvoj nadimak?
+Bulgarian|български|Имам псевдоним.  Стар глупак измества планина.  Какъв е твоя прякор?
+Catalan|Català|Tinc un sobrenom.  vell ximple desplaça muntanya.  Quin és el teu sobrenom?
+Cebuano|Cebuano|Ako adunay usa ka angga.  Buang-buang tigulang nga tawo mobalhin bukid.  Unsa ang imong angga?
+Chichewa|Chichewa|Ndili ndi dzina.  Wopusa nkhalamba akugwiritsa phiri.  dzina lako ndani?
+Chinese|中文|我有一个绰号。 愚公移山。 什么是您的昵称？
+Corsican|Corsu|Mi pirmittissi 'na cosa tua.  Suite omu vecchiu spicciava muntagna.  Cosa hè cosa tua?
+Croatian|Hrvatski|Imam nadimak.  Glupo starac pomiče planine.  Koji je tvoj nadimak?
+Czech|čeština|Mám přezdívku.  Pošetilý stařík posune horu.  Jaká je tvá přezdívka?
+Danish|Dansk|Jeg har et kaldenavn.  Tåbelige gamle mand skifter bjerget.  Hvad er dit kælenavn?
+Dutch|Nederlands|Ik heb een bijnaam.  Dwaze oude man verschuift de bergen.  Wat is je bijnaam?
+English|English|I have a nickname.  Foolish old man moves mountain.  What is your nickname?
+Esperanto|Esperanto|Ik heb een bijnaam.  Dwaze oude man verschuift de bergen.  Wat is je bijnaam?...
+Estonian|Eesti|Mul on hüüdnime.  Rumal mees nihutab mägi.  Mis on su hüüdnimi?
+Filipino|Pilipino|Mayroon akong palayaw.  Matandang tangang lalake na tumutulak ng bundok.  Ano ang iyong palayaw.
+Finnish|Suomalainen|Olen lempinimi.  Tyhmät vanhus siirtyy vuori.  Mikä on lempinimesi?
+French|Français|J'ai un surnom.  Fou vieil homme qui portait une montagne.  Quel est votre surnom?
+Frisian|Frysk|Ik haw in bynamme.  Foolish âldman ferskoot berch.  Wat is dyn bynamme?
+Galician|Galego|Eu teño un apelido.  vello tolo despraza montaña.  Cal é o seu apelido?
+Georgian|ქართული|მაქვს ზედმეტსახელი.  სულელური მოხუცი გადადის მთის.  რა არის შენი მეტსახელი?
+German|Deutsche|Ich habe einen Spitznamen.  Yü verschiebt Berg.  Was ist dein Username?
+Greek|ελληνικά|Έχω ένα ψευδώνυμο.  Ανόητο γέρο μετατοπίζεται στο βουνό.  Ποιο είναι το παρατσούκλι σου?
+Gujarati|ગુજરાતી|હું એક ઉપનામ છે.  મૂર્ખ જૂના માણસ પર્વત લઇ જાય છે.  તમારા ઉપનામ શું છે?
+Haitian Creole|Kreyòl ayisyen|Mwen gen yon tinon.  Tèt chaje vye granmoun gason orè mòn.  Ki sa ki se tinon ou a?
+Hausa|Hausa|Ina da wani sunan barkwanci.  Wauta tsohon mutum canjawa dutsen.  Mene ne sunan barkwanci?
+Hawaiian|ʻŌlelo Hawaiʻi|I loaa he inoa kapakapa.  Lapuwale elemakule kanaka i hoʻololi mauna.  He aha kou inoa kapakapa?
+Hebrew|עִברִית|יש לי כינוי.  זקן שוטה משמרות ההר.  מה הכינוי שלך?
+Hindi|हिंदी|मैं एक उपनाम है। मूर्ख बूढ़े आदमी पहाड़ पाली। आपका उपनाम क्या है?
+Hmong|Hmong|Kuv muaj ib tug npe menyuam yaus.  Ruam txiv neej laus laus shifts roob.  Yuav ua li cas yog koj lub npe menyuam yaus?
+Hungarian|Magyar|Van egy becenevet.  Bolond öreg eltolódik hegyen.  Mi a beceneved?
+Icelandic|Icelandic|Ég er með gælunafn.  Heimskur maður gamall vaktir fjall.  Hvað er gælunafnið þitt?
+Igbo|Igbo|M nwere a aha otutu.  Nzuzu agadi nwoke akọwa ugwu.  Gịnị bụ gị aha otutu?
+Indonesian|Bahasa Indonesia|Saya punya julukan.  Orang tua bodoh menggeser gunung.  Apa nama panggilanmu?
+Irish|Gaeilge|Tá mé leasainm.  shifts fear foolish sean sléibhe.  Cad é do leasainm?
+Italian|Italiano|Ho un soprannome.  Foolish vecchio si sposta in montagna.  Qual è il tuo soprannome?
+Japanese|日本語|私はニックネームを持っています。 愚かな老人が山を移します。 あなたのニックネームは何ですか？
+Javanese|Jawa|Aku duwe celukan.  wong lawas Gemblung shifts gunung.  Apa julukan Panjenengan?
+Kannada|ಕನ್ನಡ|ನಾನು ಅಡ್ಡಹೆಸರು ಹೊಂದಿವೆ.  ಮೂರ್ಖ ಯಜಮಾನ ಪರ್ವತ ಬದಲಿಸುತ್ತದೆ.  ನಿಮ್ಮ ಅಡ್ಡಹೆಸರು ಏನು?
+Kazakh|Қазақ|Мен лақап бар.  Ақымақ жастағы ер тауға жылжытады.  Сіздің лақап қандай?
+Khmer|ភាសាខ្មែរ|ខ្ញុំមានឈ្មោះហៅក្រៅ។ បុរសម្នាក់អាយុល្ងង់ផ្លាស់ប្តូភ្នំ។ តើ​អ្វី​ទៅ​ជា​ឈ្មោះ​ហៅ​ក្រៅ​របស់​អ្នក?
+Korean|한국어|나는 별명을 가지고있다.  어리석은 노인이 산을 이동합니다.  닉네임은 무엇입니까?
+Kurdish (Kurmanji)|Kurdî (kurmancî)|Ez xwedî nickname.  wî mirovê bêaqil e old çiyayê pîroz.  Navê xwe çi ye?
+Kyrgyz|Кыргызча|Мен ылакап бар.  Акылсыз абышка тоого алмаштырат.  Сиздин ник?
+Lao|ລາວ|ຂ້າພະເຈົ້າມີຊື່ຫນຶ່ງ.  ຜູ້ຊາຍອາຍຸ Foolish shifts ພູເຂົາ.  ຊື່ຂອງທ່ານແມ່ນຫຍັງ?
+Latin|Latinae|Habere cognomen.  Stultus senex monte micant.  Quid est cognomen?
+Latvian|Latvijas|Man ir segvārdu.  Muļķīgi vecs vīrietis maiņās kalnu.  Kāda ir tava iesauka?
+Lithuanian|Lietuvos|Turiu slapyvardį.  Kvailas vyras pastumia kalną.  Kokia tavo pravardė?
+Lexembourgish|Lëtzebuergesch|Ech hunn e Spëtznumm.  Dommen ale Mann unzepassen Bierg.  Wat ass Äre Spëtznumm?
+Macedonian|Македонски|Имам прекар.  Глупави старец смени планината.  Што е вашиот прекар?
+Malagasy|Malagasy|Manana anaram-bositra.  Adala lahiantitra mpiasa miasa an-tendrombohitra.  Inona no anaram-bositra?
+Malay|Malay|Saya mempunyai nama samaran.  lelaki tua bodoh beralih gunung.  Apakah nama panggilan kamu?
+Malayalam|മലയാളം|ഞാൻ ഒരു വിളിപ്പേര് ഉണ്ട്.  ഓൾഡ് പർവ്വതം മാറ്റുകയും ചെയ്യുന്നു.  നിങ്ങളുടെ ഇരട്ടപ്പേര് എന്താണ്?
+Maltese|Malti|I jkollhom laqam.  raġel xiħ foolish xiftijiet muntanji.  X'inhi l-laqam tiegħek?
+Maori|Maori|E ahau he īngoa.  tangata tawhito wairangi te hünuku maunga.  He aha te mea koutou īngoa?
+Marathi|मराठी|मी एक टोपणनाव आहे.  मूर्ख म्हातारा माणूस डोंगरावर बदल.  आपले टोपणनाव काय आहे?
+Mongolian|Монгол|Би хоч байдаг.  Мунхаг өвгөн уул шилжуулж байна.  Таны хоч нь юу вэ?
+Myanmar (Burmese)|မြန်မာ (ဗမာ)|ငါသည်တအမည်ပြောင်ရှိသည်။ မိုက်မဲသောလူဟောင်းကိုတောငျကိုပြောင်းရွှေ့ရသည်။ သင့်ရဲ့အမည်ပြောင်ကဘာလဲ?
+Nepali|नेपाली|म एउटा उपनाम छ। मूर्ख पुरानो मानिस पहाड फेरबदल। आफ्नो उपनाम के हो?
+Norwegian|Norsk|Jeg har et kallenavn.  Tåpelig gammel mann skifter fjellet.  Hva er kallenavnet ditt?
+Pashto|پښتو|زه يو مستعار نوم لري.  ناپوه کلن سړي ته داخليږی غره.  ستاسو د مستعار نوم څه شی دی؟
+Persian|فارسی|من یک نام مستعار.  مردی نادان قدیمی کوه شیفت.  نام مستعار شما چیست؟
+Polish|Polskie|Mam pseudonim.  Foolish staruszek przenosi góry.  Jaki jest Twój pseudonim?
+Portuguese|Português|Eu tenho um apelido.  velho tolo desloca montanha.  Qual o seu apelido?
+Punjabi|ਪੰਜਾਬੀ ਦੇ|ਮੈਨੂੰ ਇੱਕ ਉਪਨਾਮ ਹੈ.  ਮੂਰਖ ਉਮਰ ਦੇ ਆਦਮੀ ਨੂੰ ਪਹਾੜ ਵਾਰੀ.  ਆਪਣੇ ਉਪਨਾਮ ਕੀ ਹੈ?
+Romanian|Română|Am un pseudonim.  om bătrân nechibzuit schimburi de munte.  Care e porecla ta?
+Russian|Русский|У меня есть прозвище.  Глупый старик сдвигает горы.  Какое у тебя прозвище?
+Samoan|Samoa|Ou maua se igoa tauvalaau.  Valea toeaina suiga mauga.  O le a lou igoa tauvalaau?
+Scots Gaelic|Gàidhlig|Tha mi a 'fhar-ainm.  Foolish bodach atharrachadh bheinn.  Dè am far-ainm a th 'agaibh?
+Serbian|Српски|Имам надимак.  Будаласт стари помера планине.  Шта је ваш надимак?
+Sesotho|Sesotho|Ke na le boswaswi.  Leoatla monna-moholo lichifi thabeng.  boswaswi oa hao ke eng?
+Shona|Shona|Ndine remadunhu-.  Mapenzi harahwa vachambokanganwa gomo.  Chii zita remadunhurirwa rokuti rako?
+Sindhi|سنڌي|مون کي هڪ لقب آهي.  بيوقوف پراڻي انسان جبل shifts.  توهان جو لقب ڇا آهي؟
+Sinhala|සිංහල|මම සුරතල් නම තියෙනවා.  මෝඩ මහලු මිනිසා කන්ද මාරු කර ඇත.  ඔබගේ නම කුමක්ද?
+Slovak|Slovenský|Mám prezývku.  Pochabý starček posunie horu.  Aká je tvoja prezývka?
+Slovenian|Slovenski|Imam vzdevek.  Neumni starec premika gore.  Kaj je tvoj vzdevek?
+Somali|Soomaali|Waxaan leeyahay naaneesta ah.  oday nacas buurta isbeddelka.  Waa maxay naaneesta?
+Spanish|Español|Tengo un apodo.  viejo tonto desplaza montaña.  ¿Cual es su apodo?
+Sundanese|Sunda|Kuring geus nickname a.  man heubeul Foolish shifts gunung.  What is nickname anjeun?
+Swahili|Kiswahili|Nina jina la utani.  Foolish mzee mabadiliko ya mlima.  jina la utani wako ni nini?
+Swedish|Svensk|Nina jina la utani.  Foolish mzee mabadiliko ya mlima.  jina la utani wako ni nini?...
+Tajik|Тоҷикистон|Jag har ett smeknamn.  Dåraktig gubben skiftar berget.  Vad är ditt smeknamn?
+Tamil|தமிழ்|நான் ஒரு புனைப்பெயர் வேண்டும்.  ஒரு மலை மேற்கொள்ளப்பட்ட யார் முட்டாள் பழைய மனிதன்.  உங்கள் புனைப்பெயர் என்ன?
+Telugu|తెలుగు|నేను మారుపేరు కలిగి.  మూర్ఖు పాత మనిషి పర్వత శ్రేష్టమైన.  మీ మారుపేరు ఏమిటి?
+Thai|ไทย|ฉันมีชื่อเล่น ชายชราโง่กะภูเขา ชื่อเล่นของคุณคืออะไร?
+Turkish|Türk|Ben bir takma var.  Foolish yaşlı adam dağ kaydırır.  Takma adınız nedir?
+Ukrainian|Український|У мене є прізвисько.  Дурний старий зрушує гори.  Що таке ваш нік?
+Urdu|اردو|میں نے ایک مختصر نام ہے.  بیوقوف بوڑھے آدمی پہاڑ شفٹوں.  آپ عرفیت کیا ہے؟
+Vietnamese|Tiếng Việt|Tôi có một biệt danh.  ông già Foolish chuyển núi.  Biệt danh của bạn là gì?
+Welsh|Cymraeg|Mae gen i llysenw.  hen ddyn ffôl sifftiau mynydd.  Beth yw eich ffugenw?
+Xhosa|isiXhosa|Ndingayifumana isiqhulo.  umntu omdala esisidenge kweenguqu entabeni.  Yintoni igama lakho?
+Yiddish|ייִדיש|איך האָבן אַ צונעמעניש.  נאַריש אַלט מענטש שיפץ באַרג.  וואָס איז דיין צונעמעניש?
+Yoruba|Yorùbá|Mo ni a apeso.  Òmùgọ atijọ eniyan iṣinipo oke.  Ohun ti o jẹ rẹ apeso?
+Zulu|Zulu|Nginesifo isidlaliso.  Foolish indoda endala usekhuluma entabeni.  Kuyini isidlaliso yakho?

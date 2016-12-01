@@ -59,6 +59,7 @@ LIBOPT=$(MACDYLIBOPT)
 all:	begin $(LIBRARY) out lint valgrind doxygen end
 
 # clean #######################################################################
+# DO NOT DELETE .txt files.
 .PHONY:
 clean:
 	@rm -f *.o *.out *.lint *.valgrind
@@ -70,13 +71,13 @@ clean:
 # documentation ###############################################################
 .PHONY:
 begin:
-	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv make'
+	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv make begins'
 	@$(call timestamp,$@)
 
 .PHONY:
 end:
 	@$(call timestamp,$@)
-	@echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ make'
+	@echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ make ends'
 
 .PHONY:
 doxygen:
@@ -86,12 +87,16 @@ doxygen:
 # unit tests ##################################################################
 
 out:	test_Unicode.out test_Node.out test_Tree.out
-	@./test_Unicode "hello world"
-	@echo "hello world: [U+68 U+65 U+6c U+6c U+6f U+20 U+77 U+6f U+72 U+6c U+64]"
-	@./test_Unicode "愚公移山"
-	@echo '愚公移山: [U+611a U+516c U+79fb U+5c71]'
+
+#	@./test_Unicode "hello world"
+#	@echo "hello world: [U+68 U+65 U+6c U+6c U+6f U+20 U+77 U+6f U+72 U+6c U+64]"
+#	@./test_Unicode "愚公移山"
+#	@echo '愚公移山: [U+611a U+516c U+79fb U+5c71]'
 
 test_Unicode.out:	test_Unicode
+	@./$< > $@
+	@-diff -s $@ $<.txt
+	@$(call timestamp,$@)
 
 test_Node.out:	test_Node
 
