@@ -98,8 +98,4 @@ int main(int argc, char **argv) {
             xlat(arg, strlen(arg));
         }
     }
-
-    //static string failpass[2] = {"[FAIL]", "[PASS]"};
-    //static string equality[2] = {" != ", " == "};
-
 }
