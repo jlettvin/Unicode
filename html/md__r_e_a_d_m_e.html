@@ -81,22 +81,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Unicode </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This library contains modules for efficient lexical operations on Unicode strings to support simple generation of DSL (Domain Specific Languages).</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;html        doxygen output directory.</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;latex       doxygen output directory.</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;.gitignore  patterns of intermediate files not to be stored on github.</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;Doxyfile    control for doxygen production</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;LICENSE     (GPLv3)</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;LinkDefs.h  common root of doxygen</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;Makefile    control for production of this resource</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;Node.cpp    an O(1) dictionary for translating Codepoints to Tablenumbers.</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;Node.h      interface</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;README.md   this file</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;Tree.cpp    an O(N) dictionary for translating u32strings to Canonical Lists.</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;Tree.h      interface</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;Unicode.h   inline UTF8/codepoint translations and other primitives.</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;haiku.utf8.cpp  copy of what test_Unicode is to produce (for comparison).</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;haiku.utf8.txt  102 language text file for testing UTF8/codepoint conversions.</div>
+<div class="textblock"><p>This library contains modules for efficient lexical operations on Unicode strings to support simple generation of DSL (Domain Specific Languages). A dynamic library is generated. Unit tests exercise most of the functionality. Mostly, the DRY principle has been followed. More work is needed in two directions:</p><ul>
+<li>More unit tests (including failure modes)</li>
+<li>TDD Implement <a class="el" href="class_tree.html" title="Create an O(1) association between codepoint and indices. ">Tree</a> functionality.</li>
+</ul>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;html                doxygen output directory</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;latex               doxygen output directory</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;.gitignore          patterns of intermediate files not to be stored on github</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;Doxyfile            control for doxygen production</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;LICENSE             (GPLv3)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;LinkDefs.h          common root of doxygen</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;Makefile            control for production of this resource</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;Node.cpp            O(1) dictionary translating Codepoints to Tablenumbers</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;Node.h              interface</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;README.md           this file</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;Tree.cpp            O(N) dictionary translating u32strings to Canonical Lists</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;Tree.h              interface</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;Unicode.h           primitives (including inline UTF8/codepoint translations)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;haiku.utf8.cpp      copy of what test_Unicode is to produce (for comparison)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;haiku.utf8.txt      102 language to test UTF8/codepoint conversions</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;test_Node.cpp       unit tests</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;test_Tree.cpp       unit tests</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;test_Unicode.cpp    unit tests</div>

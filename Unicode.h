@@ -50,13 +50,31 @@ namespace jlettvin {
     typedef T_type::const_iterator T_iter;        ///< table iterator
     typedef M_type::const_iterator M_iter;        ///< dict iterator
 
+    typedef union { char32_t wide; ubyte_t thin; } u_32_and_8_t;
+
     static const codepoint_t sentinel = 0x10FFFF; ///< highest legal Unicode
 
-    static const size_t eABCD = 0x03020100;
+    static const size_t eABCD = 0x03020100;       ///< endian index setter
+    /**
+     * eA, eB, eC, eD are useful for indexing bytes from 32 bit words.
+     * They are guarateed to index the byte containing the same value
+     * regardless of machine endianness because the endian index setter
+     * has the index values jammed together such that they split out
+     * into the correct indices.
+     */
     static const size_t eA = (eABCD>>0x18) & 0xff;
     static const size_t eB = (eABCD>>0x10) & 0xff;
     static const size_t eC = (eABCD>>0x08) & 0xff;
     static const size_t eD = (eABCD>>0x00) & 0xff;
+    /**
+     * ABCD[0] indexes a byte with the same value invariant to endianness.
+     */
+    static const size_t ABCD[4] = { eA, eB, eC, eD };
+    //template<typename L, typename B>
+    //B& byteAt(L& wide, const size_t index) {
+        //u_32_and_8_t *u = &wide;
+        //return u.thin[ABCD[index]];
+    //}
 
     /** \brief enable use of cout << T << std::endl;
      */

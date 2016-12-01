@@ -1,22 +1,26 @@
-This library contains modules for efficient lexical operations on Unicode strings to support simple generation of D\+S\+L (Domain Specific Languages).
+This library contains modules for efficient lexical operations on Unicode strings to support simple generation of D\+S\+L (Domain Specific Languages). A dynamic library is generated. Unit tests exercise most of the functionality. Mostly, the D\+R\+Y principle has been followed. More work is needed in two directions\+:
+\begin{DoxyItemize}
+\item More unit tests (including failure modes)
+\item T\+D\+D Implement \hyperlink{class_tree}{Tree} functionality.
+\end{DoxyItemize}
 
 
 \begin{DoxyCode}
-1 html        doxygen output directory.
-2 latex       doxygen output directory.
-3 .gitignore  patterns of intermediate files not to be stored on github.
-4 Doxyfile    control for doxygen production
-5 LICENSE     (GPLv3)
-6 LinkDefs.h  common root of doxygen
-7 Makefile    control for production of this resource
-8 Node.cpp    an O(1) dictionary for translating Codepoints to Tablenumbers.
-9 Node.h      interface
-10 README.md   this file
-11 Tree.cpp    an O(N) dictionary for translating u32strings to Canonical Lists.
-12 Tree.h      interface
-13 Unicode.h   inline UTF8/codepoint translations and other primitives.
-14 haiku.utf8.cpp  copy of what test\_Unicode is to produce (for comparison).
-15 haiku.utf8.txt  102 language text file for testing UTF8/codepoint conversions.
+1 html                doxygen output directory
+2 latex               doxygen output directory
+3 .gitignore          patterns of intermediate files not to be stored on github
+4 Doxyfile            control for doxygen production
+5 LICENSE             (GPLv3)
+6 LinkDefs.h          common root of doxygen
+7 Makefile            control for production of this resource
+8 Node.cpp            O(1) dictionary translating Codepoints to Tablenumbers
+9 Node.h              interface
+10 README.md           this file
+11 Tree.cpp            O(N) dictionary translating u32strings to Canonical Lists
+12 Tree.h              interface
+13 Unicode.h           primitives (including inline UTF8/codepoint translations)
+14 haiku.utf8.cpp      copy of what test\_Unicode is to produce (for comparison)
+15 haiku.utf8.txt      102 language to test UTF8/codepoint conversions
 16 test\_Node.cpp       unit tests
 17 test\_Tree.cpp       unit tests
 18 test\_Unicode.cpp    unit tests
