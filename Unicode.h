@@ -37,7 +37,7 @@ namespace jlettvin {
     using std::ostream;
     using std::bitset;
 
-    typedef unsigned char u8_t;                   ///< buffer element type
+    typedef unsigned char ubyte_t;                   ///< buffer element type
 
     typedef size_t codepoint_t;                   ///< clear type of codepoint
     typedef size_t target_t;                      ///< clear type of result
@@ -73,6 +73,38 @@ namespace jlettvin {
         return o;
     }
 
+
+    inline void char32_t_to_UTF8(const char32_t source, ubyte_t target[5]) {
+        target[4] = target[3] = target[2] = target[1] = target[0] = 0;
+        static const void *assemble[] = {&&u7, &&u11, &&u16, &&u21};
+        goto *assemble[
+            static_cast<size_t>(source > 0x7f) +
+            static_cast<size_t>(source > 0x7ff) +
+            static_cast<size_t>(source > 0xffff)];
+u7:     target[0] = static_cast<ubyte_t>(source);
+        return;
+u11:    target[0] = 0xC0 + static_cast<ubyte_t>((source >> 0x06) & 0x1f);
+        target[1] = 0x80 + static_cast<ubyte_t>((source        ) & 0x3f);
+        return;
+u16:    target[0] = 0xE0 + static_cast<ubyte_t>((source >> 0x0c) & 0x0f);
+        target[1] = 0x80 + static_cast<ubyte_t>((source >> 0x06) & 0x3f);
+        target[2] = 0x80 + static_cast<ubyte_t>((source        ) & 0x3f);
+        return;
+u21:    target[0] = 0xF0 + static_cast<ubyte_t>((source >> 0x12) & 0x07);
+        target[1] = 0x80 + static_cast<ubyte_t>((source >> 0x0c) & 0x3f);
+        target[2] = 0x80 + static_cast<ubyte_t>((source >> 0x06) & 0x3f);
+        target[3] = 0x80 + static_cast<ubyte_t>((source        ) & 0x3f);
+        return;
+
+    }
+
+    // UTF8 Bytes being translated have this pattern with bit indices
+    // shown as uppercase letters from the high bit to the low bit:
+    // 1  7	U+00000	U+00007F    0ABCDEFG
+    // 2 11	U+00080	U+0007FF    110ABCDE  10FGHIJK
+    // 3 16	U+00800	U+00FFFF    1110ABCD  10EFGHIJ  10KLMNOP
+    // 4 21	U+10000	U+10FFFF    11110ABC  10DEFGHI  10JKLMNO  10PQRSTU
+
     /** UTF8_to_32 converts UTF8 to internal 32 bit codepoint value.
      *
      * \param buf  is a buffer full of UTF8 unsigned bytes.
@@ -102,14 +134,8 @@ namespace jlettvin {
      * TODO fix so it works
      */
     inline char32_t
-    UTF8_to_char32_t(const u8_t *buf, size_t& head, const size_t tail) {
+    UTF8_to_char32_t(const ubyte_t *buf, size_t& head, const size_t tail) {
         // hello="hello"; hello[head] == 'h'; hello[tail] == '\0';
-        // Bytes being ingested have this pattern with bit indices
-        // shown as uppercase letters from the high bit to the low bit:
-        // 1  7	U+00000	U+00007F    0xABCDEF
-        // 2 11	U+00080	U+0007FF    110ABCDE  10FGHIJK
-        // 3 16	U+00800	U+00FFFF    1110ABCD  10EFGHIJ  10KLMNOP
-        // 4 21	U+10000	U+10FFFF    11110ABC  10DEFGHI  10JKLMNO  10PQRSTU
         static const size_t need[] = {
             // The number of bytes needed for an ingest act is specified here.
             // This table is indexed using the top 5 bits of the first byte
@@ -142,7 +168,7 @@ namespace jlettvin {
 
         size_t off = head, high;
         char32_t _ = 0;
-        u8_t a, b, c, d;
+        ubyte_t a, b, c, d;
 
         goto *headed[static_cast<size_t>(head < tail)];
 ingest: a = buf[off++];
