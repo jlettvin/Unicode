@@ -2,8 +2,24 @@ This library contains modules for efficient lexical operations on Unicode string
 
 
 \begin{DoxyCode}
-1 Node.cpp is an O(1) dictionary for translating Codepoints to Tablenumbers.
-2 Tree.cpp is an O(N) dictionary for translating u32strings to Canonical Lists.
+1 html        doxygen output directory.
+2 latex       doxygen output directory.
+3 .gitignore  patterns of intermediate files not to be stored on github.
+4 Doxyfile    control for doxygen production
+5 LICENSE     (GPLv3)
+6 LinkDefs.h  common root of doxygen
+7 Makefile    control for production of this resource
+8 Node.cpp    an O(1) dictionary for translating Codepoints to Tablenumbers.
+9 Node.h      interface
+10 README.md   this file
+11 Tree.cpp    an O(N) dictionary for translating u32strings to Canonical Lists.
+12 Tree.h      interface
+13 Unicode.h   inline UTF8/codepoint translations and other primitives.
+14 haiku.utf8.cpp  copy of what test\_Unicode is to produce (for comparison).
+15 haiku.utf8.txt  102 language text file for testing UTF8/codepoint conversions.
+16 test\_Node.cpp       unit tests
+17 test\_Tree.cpp       unit tests
+18 test\_Unicode.cpp    unit tests
 \end{DoxyCode}
 
 
@@ -197,7 +213,10 @@ Summary\+:
 \begin{DoxyItemize}
 \item Output function for tables
 \item Input conversion from unsigned U\+T\+F8 bytes char32\+\_\+t internal codepoints.
+\item Output conversion from char32\+\_\+t internal codepoints to unsigned U\+T\+F8 bytes.
 \end{DoxyItemize}
+
+This implementation eliminates function calls and branch points. Data flows through a table of computed gotos for translations both ways.
 
 \subsection*{\hyperlink{class_node}{Node}\+: an O(1) state transition mechanism}
 
