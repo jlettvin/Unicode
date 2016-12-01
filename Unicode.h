@@ -74,6 +74,17 @@ namespace jlettvin {
     }
 
 
+    /** char32_t_to_UTF8 converts internal 32 bit codepoints to UTF8.
+     *
+     * \param source is a 32 bit codepoint
+     * \param target is a 5 unsigned byte buffer from the caller.
+     *
+     * The codepoint is converted to UTF8 with trailing NUL bytes
+     * such that it is immediately ready for output via std::cout.
+     *
+     * Branch points are avoided.
+     * Maximum cost is 23 Intel opcodes.
+     */
     inline void char32_t_to_UTF8(const char32_t source, ubyte_t target[5]) {
         target[4] = target[3] = target[2] = target[1] = target[0] = 0;
         static const void *assemble[] = {&&u7, &&u11, &&u16, &&u21};

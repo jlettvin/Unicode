@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['_7enode',['~Node',['../classjlettvin_1_1_node.html#aa0840c3cb5c7159be6d992adecd2097c',1,'jlettvin::Node']]],
-  ['_7etree',['~Tree',['../classjlettvin_1_1_tree.html#abdc38545cf3f588725b5d8b8075b3866',1,'jlettvin::Tree']]]
+  ['utf8_5fto_5fchar32_5ft',['UTF8_to_char32_t',['../namespacejlettvin.html#ae1f5a0c22c3f8c9eecb88f086bcbcc30',1,'jlettvin']]]
 ];

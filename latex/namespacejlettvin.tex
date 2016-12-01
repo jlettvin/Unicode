@@ -48,8 +48,7 @@ class \hyperlink{classjlettvin_1_1_tree}{Tree}
 \hypertarget{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{}{\footnotesize template$<$typename T1 $>$ }\\ostream \& \hyperlink{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{operator$<$$<$} (ostream \&o, const vector$<$ T1 $>$ \&v)\label{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}
 
 \begin{DoxyCompactList}\small\item\em enable use of cout $<$$<$ T $<$$<$ std\+::endl; \end{DoxyCompactList}\item 
-\hypertarget{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}{}void {\bfseries char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8} (const char32\+\_\+t source, \hyperlink{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}{ubyte\+\_\+t} target\mbox{[}5\mbox{]})\label{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}
-
+void \hyperlink{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8} (const char32\+\_\+t source, \hyperlink{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}{ubyte\+\_\+t} target\mbox{[}5\mbox{]})
 \item 
 char32\+\_\+t \hyperlink{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t} (const \hyperlink{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}{ubyte\+\_\+t} $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)
 \end{DoxyCompactItemize}
@@ -59,7 +58,26 @@ char32\+\_\+t \hyperlink{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{U\
 $<$ cpplint complains even though existing file is included 
 
 \subsection{Function Documentation}
-\hypertarget{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}}
+\hypertarget{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}{}\index{jlettvin@{jlettvin}!char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8@{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8}}
+\index{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8@{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8}!jlettvin@{jlettvin}}
+\subsubsection[{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8(const char32\+\_\+t source, ubyte\+\_\+t target[5])}]{\setlength{\rightskip}{0pt plus 5cm}void jlettvin\+::char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8 (
+\begin{DoxyParamCaption}
+\item[{const char32\+\_\+t}]{source, }
+\item[{{\bf ubyte\+\_\+t}}]{target\mbox{[}5\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}
+char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8 converts internal 32 bit codepoints to U\+T\+F8.
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & is a 32 bit codepoint \\
+\hline
+{\em target} & is a 5 unsigned byte buffer from the caller.\\
+\hline
+\end{DoxyParams}
+The codepoint is converted to U\+T\+F8 with trailing N\+U\+L bytes such that it is immediately ready for output via std\+::cout.
+
+Branch points are avoided. Maximum cost is 23 Intel opcodes. \hypertarget{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}}
 \index{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}!jlettvin@{jlettvin}}
 \subsubsection[{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t(const ubyte\+\_\+t $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)}]{\setlength{\rightskip}{0pt plus 5cm}char32\+\_\+t jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t (
 \begin{DoxyParamCaption}

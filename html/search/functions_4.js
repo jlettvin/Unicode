@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['size',['size',['../classjlettvin_1_1_node.html#ae2983972c965d0875ea34aa15aee2564',1,'jlettvin::Node::size()'],['../classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6',1,'jlettvin::Tree::size()']]]
+  ['peek',['peek',['../classjlettvin_1_1_node.html#a976b319d4793fcc839604d62987fe01e',1,'jlettvin::Node::peek()'],['../classjlettvin_1_1_tree.html#a65746e86398aa8215481ffafdd8fa02d',1,'jlettvin::Tree::peek()']]],
+  ['poke',['poke',['../classjlettvin_1_1_node.html#a599100f6c058d238fb28f15a60d3ae9f',1,'jlettvin::Node::poke()'],['../classjlettvin_1_1_tree.html#a3ffabbc1a6b81df085827f3ed851f061',1,'jlettvin::Tree::poke()']]]
 ];
