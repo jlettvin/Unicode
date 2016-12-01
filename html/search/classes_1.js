@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['omni',['Omni',['../class_omni.html',1,'']]]
+  ['node',['Node',['../class_node.html',1,'']]],
+  ['node',['Node',['../classjlettvin_1_1_node.html',1,'jlettvin']]]
 ];

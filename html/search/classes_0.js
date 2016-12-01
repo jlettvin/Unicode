@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['node',['Node',['../class_node.html',1,'']]],
-  ['node',['Node',['../classjlettvin_1_1_node.html',1,'jlettvin']]]
+  ['invariant32_5ft',['invariant32_t',['../unionjlettvin_1_1invariant32__t.html',1,'jlettvin']]]
 ];

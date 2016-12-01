@@ -52,12 +52,22 @@ namespace jlettvin {
 
     static const codepoint_t sentinel = 0x10FFFF; ///< highest legal Unicode
 
+    /**
+     * invariant32_t type and invariant32 union support the endless function.
+     */
+    typedef union { char32_t u32; ubyte_t u8[4]; } invariant32_t;
+    static const invariant32_t invariant32 = { .u32 = 0x03020100 };
+
     /** endless is a template function for extracting bytes from 32 bit longs.
+     *
+     * \param a32 a 32 bit wide unsigned int value from which to extract bytes.
+     * \param off an index (between 0 and 3) byte position within a32.
+     *
      * endless(a_32_bit_value, unsigned_between_0_and_3)
      * returns a reference to the same-valued byte invariant of endianness.
      */
-    template<typename L, typename B>
-    B& endless(L& wide, const size_t index) {
+    template<typename B, typename L>
+    B& endless(L& a32, const size_t off) {
         /**
          * These indices address the byte containing the same value in 32 bits
          * regardless of machine endianness because the endian index setter
@@ -66,11 +76,11 @@ namespace jlettvin {
          * The extra cost is one instruction for one extra indirection.
          *
          * size_t funny = 0x76543210;
-         * cout << hex << endless(funny, 0); // will output 10 on all machines.
+         * cout << hex << endless(funny, 0); // outputs 10 on all machines.
+         * cout << hex << endless(funny, 3); // outputs 76 on all machines.
+         * endless(joy, 3) = 0x98;           // always replaces 76 with 98.
         */
-        typedef union { char32_t wide; ubyte_t thin[4]; } invariant;
-        static const invariant u = { .wide = 0x03020100 };
-        return reinterpret_cast<invariant>(wide).thin[u.thin[index]];
+        return reinterpret_cast<invariant32_t>(a32).u8[invariant32.u8[off]];
     }
 
     /** \brief enable use of cout << T << std::endl;
