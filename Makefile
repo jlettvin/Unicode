@@ -62,7 +62,7 @@ all:	begin $(LIBRARY) out lint valgrind doxygen end
 # DO NOT DELETE .txt files.
 .PHONY:
 clean:
-	@rm -f *.o *.out *.lint *.valgrind
+	@rm -f *.o *.out *.err *.lint *.valgrind
 	@rm -f test_Unicode test_Node test_Tree haiku
 	@rm -f $(LIBRARY)
 	@rm -fr test_*.dSYM
