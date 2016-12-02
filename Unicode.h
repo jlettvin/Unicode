@@ -266,6 +266,8 @@ err:    return static_cast<char32_t>(_);
      *
      * \param source a reference to a char32_t encoded elements.
      * \param target a reference to a UTF8 encoded string of 8 bit elements.
+     *
+     * Enhancement potential if pre-allocated and translated in-place.
      */
     inline void
     u32string_to_UTF8(const u32string& source, string& target) {

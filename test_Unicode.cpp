@@ -12,6 +12,7 @@
 
 using std::endl;
 using std::ifstream;
+using std::ofstream;
 using std::cout;
 
 using std::hex;
@@ -20,9 +21,12 @@ using std::setw;
 using std::setfill;
 
 using std::string;
+using std::u32string;
 
 using jlettvin::UTF8_to_char32_t;
 using jlettvin::char32_t_to_UTF8;
+using jlettvin::UTF8_to_u32string;
+using jlettvin::u32string_to_UTF8;
 
 void xlat(const char* arg, const size_t tail) {
 
@@ -79,17 +83,65 @@ int main(int argc, char **argv) {
     cout << boilerplate_tail;
 }
 
+static string failpass[2] = {"[FAIL]", "[PASS]"};
+
+void test_data(char*& buffer, size_t& length) {
+    ifstream source;
+    source.open ("haiku.utf8.txt", std::ios::in | std::ios::binary);
+    source.seekg (0, std::ios::end);
+    length = source.tellg();
+    source.seekg (0, std::ios::beg);
+    buffer = new char [length];
+    source.read(buffer, length);
+    source.close();
+}
+
+void test_1() {
+    char *buffer;
+    size_t length;
+    test_data(buffer, length);
+    xlat(buffer, length);
+}
+
+void test_2() {
+    char* buffer;
+    u32string target;
+    size_t length;
+
+    test_data(buffer, length);
+    string before(buffer), after;
+
+    UTF8_to_u32string(buffer, target);
+    u32string_to_UTF8(target, after);
+    after += "\n";  ///< TODO final endl missing in translation (BUG)
+
+    ofstream store;
+    store.open("haiku.utf8.err", std::ios::out | std::ios::binary);
+    store.write(after.c_str(), length);
+    store.close();
+
+    cout <<
+        "/* " <<
+        failpass[static_cast<size_t>(length == after.length())] <<
+        " string lengths should match after forward/reverse translation." <<
+        " */" <<
+        endl;
+    cout <<
+        "/* " <<
+        failpass[static_cast<size_t>(0 == after.compare(before))] <<
+        " string contents should match after forward/reverse translation." <<
+        " */" <<
+        endl;
+}
+
+void test() {
+    test_1();
+    test_2();
+}
+
 int main(int argc, char **argv) {
     if (argc == 1) {
-        ifstream source;
-        source.open ("haiku.utf8.txt", std::ios::in | std::ios::binary);
-        source.seekg (0, std::ios::end);
-        size_t length = source.tellg();
-        source.seekg (0, std::ios::beg);
-        char* buffer = new char [length];
-        source.read(buffer, length);
-        xlat(buffer, length);
-        source.close();
+        test();
     } else {
         while (--argc) {
             char* arg = *++argv;

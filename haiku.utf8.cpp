@@ -125,3 +125,5 @@ int main(int argc, char **argv) {
 
     return(0);
 }
+/* [PASS] string lengths should match after forward/reverse translation. */
+/* [PASS] string contents should match after forward/reverse translation. */
