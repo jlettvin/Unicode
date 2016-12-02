@@ -55,7 +55,10 @@ namespace jlettvin {
     /**
      * invariant32_t type and invariant32 union support the endless function.
      */
-    typedef union { char32_t u32; ubyte_t u8[4]; } invariant32_t;
+    typedef union {
+        char32_t u32;   ///< a 32 bit unsigned
+        ubyte_t u8[4];  ///< 4 8 bit unsigneds
+    } invariant32_t;
     static const invariant32_t invariant32 = { .u32 = 0x03020100 };
 
     /** endless is a template function for extracting bytes from 32 bit longs.

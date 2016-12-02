@@ -18,7 +18,7 @@ dictionary equivalent interface\+: high performance u32string lookup.
 \begin{DoxyCompactList}\small\item\em Destructor has no responsibilities. \end{DoxyCompactList}\item 
 size\+\_\+t \hyperlink{classjlettvin_1_1_tree_a1edf6251d8a3aa6a3a40d261339b83c6}{size} () const 
 \begin{DoxyCompactList}\small\item\em Size is best retrieved from the count of dictionary keys. \end{DoxyCompactList}\item 
-const vprustr \& \hyperlink{classjlettvin_1_1_tree_a65746e86398aa8215481ffafdd8fa02d}{peek} (const ustr \&token) const 
+const mu32 \& \hyperlink{classjlettvin_1_1_tree_a16e739590aa05b017eb2b058a00b62ae}{peek} (const ustr \&token) const 
 \begin{DoxyCompactList}\small\item\em peek O(\+N) lookup around which this class is focused. \end{DoxyCompactList}\item 
 void \hyperlink{classjlettvin_1_1_tree_a3ffabbc1a6b81df085827f3ed851f061}{poke} (const ustr \&token, const ustr \&canonical=empty, const float score=1.\+0)
 \begin{DoxyCompactList}\small\item\em poke O(\+N) table and backup dict insertion. \end{DoxyCompactList}\item 
@@ -73,13 +73,13 @@ Delete a codepoint\+:association from table and dict
 {\em token} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classjlettvin_1_1_tree_a65746e86398aa8215481ffafdd8fa02d}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!peek@{peek}}
+\hypertarget{classjlettvin_1_1_tree_a16e739590aa05b017eb2b058a00b62ae}{}\index{jlettvin\+::\+Tree@{jlettvin\+::\+Tree}!peek@{peek}}
 \index{peek@{peek}!jlettvin\+::\+Tree@{jlettvin\+::\+Tree}}
-\subsubsection[{peek(const ustr \&token) const }]{\setlength{\rightskip}{0pt plus 5cm}const Tree\+::vprustr \& Tree\+::peek (
+\subsubsection[{peek(const ustr \&token) const }]{\setlength{\rightskip}{0pt plus 5cm}const Tree\+::mu32 \& Tree\+::peek (
 \begin{DoxyParamCaption}
 \item[{const ustr \&}]{token}
 \end{DoxyParamCaption}
-) const}\label{classjlettvin_1_1_tree_a65746e86398aa8215481ffafdd8fa02d}
+) const}\label{classjlettvin_1_1_tree_a16e739590aa05b017eb2b058a00b62ae}
 
 
 peek O(\+N) lookup around which this class is focused. 

@@ -45,7 +45,8 @@ namespace jlettvin {
     // public:
     /** \brief Constructor
      */
-    Tree::Tree() { }
+    Tree::Tree() : table(1, new Node())
+    { }
 
     /** \brief Destructor has no responsibilities */
     Tree::~Tree() { }
@@ -59,9 +60,14 @@ namespace jlettvin {
      * \param token
      * \return assoc
      */
-    const Tree::vprustr& Tree::peek(const Tree::ustr& token) const {
-        cout << sizeof(token) << endl;
-        return none;
+    const Tree::mu32& Tree::peek(const Tree::ustr& token) const {
+        size_t last = 0, next = 0;
+        for (ustr_iter iter = token.begin(); iter != token.end(); ++iter) {
+            const codepoint_t& codepoint = *iter;
+            next = table[last]->peek(codepoint);
+            if (next == 0) return blank;
+        }
+        return candidate[next];
     }
 
     /** \brief poke O(N) table and backup dict insertion.
@@ -74,10 +80,25 @@ namespace jlettvin {
             const Tree::ustr& canonical,
             const float score)
     {
-        cout <<
-            sizeof(token) <<
-            '(' << sizeof(canonical) << ')' <<
-            score << endl;
+        size_t last = 0, next = 0;
+        for (ustr_iter iter = token.begin(); iter != token.end(); ++iter) {
+            const codepoint_t& codepoint = *iter;
+            next = table[last]->peek(codepoint);
+            if (next == 0) {
+                size_t size = table.size();
+                table.push_back(new Node());
+                table[last]->poke(codepoint, size);
+                last = next;
+                next = size;
+            }
+        }
+        size_t outer = table[next]->peek(sentinel);
+        if (outer == 0) {
+            outer = candidate.size();
+            candidate.resize(outer+1);
+            table[next]->poke(sentinel, outer);
+        }
+        candidate[outer][canonical != empty ? canonical : token] = score;
     }
 
     /** \brief drop mechanism for removing a codepoint:assoc from the loopup.

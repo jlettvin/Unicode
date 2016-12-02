@@ -104,45 +104,56 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">using</span> std::map;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">using</span> std::pair;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">/* Prefix string literal with U to make it 32bit wide: U&quot;hello world&quot; */</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">using</span> <a class="code" href="classjlettvin_1_1_node.html">jlettvin::Node</a>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classjlettvin_1_1_tree.html">   51</a></span>&#160;<span class="keyword">class </span><a class="code" href="classjlettvin_1_1_tree.html">Tree</a> {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;     <span class="keyword">typedef</span> u32string ustr;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;     <span class="keyword">typedef</span> vector&lt;ustr&gt; vustr;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;     <span class="keyword">typedef</span> pair&lt;u32string, float&gt; prustr;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;     <span class="keyword">typedef</span> vector&lt;prustr&gt; vprustr;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;     <span class="keyword">static</span> <span class="keyword">const</span> vprustr* nonep;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;     <span class="keyword">static</span> <span class="keyword">const</span> vprustr&amp; none;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;     <span class="keyword">static</span> <span class="keyword">const</span> ustr empty;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="classjlettvin_1_1_tree.html#ad376a7c639d857312f5de2ef47482f68">Tree</a>();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="classjlettvin_1_1_tree.html#abdc38545cf3f588725b5d8b8075b3866">~Tree</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">size_t</span> <a class="code" href="classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/* Prefix string literal with U to make it 32bit wide: U&quot;hello world&quot; */</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classjlettvin_1_1_tree.html">   53</a></span>&#160;<span class="keyword">class </span><a class="code" href="classjlettvin_1_1_tree.html">Tree</a> {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;     <span class="keyword">typedef</span> u32string ustr;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;     <span class="keyword">typedef</span> ustr::const_iterator ustr_iter;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;     <span class="keyword">typedef</span> vector&lt;ustr&gt; vustr;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;     <span class="keyword">typedef</span> pair&lt;u32string, float&gt; prustr;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;     <span class="keyword">typedef</span> vector&lt;prustr *&gt; vprustr;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;     <span class="keyword">typedef</span> vector&lt; vector&lt;size_t&gt; &gt; vvi;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;     <span class="keyword">typedef</span> map&lt;u32string, float&gt; mu32;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;     <span class="keyword">typedef</span> vector&lt;mu32&gt; vmu32;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;     <span class="keyword">static</span> <span class="keyword">const</span> vprustr* nonep;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;     <span class="keyword">static</span> <span class="keyword">const</span> vprustr&amp; none;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;     <span class="keyword">static</span> <span class="keyword">const</span> ustr empty;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;     vector&lt;Node *&gt; table;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;     vmu32 candidate;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;     mu32 blank;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> vprustr&amp; <a class="code" href="classjlettvin_1_1_tree.html#a65746e86398aa8215481ffafdd8fa02d">peek</a>(<span class="keyword">const</span> ustr&amp; token) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classjlettvin_1_1_tree.html#a3ffabbc1a6b81df085827f3ed851f061">poke</a>(</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <span class="keyword">const</span> ustr&amp; token,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keyword">const</span> ustr&amp; canonical = empty,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> score=1.0);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classjlettvin_1_1_tree.html#af6eacfd1dc52c39d9363857ea9aa6ac9">drop</a>(<span class="keyword">const</span> ustr&amp; token);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}  <span class="comment">// namespace jlettvin</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif  // TREE_H_</span></div>
-<div class="ttc" id="classjlettvin_1_1_tree_html_abdc38545cf3f588725b5d8b8075b3866"><div class="ttname"><a href="classjlettvin_1_1_tree.html#abdc38545cf3f588725b5d8b8075b3866">jlettvin::Tree::~Tree</a></div><div class="ttdeci">~Tree()</div><div class="ttdoc">Destructor has no responsibilities. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:51</div></div>
-<div class="ttc" id="classjlettvin_1_1_tree_html_a65746e86398aa8215481ffafdd8fa02d"><div class="ttname"><a href="classjlettvin_1_1_tree.html#a65746e86398aa8215481ffafdd8fa02d">jlettvin::Tree::peek</a></div><div class="ttdeci">const vprustr &amp; peek(const ustr &amp;token) const </div><div class="ttdoc">peek O(N) lookup around which this class is focused. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:62</div></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="classjlettvin_1_1_tree.html#ad376a7c639d857312f5de2ef47482f68">Tree</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="classjlettvin_1_1_tree.html#abdc38545cf3f588725b5d8b8075b3866">~Tree</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordtype">size_t</span> <a class="code" href="classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">const</span> mu32&amp; <a class="code" href="classjlettvin_1_1_tree.html#a16e739590aa05b017eb2b058a00b62ae">peek</a>(<span class="keyword">const</span> ustr&amp; token) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classjlettvin_1_1_tree.html#a3ffabbc1a6b81df085827f3ed851f061">poke</a>(</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                <span class="keyword">const</span> ustr&amp; token,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keyword">const</span> ustr&amp; canonical = empty,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> score=1.0);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classjlettvin_1_1_tree.html#af6eacfd1dc52c39d9363857ea9aa6ac9">drop</a>(<span class="keyword">const</span> ustr&amp; token);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}  <span class="comment">// namespace jlettvin</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif  // TREE_H_</span></div>
+<div class="ttc" id="classjlettvin_1_1_tree_html_abdc38545cf3f588725b5d8b8075b3866"><div class="ttname"><a href="classjlettvin_1_1_tree.html#abdc38545cf3f588725b5d8b8075b3866">jlettvin::Tree::~Tree</a></div><div class="ttdeci">~Tree()</div><div class="ttdoc">Destructor has no responsibilities. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:52</div></div>
+<div class="ttc" id="classjlettvin_1_1_tree_html_a16e739590aa05b017eb2b058a00b62ae"><div class="ttname"><a href="classjlettvin_1_1_tree.html#a16e739590aa05b017eb2b058a00b62ae">jlettvin::Tree::peek</a></div><div class="ttdeci">const mu32 &amp; peek(const ustr &amp;token) const </div><div class="ttdoc">peek O(N) lookup around which this class is focused. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:63</div></div>
 <div class="ttc" id="namespacejlettvin_html"><div class="ttname"><a href="namespacejlettvin.html">jlettvin</a></div><div class="ttdoc">< cpplint complains even though existing file is included </div><div class="ttdef"><b>Definition:</b> Node.cpp:29</div></div>
 <div class="ttc" id="classjlettvin_1_1_tree_html_ad376a7c639d857312f5de2ef47482f68"><div class="ttname"><a href="classjlettvin_1_1_tree.html#ad376a7c639d857312f5de2ef47482f68">jlettvin::Tree::Tree</a></div><div class="ttdeci">Tree()</div><div class="ttdoc">Constructor. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:48</div></div>
-<div class="ttc" id="classjlettvin_1_1_tree_html"><div class="ttname"><a href="classjlettvin_1_1_tree.html">jlettvin::Tree</a></div><div class="ttdoc">dictionary equivalent interface: high performance u32string lookup. </div><div class="ttdef"><b>Definition:</b> Tree.h:51</div></div>
-<div class="ttc" id="classjlettvin_1_1_tree_html_a1edf6251d8a3aa6a3a40d261339b83c6"><div class="ttname"><a href="classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6">jlettvin::Tree::size</a></div><div class="ttdeci">size_t size() const </div><div class="ttdoc">Size is best retrieved from the count of dictionary keys. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:56</div></div>
-<div class="ttc" id="classjlettvin_1_1_tree_html_af6eacfd1dc52c39d9363857ea9aa6ac9"><div class="ttname"><a href="classjlettvin_1_1_tree.html#af6eacfd1dc52c39d9363857ea9aa6ac9">jlettvin::Tree::drop</a></div><div class="ttdeci">void drop(const ustr &amp;token)</div><div class="ttdoc">drop mechanism for removing a codepoint:assoc from the loopup. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:86</div></div>
-<div class="ttc" id="classjlettvin_1_1_tree_html_a3ffabbc1a6b81df085827f3ed851f061"><div class="ttname"><a href="classjlettvin_1_1_tree.html#a3ffabbc1a6b81df085827f3ed851f061">jlettvin::Tree::poke</a></div><div class="ttdeci">void poke(const ustr &amp;token, const ustr &amp;canonical=empty, const float score=1.0)</div><div class="ttdoc">poke O(N) table and backup dict insertion. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:72</div></div>
+<div class="ttc" id="classjlettvin_1_1_tree_html"><div class="ttname"><a href="classjlettvin_1_1_tree.html">jlettvin::Tree</a></div><div class="ttdoc">dictionary equivalent interface: high performance u32string lookup. </div><div class="ttdef"><b>Definition:</b> Tree.h:53</div></div>
+<div class="ttc" id="classjlettvin_1_1_node_html"><div class="ttname"><a href="classjlettvin_1_1_node.html">jlettvin::Node</a></div><div class="ttdoc">dictionary equivalent interface: high performance codepoint lookup. </div><div class="ttdef"><b>Definition:</b> Node.h:40</div></div>
+<div class="ttc" id="classjlettvin_1_1_tree_html_a1edf6251d8a3aa6a3a40d261339b83c6"><div class="ttname"><a href="classjlettvin_1_1_tree.html#a1edf6251d8a3aa6a3a40d261339b83c6">jlettvin::Tree::size</a></div><div class="ttdeci">size_t size() const </div><div class="ttdoc">Size is best retrieved from the count of dictionary keys. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:57</div></div>
+<div class="ttc" id="classjlettvin_1_1_tree_html_af6eacfd1dc52c39d9363857ea9aa6ac9"><div class="ttname"><a href="classjlettvin_1_1_tree.html#af6eacfd1dc52c39d9363857ea9aa6ac9">jlettvin::Tree::drop</a></div><div class="ttdeci">void drop(const ustr &amp;token)</div><div class="ttdoc">drop mechanism for removing a codepoint:assoc from the loopup. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:107</div></div>
+<div class="ttc" id="classjlettvin_1_1_tree_html_a3ffabbc1a6b81df085827f3ed851f061"><div class="ttname"><a href="classjlettvin_1_1_tree.html#a3ffabbc1a6b81df085827f3ed851f061">jlettvin::Tree::poke</a></div><div class="ttdeci">void poke(const ustr &amp;token, const ustr &amp;canonical=empty, const float score=1.0)</div><div class="ttdoc">poke O(N) table and backup dict insertion. </div><div class="ttdef"><b>Definition:</b> Tree.cpp:78</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

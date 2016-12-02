@@ -41,6 +41,8 @@ using std::u32string;
 using std::map;
 using std::pair;
 
+using jlettvin::Node;
+
 /* Prefix string literal with U to make it 32bit wide: U"hello world" */
 
 /** \class Tree
@@ -51,13 +53,21 @@ using std::pair;
 class Tree {
  private:
      typedef u32string ustr;
+     typedef ustr::const_iterator ustr_iter;
      typedef vector<ustr> vustr;
      typedef pair<u32string, float> prustr;
-     typedef vector<prustr> vprustr;
+     typedef vector<prustr *> vprustr;
+     typedef vector< vector<size_t> > vvi;
+     typedef map<u32string, float> mu32;
+     typedef vector<mu32> vmu32;
 
      static const vprustr* nonep;
      static const vprustr& none;
      static const ustr empty;
+
+     vector<Node *> table;
+     vmu32 candidate;
+     mu32 blank;
 
  public:
         /** Constructor for a Code Point Table for O(1) lookup */
@@ -70,7 +80,7 @@ class Tree {
         size_t size() const;
 
         /** Lookup index associated with table (0 means error) */
-        const vprustr& peek(const ustr& token) const;
+        const mu32& peek(const ustr& token) const;
 
         /** Insert a new codepoint:association pair into table and dict */
         void poke(

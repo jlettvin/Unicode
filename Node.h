@@ -45,7 +45,7 @@ class Node {
     size_t N;   ///< Count of subtable layers
 
     /** DRY start table from effectively empty */
-    void initialize();
+    void initialize(const bool force = true);
 
     /** insert/re-use layers for new codepoint:index associations */
     inline void layer(either_t* last, either_t* next, either_t index) {

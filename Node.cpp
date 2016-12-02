@@ -37,11 +37,13 @@ namespace jlettvin {
 
     // private:
     /** \brief DRY initializer */
-    void Node::initialize() {
-        T.clear();
-        T.push_back(subtable_t(8, 0L));
-        T.push_back(subtable_t(8, 0L));
-        N = 2;
+    void Node::initialize(bool force) {
+        if (T.size() == 0 or force) {
+            T.clear();
+            T.push_back(subtable_t(8, 0L));
+            T.push_back(subtable_t(8, 0L));
+            N = 2;
+        }
     }
 
     // public:
@@ -120,7 +122,7 @@ namespace jlettvin {
         iter = M.find(codepoint);
         if (codepoint > sentinel || iter == M.end()) return;
         M.erase(iter);
-        initialize();
+        initialize(true);
         for (iter=M.begin(); iter != M.end(); ++iter)
             this->poke(iter->first, iter->second);
     }
