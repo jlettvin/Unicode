@@ -17,9 +17,6 @@ class \hyperlink{classjlettvin_1_1_tree}{Tree}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}{}typedef unsigned char \hyperlink{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}{ubyte\+\_\+t}\label{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}
-
-\begin{DoxyCompactList}\small\item\em buffer element type \end{DoxyCompactList}\item 
 \hypertarget{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{}typedef size\+\_\+t \hyperlink{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}{codepoint\+\_\+t}\label{namespacejlettvin_a5c480560edc7a71c9f5ae6dad14e6fec}
 
 \begin{DoxyCompactList}\small\item\em clear type of codepoint \end{DoxyCompactList}\item 
@@ -52,9 +49,13 @@ class \hyperlink{classjlettvin_1_1_tree}{Tree}
 \hypertarget{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{}{\footnotesize template$<$typename T1 $>$ }\\ostream \& \hyperlink{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}{operator$<$$<$} (ostream \&o, const vector$<$ T1 $>$ \&v)\label{namespacejlettvin_ae776f6a66f5697c5cb2afb2c6efdbfd7}
 
 \begin{DoxyCompactList}\small\item\em enable use of cout $<$$<$ T $<$$<$ std\+::endl; \end{DoxyCompactList}\item 
-void \hyperlink{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8} (const char32\+\_\+t source, \hyperlink{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}{ubyte\+\_\+t} target\mbox{[}5\mbox{]})
+void \hyperlink{namespacejlettvin_a9aaf096d1b46552fd035d7886dd888c2}{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8} (const char32\+\_\+t source, char target\mbox{[}5\mbox{]})
 \item 
-char32\+\_\+t \hyperlink{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t} (const \hyperlink{namespacejlettvin_a7c7cf84f4fd67858c46a1077ed2e3ad4}{ubyte\+\_\+t} $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)
+char32\+\_\+t \hyperlink{namespacejlettvin_a7daeb72fd65e79c5906c485000416058}{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t} (const string \&buf, size\+\_\+t \&head, const size\+\_\+t tail)
+\item 
+void \hyperlink{namespacejlettvin_a431335096054ddc3a7b2e9132e068e53}{U\+T\+F8\+\_\+to\+\_\+u32string} (const string \&source, u32string \&target)
+\item 
+void \hyperlink{namespacejlettvin_a0f05981382a343493790771667e1f0af}{u32string\+\_\+to\+\_\+\+U\+T\+F8} (const u32string \&source, string \&target)
 \end{DoxyCompactItemize}
 
 
@@ -62,14 +63,14 @@ char32\+\_\+t \hyperlink{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{U\
 $<$ cpplint complains even though existing file is included 
 
 \subsection{Function Documentation}
-\hypertarget{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}{}\index{jlettvin@{jlettvin}!char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8@{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8}}
+\hypertarget{namespacejlettvin_a9aaf096d1b46552fd035d7886dd888c2}{}\index{jlettvin@{jlettvin}!char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8@{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8}}
 \index{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8@{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8}!jlettvin@{jlettvin}}
-\subsubsection[{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8(const char32\+\_\+t source, ubyte\+\_\+t target[5])}]{\setlength{\rightskip}{0pt plus 5cm}void jlettvin\+::char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8 (
+\subsubsection[{char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8(const char32\+\_\+t source, char target[5])}]{\setlength{\rightskip}{0pt plus 5cm}void jlettvin\+::char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8 (
 \begin{DoxyParamCaption}
 \item[{const char32\+\_\+t}]{source, }
-\item[{{\bf ubyte\+\_\+t}}]{target\mbox{[}5\mbox{]}}
+\item[{char}]{target\mbox{[}5\mbox{]}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_ab09212af893947acc85d4e6138b60ba2}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_a9aaf096d1b46552fd035d7886dd888c2}
 char32\+\_\+t\+\_\+to\+\_\+\+U\+T\+F8 converts internal 32 bit codepoints to U\+T\+F8.
 
 
@@ -100,15 +101,32 @@ endless is a template function for extracting bytes from 32 bit longs.
 \end{DoxyParams}
 endless(a\+\_\+32\+\_\+bit\+\_\+value, unsigned\+\_\+between\+\_\+0\+\_\+and\+\_\+3) returns a reference to the same-\/valued byte invariant of endianness. These indices address the byte containing the same value in 32 bits regardless of machine endianness because the endian index setter has the index values jammed together such that they split out into the correct indices. The extra cost is one instruction for one extra indirection.
 
-size\+\_\+t funny = 0x76543210; cout $<$$<$ hex $<$$<$ endless(funny, 0); // outputs 10 on all machines. cout $<$$<$ hex $<$$<$ endless(funny, 3); // outputs 76 on all machines. endless(joy, 3) = 0x98; // always replaces 76 with 98.\hypertarget{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}}
-\index{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}!jlettvin@{jlettvin}}
-\subsubsection[{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t(const ubyte\+\_\+t $\ast$buf, size\+\_\+t \&head, const size\+\_\+t tail)}]{\setlength{\rightskip}{0pt plus 5cm}char32\+\_\+t jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t (
+size\+\_\+t funny = 0x76543210; cout $<$$<$ hex $<$$<$ endless(funny, 0); // outputs 10 on all machines. cout $<$$<$ hex $<$$<$ endless(funny, 3); // outputs 76 on all machines. endless(joy, 3) = 0x98; // always replaces 76 with 98.\hypertarget{namespacejlettvin_a0f05981382a343493790771667e1f0af}{}\index{jlettvin@{jlettvin}!u32string\+\_\+to\+\_\+\+U\+T\+F8@{u32string\+\_\+to\+\_\+\+U\+T\+F8}}
+\index{u32string\+\_\+to\+\_\+\+U\+T\+F8@{u32string\+\_\+to\+\_\+\+U\+T\+F8}!jlettvin@{jlettvin}}
+\subsubsection[{u32string\+\_\+to\+\_\+\+U\+T\+F8(const u32string \&source, string \&target)}]{\setlength{\rightskip}{0pt plus 5cm}void jlettvin\+::u32string\+\_\+to\+\_\+\+U\+T\+F8 (
 \begin{DoxyParamCaption}
-\item[{const {\bf ubyte\+\_\+t} $\ast$}]{buf, }
+\item[{const u32string \&}]{source, }
+\item[{string \&}]{target}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_a0f05981382a343493790771667e1f0af}
+u32string\+\_\+to\+\_\+\+U\+T\+F8
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & a reference to a char32\+\_\+t encoded elements. \\
+\hline
+{\em target} & a reference to a U\+T\+F8 encoded string of 8 bit elements. \\
+\hline
+\end{DoxyParams}
+\hypertarget{namespacejlettvin_a7daeb72fd65e79c5906c485000416058}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}}
+\index{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t@{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t}!jlettvin@{jlettvin}}
+\subsubsection[{U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t(const string \&buf, size\+\_\+t \&head, const size\+\_\+t tail)}]{\setlength{\rightskip}{0pt plus 5cm}char32\+\_\+t jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+char32\+\_\+t (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{buf, }
 \item[{size\+\_\+t \&}]{head, }
 \item[{const size\+\_\+t}]{tail}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_ae1f5a0c22c3f8c9eecb88f086bcbcc30}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_a7daeb72fd65e79c5906c485000416058}
 U\+T\+F8\+\_\+to\+\_\+32 converts U\+T\+F8 to internal 32 bit codepoint value.
 
 
@@ -124,4 +142,20 @@ This function is designed to make conversion efficient. It uses the gnu c++ comp
 
 Review of a least and most costly execution in opcode counts. No stack frame is generated or discarded (inline). The caller provides room in its stack frame for this function. Least\+: 2 opcodes\+: compare head to tail, goto err; 2 opcodes\+: cast byte 0 to 32 bit return (essentially a goto) Most\+: 2 opcodes\+: compare head to tail goto ingest 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto enough 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto a1e 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto db 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dc 6 opcodes\+: dereference byte, increment, shift, mask, cast, goto dd 2 opcodes\+: update head, return 34 total opcodes
 
-T\+O\+D\+O fix so it works 
+T\+O\+D\+O fix so it works \hypertarget{namespacejlettvin_a431335096054ddc3a7b2e9132e068e53}{}\index{jlettvin@{jlettvin}!U\+T\+F8\+\_\+to\+\_\+u32string@{U\+T\+F8\+\_\+to\+\_\+u32string}}
+\index{U\+T\+F8\+\_\+to\+\_\+u32string@{U\+T\+F8\+\_\+to\+\_\+u32string}!jlettvin@{jlettvin}}
+\subsubsection[{U\+T\+F8\+\_\+to\+\_\+u32string(const string \&source, u32string \&target)}]{\setlength{\rightskip}{0pt plus 5cm}void jlettvin\+::\+U\+T\+F8\+\_\+to\+\_\+u32string (
+\begin{DoxyParamCaption}
+\item[{const string \&}]{source, }
+\item[{u32string \&}]{target}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{namespacejlettvin_a431335096054ddc3a7b2e9132e068e53}
+U\+T\+F8\+\_\+to\+\_\+u32string
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & a reference to a U\+T\+F8 encoded string of 8 bit elements. \\
+\hline
+{\em target} & a reference to a char32\+\_\+t encoded elements. \\
+\hline
+\end{DoxyParams}

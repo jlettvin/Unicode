@@ -21,7 +21,6 @@ using std::setfill;
 
 using std::string;
 
-using jlettvin::ubyte_t;
 using jlettvin::UTF8_to_char32_t;
 using jlettvin::char32_t_to_UTF8;
 
@@ -36,12 +35,11 @@ void xlat(const char* arg, const size_t tail) {
 using std::cout;
 using std::endl;
 
-using jlettvin::ubyte_t;
 using jlettvin::UTF8_to_char32_t;
 using jlettvin::char32_t_to_UTF8;
 
 void show(const char32_t* text) {
-    ubyte_t buf[5];
+    char buf[5];
     char32_t c32;
     for (size_t i = 0; 0 != ( c32 = text[i]); ++i) {
         char32_t_to_UTF8(c32, buf);
@@ -63,7 +61,7 @@ int main(int argc, char **argv) {
     static const char* begin = "    show(U\"";
     static const size_t width = 8;
 
-    const unsigned char* buffer = reinterpret_cast<const unsigned char*>(arg);
+    const char* buffer = reinterpret_cast<const char*>(arg);
     size_t head = 0;
     cout << boilerplate_head;
     cout << begin;

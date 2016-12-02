@@ -19,11 +19,14 @@
  *
  * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  *
+ * BACKGROUND:
+ *  http://lemire.me/blog/2012/06/20/do-not-waste-time-with-stl-vectors/
  */
 
 #include <iostream>
 #include <bitset>
 #include <vector>
+#include <string>
 #include <map>
 
 namespace jlettvin {
@@ -36,8 +39,8 @@ namespace jlettvin {
     using std::setfill;
     using std::ostream;
     using std::bitset;
-
-    typedef unsigned char ubyte_t;                   ///< buffer element type
+    using std::string;
+    using std::u32string;
 
     typedef size_t codepoint_t;                   ///< clear type of codepoint
     typedef size_t target_t;                      ///< clear type of result
@@ -56,8 +59,8 @@ namespace jlettvin {
      * invariant32_t type and invariant32 union support the endless function.
      */
     typedef union {
-        char32_t u32;   ///< a 32 bit unsigned
-        ubyte_t u8[4];  ///< 4 8 bit unsigneds
+        char32_t    u32;    ///< a 32 bit unsigned
+        char        u8[4];  ///< 4 8 bit unsigneds
     } invariant32_t;
     static const invariant32_t invariant32 = { .u32 = 0x03020100 };
 
@@ -83,7 +86,9 @@ namespace jlettvin {
          * cout << hex << endless(funny, 3); // outputs 76 on all machines.
          * endless(joy, 3) = 0x98;           // always replaces 76 with 98.
         */
-        return reinterpret_cast<invariant32_t>(a32).u8[invariant32.u8[off]];
+        return reinterpret_cast<invariant32_t>(a32).u8[
+            static_cast<size_t>(invariant32.u8[off])
+            ];
     }
 
     /** \brief enable use of cout << T << std::endl;
@@ -113,28 +118,32 @@ namespace jlettvin {
      * Branch points are avoided.
      * Maximum cost is 23 Intel opcodes.
      */
-    inline void char32_t_to_UTF8(const char32_t source, ubyte_t target[5]) {
-        target[4] = target[3] = target[2] = target[1] = target[0] = 0;
-        static const void *assemble[] = {&&u7, &&u11, &&u16, &&u21};
+    inline void char32_t_to_UTF8(const char32_t source, char target[5]) {
+        static const void *assemble[] = {&&u7, &&u11, &&u16, &&u21, &&err};
         goto *assemble[
             static_cast<size_t>(source > 0x7f) +
             static_cast<size_t>(source > 0x7ff) +
-            static_cast<size_t>(source > 0xffff)];
-u7:     target[0] = static_cast<ubyte_t>(source);
+            static_cast<size_t>(source > 0xffff) +
+            static_cast<size_t>(source > sentinel)];
+u7:     target[0] = static_cast<char>(source);
+        target[1] = 0;
         return;
-u11:    target[0] = 0xC0 + static_cast<ubyte_t>((source >> 0x06) & 0x1f);
-        target[1] = 0x80 + static_cast<ubyte_t>((source        ) & 0x3f);
+u11:    target[0] = 0xC0 + static_cast<char>((source >> 0x06) & 0x1f);
+        target[1] = 0x80 + static_cast<char>((source        ) & 0x3f);
+        target[2] = 0;
         return;
-u16:    target[0] = 0xE0 + static_cast<ubyte_t>((source >> 0x0c) & 0x0f);
-        target[1] = 0x80 + static_cast<ubyte_t>((source >> 0x06) & 0x3f);
-        target[2] = 0x80 + static_cast<ubyte_t>((source        ) & 0x3f);
+u16:    target[0] = 0xE0 + static_cast<char>((source >> 0x0c) & 0x0f);
+        target[1] = 0x80 + static_cast<char>((source >> 0x06) & 0x3f);
+        target[2] = 0x80 + static_cast<char>((source        ) & 0x3f);
+        target[3] = 0;
         return;
-u21:    target[0] = 0xF0 + static_cast<ubyte_t>((source >> 0x12) & 0x07);
-        target[1] = 0x80 + static_cast<ubyte_t>((source >> 0x0c) & 0x3f);
-        target[2] = 0x80 + static_cast<ubyte_t>((source >> 0x06) & 0x3f);
-        target[3] = 0x80 + static_cast<ubyte_t>((source        ) & 0x3f);
+u21:    target[0] = 0xF0 + static_cast<char>((source >> 0x12) & 0x07);
+        target[1] = 0x80 + static_cast<char>((source >> 0x0c) & 0x3f);
+        target[2] = 0x80 + static_cast<char>((source >> 0x06) & 0x3f);
+        target[3] = 0x80 + static_cast<char>((source        ) & 0x3f);
+        target[4] = 0;
         return;
-
+err:    target[0] = 0;
     }
 
     // UTF8 Bytes being translated have this pattern with bit indices
@@ -173,7 +182,7 @@ u21:    target[0] = 0xF0 + static_cast<ubyte_t>((source >> 0x12) & 0x07);
      * TODO fix so it works
      */
     inline char32_t
-    UTF8_to_char32_t(const ubyte_t *buf, size_t& head, const size_t tail) {
+    UTF8_to_char32_t(const string& buf, size_t& head, const size_t tail) {
         // hello="hello"; hello[head] == 'h'; hello[tail] == '\0';
         static const size_t need[] = {
             // The number of bytes needed for an ingest act is specified here.
@@ -207,7 +216,7 @@ u21:    target[0] = 0xF0 + static_cast<ubyte_t>((source >> 0x12) & 0x07);
 
         size_t off = head, high;
         char32_t _ = 0;
-        ubyte_t a, b, c, d;
+        char a, b, c, d;
 
         goto *headed[static_cast<size_t>(head < tail)];
 ingest: a = buf[off++];
@@ -235,5 +244,36 @@ bb:     _ = (static_cast<char32_t>(a & 0x1f) << 0x06) +
 a00:    _ = static_cast<char32_t>(a);
         head = off; return _;
 err:    return static_cast<char32_t>(_);
+    }
+
+    /** UTF8_to_u32string
+     *
+     * \param source a reference to a UTF8 encoded string of 8 bit elements.
+     * \param target a reference to a char32_t encoded elements.
+     */
+    inline void
+    UTF8_to_u32string(const string& source, u32string& target) {
+        size_t head = 0, tail = source.length();
+        while (head < tail) {
+            char32_t c = UTF8_to_char32_t(source, head, tail);
+            if (!c) break;
+            target += c;
+        }
+        target += char32_t(0);
+    }
+
+    /** u32string_to_UTF8
+     *
+     * \param source a reference to a char32_t encoded elements.
+     * \param target a reference to a UTF8 encoded string of 8 bit elements.
+     */
+    inline void
+    u32string_to_UTF8(const u32string& source, string& target) {
+        char buf[5];
+        u32string::const_iterator iter;
+        for (iter = source.begin(); iter != source.end(); ++iter) {
+            char32_t_to_UTF8(*iter, buf);
+            target += buf;
+        }
     }
 }

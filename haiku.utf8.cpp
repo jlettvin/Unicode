@@ -6,12 +6,11 @@
 using std::cout;
 using std::endl;
 
-using jlettvin::ubyte_t;
 using jlettvin::UTF8_to_char32_t;
 using jlettvin::char32_t_to_UTF8;
 
 void show(const char32_t* text) {
-    ubyte_t buf[5];
+    char buf[5];
     char32_t c32;
     for (size_t i = 0; 0 != ( c32 = text[i]); ++i) {
         char32_t_to_UTF8(c32, buf);

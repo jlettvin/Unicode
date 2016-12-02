@@ -18,8 +18,14 @@ int main(int argc, char **argv) {
     using jlettvin::Node;
     using jlettvin::Tree;
 
+    Tree tree = Tree();
+
     if (argc > 1) {
-        while (--argc) cout << *++argv;  ///< Gets rid of "unused" warning.
+        while (--argc) {
+            char *word = *++argv;
+            //tree.poke(word);
+            cout << ' ' << word;  ///< Gets rid of "unused" warning.
+        }
         cout << endl;
     }
 
