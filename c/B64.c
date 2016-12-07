@@ -41,7 +41,7 @@ static const struct {
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
 };
 
-inline void B64_decode(const char* src, char* tgt) {
+void B64_decode(const char* src, char* tgt) {
 #define __NEXT(N) U = (uint_t)(d=*src++); goto *Z[N][(!d) || (d == '=')]
     static const void *Z[4][2] =
         { {&&B, &&F}, {&&C, &&F}, {&&D, &&F}, {&&E, &&F} };
@@ -58,7 +58,7 @@ F:  *tgt = 0;
     return;
 }
 
-inline void B64_encode(const char* src, char *tgt) {
+void B64_encode(const char* src, char *tgt) {
     static const void *Z[4][2] =
         { {&&B, &&E0}, {&&C, &&E2}, {&&D, &&E1}, {&&A, &&E0} };
     const char* talx = B64_static.talx;
