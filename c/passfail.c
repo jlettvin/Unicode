@@ -8,6 +8,7 @@ void passfail(const int T, const char* message) {
     static int count[2] = {0, 0};
     if (message[0] == 0) {
         printf("%s %d\t", pf[0], count[0]);
+        if (count[1]) puts("");
         printf("%s %d\t", pf[1], count[1]);
         puts("RESULT");
     } else {
