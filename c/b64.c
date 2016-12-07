@@ -1,4 +1,5 @@
 /* B64.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* https://en.wikipedia.org/wiki/Base64 */
 #include <stdio.h>
 
 #include "B64.h"
@@ -15,26 +16,36 @@
 
 typedef unsigned int uint_t;
 
-void B64_decode(const char* src, char* tgt) {
-#define __3 __, __, __
-#define __6 __3, __3
-#define __43 __6, __6, __6, __6, __6, __6, __6, __
-#define __133 __43, __43, __43, __3, __
+static const struct {
+    unsigned char xlat[256];
+    char talx[66];
+} B64_static = {
+    {
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 62, 99, 99, 99, 63,
+        52, 53, 54, 55, 56, 57, 58, 59,  60, 61, 99, 99, 99, 64, 99, 99,
+        99,  0,  1,  2,  3,  4,  5,  6,   7,  8,  9, 10, 11, 12, 13, 14,
+        15, 16, 17, 18, 19, 20, 21, 22,  23, 24, 25, 99, 99, 99, 99, 99,
+        99, 26, 27, 28, 29, 30, 31, 32,  33, 34, 35, 36, 37, 38, 39, 40,
+        41, 42, 43, 44, 45, 46, 47, 48,  49, 50, 51, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
+        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99
+    },
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+};
+
+inline void B64_decode(const char* src, char* tgt) {
 #define __NEXT(N) U = (uint_t)(d=*src++); goto *Z[N][(!d) || (d == '=')]
-    static const char __ = 0;
-    static const unsigned char xlat[256] = {
-        __43, 62,
-        __3 , 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61,
-        __3 , 64,
-        __3 , 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11,
-        12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-        __6 , 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-        38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-        __133
-    };
-    static const void *Z[4][2] = {
-        {&&B, &&F}, {&&C, &&F}, {&&D, &&F}, {&&E, &&F}
-    };
+    static const void *Z[4][2] =
+        { {&&B, &&F}, {&&C, &&F}, {&&D, &&F}, {&&E, &&F} };
+    const unsigned char* xlat = B64_static.xlat;
     char d, m;
     uint_t U;
 A:  __NEXT(0);
@@ -43,31 +54,22 @@ C:  m = xlat[U]; *tgt |= m >> 4; *++tgt = m << 4; __NEXT(2);
 D:  m = xlat[U]; *tgt |= m >> 2; *++tgt = m << 6; __NEXT(3);
 E:  m = xlat[U]; *tgt |= m     ; *++tgt = m     ;   goto A;
 F:  *tgt = 0;
-#undef __3
-#undef __6
-#undef __43
-#undef __133
 #undef __NEXT
     return;
 }
 
-void B64_encode(const char* src, char *tgt) {
-    static const char* c64 = ""
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz"
-        "0123456789"
-        "+/=";
-    static const void *Z[4][2] = {
-        {&&B, &&E0}, {&&C, &&E2}, {&&D, &&E1}, {&&A, &&E0}
-    };
+inline void B64_encode(const char* src, char *tgt) {
+    static const void *Z[4][2] =
+        { {&&B, &&E0}, {&&C, &&E2}, {&&D, &&E1}, {&&A, &&E0} };
+    const char* talx = B64_static.talx;
     char s, t;
 A:  s = *src++; goto *Z[0][!s];
-B:  *tgt++ = c64[    (s >> 2)]; t = (s & 0x3) << 4;
-    *tgt = c64[t & 0xff]; s = *src++; goto *Z[1][!s];
-C:  *tgt++ = c64[t | (s >> 4)]; t = (s & 0xf) << 2; *tgt = c64[t & 0xff];
+B:  *tgt++ = talx[    (s >> 2)]; t = (s & 0x3) << 4;
+    *tgt = talx[t & 0xff]; s = *src++; goto *Z[1][!s];
+C:  *tgt++ = talx[t | (s >> 4)]; t = (s & 0xf) << 2; *tgt = talx[t & 0xff];
     s = *src++; goto *Z[2][!s];
-D:  *tgt++ = c64[t | (s >> 6)];
-    *tgt++ = c64[(s & 0x3f)];
+D:  *tgt++ = talx[t | (s >> 6)];
+    *tgt++ = talx[(s & 0x3f)];
     goto *Z[3][!s];
 E2: *++tgt = '=';
 E1: *++tgt = '='; *++tgt = 0;
