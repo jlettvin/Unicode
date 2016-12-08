@@ -16,36 +16,28 @@
 
 typedef unsigned int uint_t;
 
-static const struct {
-    unsigned char xlat[256];
-    char talx[66];
+static struct {
+    char* talx;
+    char xlat[256];
 } B64_static = {
-    {
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 62, 99, 99, 99, 63,
-        52, 53, 54, 55, 56, 57, 58, 59,  60, 61, 99, 99, 99, 64, 99, 99,
-        99,  0,  1,  2,  3,  4,  5,  6,   7,  8,  9, 10, 11, 12, 13, 14,
-        15, 16, 17, 18, 19, 20, 21, 22,  23, 24, 25, 99, 99, 99, 99, 99,
-        99, 26, 27, 28, 29, 30, 31, 32,  33, 34, 35, 36, 37, 38, 39, 40,
-        41, 42, 43, 44, 45, 46, 47, 48,  49, 50, 51, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99,
-        99, 99, 99, 99, 99, 99, 99, 99,  99, 99, 99, 99, 99, 99, 99, 99
-    },
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    {}
 };
+
+__attribute__ ((constructor))
+void B64_init(void) {
+    // puts("B64_init");
+    char* talx = B64_static.talx;
+    char* xlat = B64_static.xlat;
+    for (int i=0; i<256; ++i) xlat[i] = 64;
+    for (int i=0; talx[i]; ++i) xlat[talx[i]&0xff] = i;
+}
 
 void B64_decode(const char* src, char* tgt) {
 #define __NEXT(N) U = (uint_t)(d=*src++); goto *Z[N][(!d) || (d == '=')]
     static const void *Z[4][2] =
         { {&&B, &&F}, {&&C, &&F}, {&&D, &&F}, {&&E, &&F} };
-    const unsigned char* xlat = B64_static.xlat;
+    char* xlat = B64_static.xlat;
     char d, m;
     uint_t U;
 A:  __NEXT(0);
@@ -61,7 +53,7 @@ F:  *tgt = 0;
 void B64_encode(const char* src, char *tgt) {
     static const void *Z[4][2] =
         { {&&B, &&E0}, {&&C, &&E2}, {&&D, &&E1}, {&&A, &&E0} };
-    const char* talx = B64_static.talx;
+    char* talx = B64_static.talx;
     char s, t;
 A:  s = *src++; goto *Z[0][!s];
 B:  *tgt++ = talx[    (s >> 2)]; t = (s & 0x3) << 4;
