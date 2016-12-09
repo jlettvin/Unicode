@@ -8,7 +8,7 @@ timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 
 CURDIR=.
 OOPTS=-O0 -Wall -Wextra -fPIC
-GOPTS=$(OOPTS) -g -coverage
+GOPTS=$(OOPTS) -g -coverage -pg
 COPTS=$(OOPTS)
 CSRCS=$(addsuffix .c,$(MODS))
 HSRCS=$(addsuffix .h,$(MODS))
@@ -48,7 +48,7 @@ all:	start Makefile doxygen lint test valgrind results $(LIBRARY) gcov end
 
 .PHONY:
 clean:
-	@-rm -f $(TESTS) *.o *.out *.valgrind *gcov* *gcda* *gcno* *.dylib
+	@-rm -f $(TESTS) *.o *.out *.valgrind *gcov* *gcda* *gcno* *.prof *.dylib
 	@$(call timestamp,$@)
 
 ###############################################################################
@@ -78,9 +78,6 @@ valgrind:	$(addsuffix .valgrind,$(TESTS))
 
 .PHONY:
 gcov: $(GCOVS)
-	@echo "Implement gcov execution"
-	@echo "See: https://gcc.gnu.org/onlinedocs/gcc/Gcov-Intro.html"
-	@echo "See: https://gcc.gnu.org/onlinedocs/gcc/Gcov.html"
 
 .PHONY:
 results:
@@ -121,6 +118,7 @@ PassFail.c.gcov: PassFail.c
 		$(basename $<).o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
+	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_PassFail.valgrind:	test_PassFail
@@ -144,6 +142,7 @@ B64.c.gcov: B64.c
 		PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
+	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_B64.valgrind:	test_B64
@@ -168,6 +167,7 @@ Endian.c.gcov: Endian.c
 		PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
+	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_Endian.valgrind:	test_Endian
@@ -192,6 +192,7 @@ Unicode.c.gcov: Unicode.c
 		B64.o PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
+	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_Unicode.valgrind:	test_Unicode
@@ -216,6 +217,7 @@ Classify.c.gcov: Classify.c
 		PassFail.o B64.o Unicode.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
+	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_Classify.valgrind:	test_Classify
