@@ -25,9 +25,11 @@ static struct {
     {}
 };
 
+/**
+ * B64_init is run before main to initialize data structures.
+ */
 __attribute__((constructor))
 void B64_init(void) {
-    // puts("B64_init");
     char* talx = B64_static.talx;
     char* xlat = B64_static.xlat;
     for (int i=0; i < 256; ++i) xlat[i] = 64;

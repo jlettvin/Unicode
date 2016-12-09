@@ -22,6 +22,7 @@ void test() {
 
 int main(int argc, char **argv) {
     if (argc == 1) {
+        puts(argv[0]);
         test();
     } else while (--argc) {
         puts(*++argv);

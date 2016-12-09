@@ -1,7 +1,7 @@
-/* passfail.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* PassFail.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 #include <stdio.h>
 
-#include "passfail.h"
+#include "PassFail.h"
 
 void passfail(const int T, const char* message) {
     const char* pf[2] = {"[PASS]", "[FAIL]"};

@@ -74,14 +74,8 @@ void test() {
     for (int i = 0; i < 4; ++i) test_B64(i);
 }
 
-/* Use this approach to execute code before main. */
-__attribute__ ((constructor))
-void premain(void) {
-    puts("premain");
-}
-
 int main(int argc, char **argv) {
-    puts("main");
+    puts(argv[0]);
     if (argc == 1) {
         test();
     } else while (--argc) {
