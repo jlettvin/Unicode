@@ -121,11 +121,13 @@ a00:    _ = (char32_t)(a);
 err:    return (char32_t)(_);
 }
 
+/*
 static const char* label[] = {"__",
     "Cc", "Cf", "Cn", "Co", "Cs", "Ll", "Lm", "Lo", "Lt", "Lu",
     "Mc", "Me", "Mn", "Nd", "Nl", "No", "Pc", "Pd", "Pe", "Pf",
     "Pi", "Po", "Ps", "Sc", "Sk", "Sm", "So", "Zl", "Zp", "Zs"};
-/* Unicode character classification */
+
+// Unicode character classification
 static const char *compressed_classifiers =
     "QlpoOTFBWSZTWZ1WjuQAIZt///////////7vsvY7F9HcwJeIlAQgUBAJAnAoMVQgFDTYYA3S"
     "L492ztgazDVVtTFqw2QUk0oF2zu7k7FtdtMsOICTJqekm2hNMmhTyTR6ageo9QHqGQAaABoA"
@@ -186,15 +188,11 @@ static const char *compressed_classifiers =
     "M2nOvos1YpJ5TfomFjHxKKljWqhclPJyyLvFjgWVUdoEOpKRRPDFM+q8s880qUjWYqFn7vGV"
     "glge3KKjNRVSodE5BbBa45MorGSC2jUFVVEbbpD9naUqRPWq1Jbmo9lRIAdiiERRQeJTpNpp"
     "Jt4TdgiKWlR/8XckU4UJCdVo7kA=";
+    */
 
 char classifiers[0x110000];  // sentinel+1
 
-void test_endian() {
-    struct { size_t wide; char*  thin; } d = { 0x64636261,  "abcd" };
-    for (int i = 0; i < 4; ++i)
-        assert((char)endless(&d.wide, i) == d.thin[i]);
-}
-
+/*
 void init_labels() {
     unsigned int count = 0;
     unsigned int length = strlen(compressed_classifiers);
@@ -212,22 +210,4 @@ void init_labels() {
     passfail(count == sentinel+1, temp);
     free(temp);
 }
-
-void test_labels() {
-    int classified = 0;
-    for (size_t i = 0; i <= sentinel; ++i) {
-        if (classifiers[i]) {
-            printf("%06zx: %s\n", i, label[(size_t)classifiers[i]]);
-            classified++;
-        }
-    }
-    printf("%d classified\n", classified);
-}
-
-int main(int argc, char **argv) {
-    test_endian();
-    init_labels();
-    test_labels();
-    while (--argc) puts(*++argv);
-    return 0;
-}
+*/

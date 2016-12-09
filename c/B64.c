@@ -1,5 +1,6 @@
 /* B64.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
-/* https://en.wikipedia.org/wiki/Base64 */
+/* en.wikipedia.org/wiki/Base64 */
+
 #include <stdio.h>
 
 #include "B64.h"
@@ -24,12 +25,12 @@ static struct {
     {}
 };
 
-__attribute__ ((constructor))
+__attribute__((constructor))
 void B64_init(void) {
     // puts("B64_init");
     char* talx = B64_static.talx;
     char* xlat = B64_static.xlat;
-    for (int i=0; i<256; ++i) xlat[i] = 64;
+    for (int i=0; i < 256; ++i) xlat[i] = 64;
     for (int i=0; talx[i]; ++i) xlat[talx[i]&0xff] = i;
 }
 

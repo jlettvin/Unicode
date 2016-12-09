@@ -1,4 +1,4 @@
-/* B64.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* B64.h Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 #ifndef C_B64_H_
 #define C_B64_H_
 void B64_decode(const char* source, char* target);
