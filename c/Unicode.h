@@ -38,7 +38,13 @@ typedef size_t either_t;                       ///< ambiguous type
 // typedef size_t[8] subtable_t;                  ///< type of table entry
 // typedef subtable_t* T_type;                    ///< type of table
 
-typedef struct { codepoint_t codepoint; target_t table; } entry_t;
+/**
+ * A type to support linkage.
+ */
+typedef struct {
+    codepoint_t codepoint;  ///< the value
+    target_t table;         ///< the linkage
+} entry_t;
 typedef entry_t* M_type;                       ///< type of dict
 
 static const codepoint_t sentinel = 0x10FFFF;  ///< highest legal Unicode

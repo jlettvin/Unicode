@@ -18,7 +18,13 @@ typedef size_t target_t;                       ///< clear type of result
 typedef size_t either_t;                       ///< ambiguous type
 
 // Endian invariant handling
-typedef union { size_t u32; ubyte_t u8[4]; } invariant32_t;
+/**
+ * A type used to identify specific bytes within 32 bit data.
+ */
+typedef union {
+    size_t u32;     ///< 32 bit datum
+    ubyte_t u8[4];  ///< 4 8 bit data
+} invariant32_t;
 typedef invariant32_t in32_t;
 static const in32_t in32 = { .u32 = 0x03020100 };
 ubyte_t endless(void* p, size_t o) { return (*((in32_t *)p)).u8[in32.u8[o]]; }

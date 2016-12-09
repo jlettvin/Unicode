@@ -24,4 +24,8 @@ than it is to C function entrypoints.
 
 ## TODO
 * Test UTF8 <-> char32 transforms in test_Unicode.c
-* Move Endian to its own source code and make test_Endian.c
+* Improve coverage
+* Improve unit testing
+* Eliminate extra includes
+* Review doxygen comments
+* Clarify typedefs

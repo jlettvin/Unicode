@@ -1,0 +1,25 @@
+This library offers a set of functions designed to be very high performance while being as high quality as reasonable.
+
+The principle approach uses two methods considered unusual for modern development.
+\begin{DoxyItemize}
+\item Multiple dereferencing table-\/driven paths
+\item Computed G\+O\+T\+O to eliminate if/for/while
+\end{DoxyItemize}
+
+The code is designed to be very short and tight. It makes use of the gnu compiler stack where computed G\+O\+T\+O has been a standard extension for many years, where other compilers have not.
+
+The general approach to table-\/driven paths is explained in the main R\+E\+A\+D\+M\+E.\+md which is in the parent directory to this.
+
+This directory will be the primary area for development of a shared Python library because C\+F\+F\+I is less friendly to C++ than it is to C function entrypoints.
+
+\subsection*{T\+O\+D\+O}
+
+
+\begin{DoxyItemize}
+\item Test U\+T\+F8 $<$-\/$>$ char32 transforms in test\+\_\+\+Unicode.\+c
+\item Improve coverage
+\item Improve unit testing
+\item Eliminate extra includes
+\item Review doxygen comments
+\item Clarify typedefs 
+\end{DoxyItemize}
