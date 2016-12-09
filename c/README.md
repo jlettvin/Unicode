@@ -29,3 +29,4 @@ than it is to C function entrypoints.
 * Eliminate extra includes
 * Review doxygen comments
 * Clarify typedefs
+* Reduce gcov misses

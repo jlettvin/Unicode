@@ -8,9 +8,13 @@ timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 
 CURDIR=.
 COPTS=-O3 -Wall -Wextra -fPIC -g
-SRCS=$(addsuffix .c,$(MODS)) $(addsuffix .h,$(MODS))
+CSRCS=$(addsuffix .c,$(MODS))
+HSRCS=$(addsuffix .h,$(MODS))
+
+SRCS=$(CSRCS) $(HSRCS)
 OBJS=$(addsuffix .o,$(MODS))
 TESTS=$(addprefix test_,$(MODS))
+GCOVS=$(addprefix .gcov,$(CSRCS))
 
 MACDYLIB=libjlettvin.dylib
 MACDYLIBOPT=
@@ -35,13 +39,13 @@ LIBOPT=$(MACDYLIBOPT)
 	@$(call timestamp,$@)
 
 ###############################################################################
-all:	start Makefile doxygen lint test valgrind results $(LIBRARY) end
+all:	start Makefile doxygen lint test valgrind gcov results $(LIBRARY) end
 	@$(call timestamp,$@)
 
 
 .PHONY:
 clean:
-	@-rm -f $(OBJS) $(TESTS) *.out *.valgrind *.dylib
+	@-rm -f $(OBJS) $(TESTS) *.out *.valgrind *.gcov *.dylib
 	@$(call timestamp,$@)
 
 ###############################################################################
@@ -68,6 +72,12 @@ test:	$(addsuffix .out,$(TESTS))
 .PHONY:
 valgrind:	$(addsuffix .valgrind,$(TESTS))
 	@$(call timestamp,$@)
+
+.PHONY:
+gcov:
+	@echo "Implement gcov execution"
+	@echo "See: https://gcc.gnu.org/onlinedocs/gcc/Gcov-Intro.html"
+	@echo "See: https://gcc.gnu.org/onlinedocs/gcc/Gcov.html"
 
 .PHONY:
 results:
