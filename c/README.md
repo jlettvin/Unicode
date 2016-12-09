@@ -21,3 +21,7 @@ This directory will be the primary area
 for development of a shared Python library
 because CFFI is less friendly to C++
 than it is to C function entrypoints.
+
+## TODO
+* Test UTF8 <-> char32 transforms in test_Unicode.c
+* Move Endian to its own source code and make test_Endian.c
