@@ -53,7 +53,7 @@ lint:	$(SRCS)
 	-cpplint $(SRCS) > lint.out 2>&1
 
 .PHONY:
-test:	test_B64.out test_Unicode.out test_Classify
+test:	test_B64.out test_Unicode.out test_Classify.out
 
 test_B64.out:	test_B64
 	@./$< >$@
