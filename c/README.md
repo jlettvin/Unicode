@@ -30,3 +30,6 @@ than it is to C function entrypoints.
 * Review doxygen comments
 * Clarify typedefs
 * Reduce gcov misses
+* Find a worthy gprof for Mac OS X
+* Document memory leaks due to C standard library calls
+* Eliminate memory leaks (if any) due to code in this library

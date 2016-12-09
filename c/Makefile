@@ -37,7 +37,7 @@ LIBOPT=$(MACDYLIBOPT)
 	@$(call timestamp,$@)
 
 %.valgrind : %
-	@-valgrind --leak-check=full ./$< > $@ 2>&1
+	@-valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
 	@$(call timestamp,$@)
 
 ###############################################################################
