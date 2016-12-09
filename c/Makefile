@@ -7,14 +7,16 @@ MODS=PassFail Endian B64 Unicode Classify
 timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 
 CURDIR=.
-COPTS=-O3 -Wall -Wextra -fPIC -g
+OOPTS=-O0 -Wall -Wextra -fPIC
+GOPTS=$(OOPTS) -g -coverage
+COPTS=$(OOPTS)
 CSRCS=$(addsuffix .c,$(MODS))
 HSRCS=$(addsuffix .h,$(MODS))
 
 SRCS=$(CSRCS) $(HSRCS)
 OBJS=$(addsuffix .o,$(MODS))
 TESTS=$(addprefix test_,$(MODS))
-GCOVS=$(addprefix .gcov,$(CSRCS))
+GCOVS=$(addsuffix .gcov,$(CSRCS))
 
 MACDYLIB=libjlettvin.dylib
 MACDYLIBOPT=
@@ -39,13 +41,14 @@ LIBOPT=$(MACDYLIBOPT)
 	@$(call timestamp,$@)
 
 ###############################################################################
-all:	start Makefile doxygen lint test valgrind gcov results $(LIBRARY) end
+# Doing gcov after library avoids putting coverage objects in the library.
+all:	start Makefile doxygen lint test valgrind results $(LIBRARY) gcov end
 	@$(call timestamp,$@)
 
 
 .PHONY:
 clean:
-	@-rm -f $(OBJS) $(TESTS) *.out *.valgrind *.gcov *.dylib
+	@-rm -f $(TESTS) *.o *.out *.valgrind *gcov* *gcda* *gcno* *.dylib
 	@$(call timestamp,$@)
 
 ###############################################################################
@@ -74,7 +77,7 @@ valgrind:	$(addsuffix .valgrind,$(TESTS))
 	@$(call timestamp,$@)
 
 .PHONY:
-gcov:
+gcov: $(GCOVS)
 	@echo "Implement gcov execution"
 	@echo "See: https://gcc.gnu.org/onlinedocs/gcc/Gcov-Intro.html"
 	@echo "See: https://gcc.gnu.org/onlinedocs/gcc/Gcov.html"
@@ -110,6 +113,16 @@ $(LINUXLIB):	$(OBJS)
 
 
 ###############################################################################
+PassFail.c.gcov: PassFail.c
+	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
+	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
+		test_$(basename $<).o \
+		$(basename $<).o
+	@-./gcov_test_$(basename $<)
+	@-gcov $< >$@.out 2>&1
+	@$(call timestamp,$@)
+
 test_PassFail.valgrind:	test_PassFail
 
 test_PassFail.out:	test_PassFail
@@ -122,6 +135,17 @@ PassFail.o:	PassFail.c Makefile
 
 
 ###############################################################################
+B64.c.gcov: B64.c
+	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
+	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
+		test_$(basename $<).o \
+		$(basename $<).o \
+		PassFail.o
+	@-./gcov_test_$(basename $<)
+	@-gcov $< >$@.out 2>&1
+	@$(call timestamp,$@)
+
 test_B64.valgrind:	test_B64
 
 test_B64.out:	test_B64
@@ -135,6 +159,17 @@ B64.o:	B64.c Makefile
 
 
 ###############################################################################
+Endian.c.gcov: Endian.c
+	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
+	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
+		test_$(basename $<).o \
+		$(basename $<).o \
+		PassFail.o
+	@-./gcov_test_$(basename $<)
+	@-gcov $< >$@.out 2>&1
+	@$(call timestamp,$@)
+
 test_Endian.valgrind:	test_Endian
 
 test_Endian.out:	test_Endian
@@ -148,6 +183,17 @@ Endian.o:	Endian.c Makefile
 
 
 ###############################################################################
+Unicode.c.gcov: Unicode.c
+	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
+	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
+		test_$(basename $<).o \
+		$(basename $<).o \
+		B64.o PassFail.o
+	@-./gcov_test_$(basename $<)
+	@-gcov $< >$@.out 2>&1
+	@$(call timestamp,$@)
+
 test_Unicode.valgrind:	test_Unicode
 
 test_Unicode.out:	test_Unicode
@@ -161,6 +207,17 @@ Unicode.o:	Unicode.c Makefile
 
 
 ###############################################################################
+Classify.c.gcov: Classify.c
+	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
+	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
+		test_$(basename $<).o \
+		$(basename $<).o \
+		PassFail.o B64.o Unicode.o
+	@-./gcov_test_$(basename $<)
+	@-gcov $< >$@.out 2>&1
+	@$(call timestamp,$@)
+
 test_Classify.valgrind:	test_Classify
 
 test_Classify.out:	test_Classify
