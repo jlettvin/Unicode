@@ -1,48 +1,73 @@
 #!/usr/bin/env make
 ###############################################################################
-MODULE=Unicode
+# Identity of this repository subdirectory
+IDENTITY=Unicode
 VERSION=0.0.1
-MODS=PassFail Endian B64 Unicode Classify
+MODULES=PassFail Endian B64 Unicode Classify
 
+# A useful function for keeping track of time while running make.
 timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 
-CURDIR=.
-OOPTS=-O0 -Wall -Wextra -fPIC
-GOPTS=$(OOPTS) -g -coverage -pg
-COPTS=$(OOPTS)
-CSRCS=$(addsuffix .c,$(MODS))
-HSRCS=$(addsuffix .h,$(MODS))
+# Compiler options
+SHARED_OPTS=-O0 -Wall -Wextra -fPIC
+GOPTS=$(SHARED_OPTS) -g -coverage -pg
+COPTS=$(SHARED_OPTS)
 
-SRCS=$(CSRCS) $(HSRCS)
-OBJS=$(addsuffix .o,$(MODS))
-TESTS=$(addprefix test_,$(MODS))
+# Usefule sets of names
+CSRCS=$(addsuffix .c,$(MODULES))
+HSRCS=$(addsuffix .h,$(MODULES))
+OBJS=$(addsuffix .o,$(MODULES))
+TESTS=$(addprefix test_,$(MODULES))
 GCOVS=$(addsuffix .gcov,$(CSRCS))
+SRCS=$(CSRCS) $(HSRCS)
 
+# Shared library generic information
+CURDIR=.
 MACDYLIB=libjlettvin.dylib
 MACDYLIBOPT=
 
 LINUXLIB=libjlettvin.so.$(VERSION)
 LINUXLIBOPT=-L. -ljlettvin
 
+# Platfirm specific shared library controls
 LIBRARY=$(MACDYLIB)
 LIBOPT=$(MACDYLIBOPT)
 
 ###############################################################################
+# generic rules
 %.o	:	%.c
+	@echo "\t$@ generic"
 	@-gcc $(COPTS) -c -o $@ $<
 	@$(call timestamp,$@)
 
 %.out : %
+	@echo "\t$@ generic"
 	@./$< >$@ 2>&1
 	@$(call timestamp,$@)
 
 %.valgrind : %
+	@echo "\t$@ generic"
 	@-valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
+	@$(call timestamp,$@)
+
+%.gcov : %
+	@echo "\t$@ generic (needs work)"
+	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
+	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
+		test_$(basename $<).o \
+		$(basename $<).o \
+		-L . -l $(LIBRARY)
+	@-./gcov_test_$(basename $<)
+	@-gcov $< >$@.out 2>&1
+	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
-all:	start Makefile doxygen lint test valgrind results $(LIBRARY) gcov end
+all:	start doxygen lint test valgrind results $(LIBRARY) gcov end
+	@echo "\t$@ SUMMARY gcov percentages"
+	@grep '%' *.out
 	@$(call timestamp,$@)
 
 
@@ -111,6 +136,7 @@ $(LINUXLIB):	$(OBJS)
 
 ###############################################################################
 PassFail.c.gcov: PassFail.c
+	@echo "\t$@"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -134,6 +160,7 @@ PassFail.o:	PassFail.c Makefile
 
 ###############################################################################
 B64.c.gcov: B64.c
+	@echo "\t$@"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -159,6 +186,7 @@ B64.o:	B64.c Makefile
 
 ###############################################################################
 Endian.c.gcov: Endian.c
+	@echo "\t$@"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -184,6 +212,7 @@ Endian.o:	Endian.c Makefile
 
 ###############################################################################
 Unicode.c.gcov: Unicode.c
+	@echo "\t$@"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -209,6 +238,7 @@ Unicode.o:	Unicode.c Makefile
 
 ###############################################################################
 Classify.c.gcov: Classify.c
+	@echo "\t$@"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \

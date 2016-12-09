@@ -6,25 +6,28 @@
 #include <assert.h>
 
 #include "PassFail.h"
-#include "B64.h"
 #include "Unicode.h"
 
-void test_labels() {
-    /*
-    int classified = 0;
-    for (size_t i = 0; i <= sentinel; ++i) {
-        if (classifiers[i]) {
-            printf("%06zx: %s\n", i, label[(size_t)classifiers[i]]);
-            classified++;
-        }
-    }
-    printf("%d classified\n", classified);
-    */
+void test_u32string() {
+}
+
+void test_codepoint() {
+    codepoint_t source, target;
+    unsigned long head, tail;
+    char utf8[5];
+
+    head = 0;
+    tail = 1;
+    source = 0x41;
+    char32_t_to_UTF8(source, utf8);
+    target = UTF8_to_char32_t(utf8, &head, tail);
+    passfail(source == target, utf8);
 }
 
 int main(int argc, char **argv) {
     puts(argv[0]);
-    test_labels();
+    test_codepoint();
+    test_u32string();
     while (--argc) puts(*++argv);
     return 0;
 }

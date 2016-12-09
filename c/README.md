@@ -23,13 +23,22 @@ because CFFI is less friendly to C++
 than it is to C function entrypoints.
 
 ## TODO
-* Test UTF8 <-> char32 transforms in test_Unicode.c
-* Improve coverage
 * Improve unit testing
 * Eliminate extra includes
-* Review doxygen comments
 * Clarify typedefs
-* Reduce gcov misses
 * Find a worthy gprof for Mac OS X
+
+### TODO valgrind
 * Document memory leaks due to C standard library calls
 * Eliminate memory leaks (if any) due to code in this library
+
+### TODO Unicode.c
+* Improve Tests of UTF8 <-> char32 transforms in test_Unicode.c
+
+### TODO doxygen
+* Review doxygen comments
+
+### TODO gcov
+* Discover how to make Makefile generic rule for gcov work
+* Improve coverage
+* Reduce gcov misses
