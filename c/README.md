@@ -13,6 +13,12 @@ It makes use of the gnu compiler stack where
 computed GOTO has been a standard extension
 for many years, where other compilers have not.
 
+A benefit of the use of GOTO in this library is
+that the lookahead cache on the processor
+likely already has the path prefetched
+so there is no flushing of the cache for
+either of the two directions the GOTO may take.
+
 The general approach to table-driven paths
 is explained in the main README.md
 which is in the parent directory to this.
@@ -25,7 +31,7 @@ than it is to C function entrypoints.
 ## TODO
 * Improve unit testing
 * Eliminate extra includes
-* Clarify typedefs
+* Clarify typedefs (maybe move all to a single header)
 * Find a worthy gprof for Mac OS X
 
 ### TODO valgrind
@@ -35,10 +41,6 @@ than it is to C function entrypoints.
 ### TODO Unicode.c
 * Improve Tests of UTF8 <-> char32 transforms in test_Unicode.c
 
-### TODO doxygen
-* Review doxygen comments
-
 ### TODO gcov
 * Discover how to make Makefile generic rule for gcov work
 * Improve coverage
-* Reduce gcov misses
