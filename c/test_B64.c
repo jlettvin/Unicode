@@ -92,7 +92,6 @@ void test() {
  * With args, argc and argv are used (avoids lint warnings).
  */
 int main(int argc, char **argv) {
-    puts(argv[0]);
     test();
     while (--argc) puts(*++argv);
     return 0;

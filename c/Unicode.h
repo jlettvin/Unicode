@@ -36,8 +36,8 @@ typedef size_t either_t;                       ///< ambiguous type
  * A type to support linkage.
  */
 typedef struct {
-    codepoint_t codepoint;  ///< the value
-    target_t table;         ///< the linkage
+    codepoint_t     codepoint;  ///< the value
+    target_t        table;      ///< the linkage
 } entry_t;
 typedef entry_t* M_type;                       ///< type of dict
 

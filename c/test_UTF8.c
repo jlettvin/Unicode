@@ -1,15 +1,8 @@
 /* test_UTF8.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <bzlib.h>
-#include <assert.h>
 
 #include "PassFail.h"
 #include "UTF8.h"
-
-void test_u32string() {
-}
 
 void test_codepoint() {
     codepoint_t source, target;
@@ -25,9 +18,7 @@ void test_codepoint() {
 }
 
 int main(int argc, char **argv) {
-    puts(argv[0]);
     test_codepoint();
-    test_u32string();
     while (--argc) puts(*++argv);
     return 0;
 }

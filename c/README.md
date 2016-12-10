@@ -36,7 +36,6 @@ than it is to C function entrypoints.
 
 ## TODO
 * Improve unit testing
-* Eliminate extra includes
 * Clarify typedefs in Unicode.h
 * Find a worthy gprof for Mac OS X
 

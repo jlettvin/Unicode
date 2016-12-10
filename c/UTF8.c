@@ -1,11 +1,5 @@
 /* Unicode.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <bzlib.h>
-#include <assert.h>
 
-#include "PassFail.h"
 #include "UTF8.h"
 
 typedef unsigned char ubyte_t;                 ///< imitate c++ type

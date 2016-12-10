@@ -24,7 +24,6 @@ void test_codepoint(unsigned codepoint, char* expect) {
  * This test runs the singular test function above on several codepoints.
  */
 void test_codepoints() {
-    puts("test_codepoints");
     for (char c='0'; c <= '9'; ++c) test_codepoint((unsigned)c, "Nd");
     for (char c='A'; c <= 'Z'; ++c) test_codepoint((unsigned)c, "Lu");
     for (char c='a'; c <= 'z'; ++c) test_codepoint((unsigned)c, "Ll");
@@ -38,7 +37,6 @@ void test_codepoints() {
  * With args, argc and argv are used (avoids lint warnings).
  */
 int main(int argc, char **argv) {
-    puts(argv[0]);
     test_codepoints();
     while (--argc) puts(*++argv);
     return 0;
