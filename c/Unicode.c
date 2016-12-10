@@ -17,24 +17,16 @@ typedef size_t codepoint_t;                    ///< clear type of codepoint
 typedef size_t target_t;                       ///< clear type of result
 typedef size_t either_t;                       ///< ambiguous type
 
-// Endian invariant handling
-/**
- * A type used to identify specific bytes within 32 bit data.
+/** char32_t_to_UTF8 converts internal 32 bit codepoints to UTF8.
+ *
+ * \param source is a 32 bit codepoint
+ * \param target is a 5 unsigned byte buffer from the caller.
+ * return nothing
+ *
+ * Note that computed GOTO is used liberally to eliminate conditionals.
+ * This form of translation benefits from elimination of conditionals.
  */
-typedef union {
-    size_t u32;     ///< 32 bit datum
-    ubyte_t u8[4];  ///< 4 8 bit data
-} invariant32_t;
-typedef invariant32_t in32_t;
-static const in32_t in32 = { .u32 = 0x03020100 };
-ubyte_t endless(void* p, size_t o) { return (*((in32_t *)p)).u8[in32.u8[o]]; }
-
-void bits(char x) {
-    static const char* digit = "10";
-    for (int i=8; i--; ) putchar(digit[!(x & (1 << i))]);
-}
-
-void char32_t_to_UTF8(char32_t source, char target[5]) {
+void char32_t_to_UTF8(char32_t source, char* target) {
         static const void *assemble[] = {&&u7, &&u11, &&u16, &&u21, &&err};
         goto *assemble[
             (size_t)(source > 0x7f) +
@@ -63,6 +55,16 @@ err:    target[0] = 0;
         return;
 }
 
+/** UTF8_to_32 converts UTF8 to internal 32 bit codepoint value.
+ *
+ * \param buf  is a buffer full of UTF8 unsigned bytes.
+ * \param head is the index where ingest begins or continues (variable).
+ * \param tail is the index past the last byte in the buffer.
+ * \return codepoint translated from UTF8.
+ *
+ * Note that computed GOTO is used liberally to eliminate conditionals.
+ * This form of translation benefits from elimination of conditionals.
+ */
 codepoint_t UTF8_to_char32_t(char* buf, size_t* head, size_t tail) {
         // hello="hello"; hello[head] == 'h'; hello[tail] == '\0';
         static size_t need[] = {
@@ -99,6 +101,7 @@ codepoint_t UTF8_to_char32_t(char* buf, size_t* head, size_t tail) {
         char32_t _ = 0;
         char a, b, c, d;
 
+        // Execution begins with this goto.
         goto *headed[(size_t)(*head < tail)];
 ingest: a = buf[off++];
         high = (size_t)((a >> 3) & 0x1f);
@@ -126,5 +129,3 @@ a00:    _ = (char32_t)(a);
         *head = off; return _;
 err:    return (char32_t)(_);
 }
-
-char classifiers[0x110000];  // sentinel+1

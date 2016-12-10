@@ -7,6 +7,12 @@
 
 #include "PassFail.h"
 
+/** test_passfail
+ *
+ * \return nothing
+ *
+ * Output both ways and show the final tally by using a 0-length message.
+ */
 void test_passfail() {
     puts("\tExpect exactly 1 [FAIL]");
     passfail(1, "This shall pass");
@@ -14,6 +20,12 @@ void test_passfail() {
     passfail(1, "");
 }
 
+/** main
+ *
+ * Entirely ordinary main.
+ * Without args, the tests are run.
+ * With args, argc and argv are used (avoids lint warnings).
+ */
 int main(int argc, char **argv) {
     puts(argv[0]);
     test_passfail();

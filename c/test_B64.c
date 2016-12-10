@@ -4,6 +4,8 @@
 #include "PassFail.h"
 #include "B64.h"
 
+/** Sample array of decoded/encoded pairs (see en.wikipedia.org/wiki/Base64)
+ */
 static const char* sample[4][3] = {
     {
         "Letter",
@@ -33,6 +35,13 @@ static const char* sample[4][3] = {
     }
 };
 
+/** test_B64
+ *
+ * \param index is the index of the decoded/encoded pairs
+ * \return nothing
+ *
+ * This test determines that the decoded text encodes back identically.
+ */
 void test_B64(const int index) {
     const char *titling = sample[index][0];
     const char *decoded = sample[index][1];
@@ -70,20 +79,23 @@ void test_B64(const int index) {
     passfail(0, "");
 }
 
+/** test
+ *
+ * This function runs each test for which there is a data pair.
+ */
 void test() {
     for (int i = 0; i < 4; ++i) test_B64(i);
 }
 
+/** main
+ *
+ * Entirely ordinary main.
+ * Without args, the tests are run.
+ * With args, argc and argv are used (avoids lint warnings).
+ */
 int main(int argc, char **argv) {
     puts(argv[0]);
-    if (argc == 1) {
-        test();
-    } else while (--argc) {
-        char target[256];
-        puts(*++argv);
-        B64_decode(*argv, target);
-        puts(target);
-        puts("");
-    }
+    test();
+    while (--argc) puts(*++argv);
     return 0;
 }

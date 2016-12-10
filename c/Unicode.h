@@ -49,35 +49,11 @@ typedef entry_t* M_type;                       ///< type of dict
 
 static const codepoint_t sentinel = 0x10FFFF;  ///< highest legal Unicode
 
-/**
- * invariant32_t type and invariant32 union support the endless function.
- */
-
-/** endless is a template function for extracting bytes from 32 bit longs.
- *
- * \param a32 a 32 bit wide unsigned int value from which to extract bytes.
- * \param off an index (between 0 and 3) byte position within a32.
- *
- * endless(a_32_bit_value, unsigned_between_0_and_3)
- * returns a reference to the same-valued byte invariant of endianness.
- *
- * These indices address the byte containing the same value in 32 bits
- * regardless of machine endianness because the endian index setter
- * has the index values jammed together such that they split out
- * into the correct indices.
- * The extra cost is one instruction for one extra indirection.
- *
- * size_t funny = 0x76543210;
- * cout << hex << endless(funny, 0); // outputs 10 on all machines.
- * cout << hex << endless(funny, 3); // outputs 76 on all machines.
- * endless(joy, 3) = 0x98;           // always replaces 76 with 98.
- */
-ubyte_t endless(void* p, size_t o);
-
 /** char32_t_to_UTF8 converts internal 32 bit codepoints to UTF8.
  *
  * \param source is a 32 bit codepoint
  * \param target is a 5 unsigned byte buffer from the caller.
+ * return nothing
  *
  * The codepoint is converted to UTF8 with trailing NUL bytes
  * such that it is immediately ready for output via std::cout.
@@ -85,7 +61,7 @@ ubyte_t endless(void* p, size_t o);
  * Branch points are avoided.
  * Maximum cost is 23 Intel opcodes.
  */
-void char32_t_to_UTF8(char32_t source, char target[5]);
+void char32_t_to_UTF8(char32_t source, char* target);
 
 // UTF8 Bytes being translated have this pattern with bit indices
 // shown as uppercase letters from the high bit to the low bit:
@@ -119,8 +95,6 @@ void char32_t_to_UTF8(char32_t source, char target[5]);
  * 6 opcodes: dereference byte, increment, shift, mask, cast, goto dd
  * 2 opcodes: update head, return
  * 34 total opcodes 
- *
- * TODO fix so it works
  */
 codepoint_t UTF8_to_char32_t(char* buf, size_t* head, size_t tail);
 

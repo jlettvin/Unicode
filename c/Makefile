@@ -35,21 +35,26 @@ LIBOPT=$(MACDYLIBOPT)
 
 ###############################################################################
 # generic rules
+
+# generic translation of c source files to library objects.
 %.o	:	%.c
 	@echo "\t$@ generic"
 	@-gcc $(COPTS) -c -o $@ $<
 	@$(call timestamp,$@)
 
+# generic running of test_* executables
 %.out : %
 	@echo "\t$@ generic"
 	@./$< >$@ 2>&1
 	@$(call timestamp,$@)
 
+# generic production of valgrind output
 %.valgrind : %
 	@echo "\t$@ generic"
 	@-valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
 	@$(call timestamp,$@)
 
+# generic production of coverage files (unused)
 %.gcov : %
 	@echo "\t$@ generic (needs work)"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<

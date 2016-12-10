@@ -21,5 +21,5 @@
  * cout << hex << *endless(&funny, 3); // outputs 76 on all machines.
  * *endless(&funny, 3) = 0x98;         // always replaces 76 with 98.
  */
-unsigned char* endian_invariant(void* p32, unsigned long off);
+unsigned char* Endian_invariant(void* p32, unsigned long off);
 #endif  // C_ENDIAN_H_

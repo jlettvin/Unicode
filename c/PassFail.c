@@ -3,6 +3,14 @@
 
 #include "PassFail.h"
 
+/** passfail
+ *
+ * \param T a 0 or 1 value (boolean) to decide reporting.
+ * \return nothing.
+ *
+ * This function reports comparisons where T==PASS and F=FAIL.
+ * Use of this function with an empty string causes a tally of results so far.
+ */
 void passfail(const int T, const char* message) {
     const char* pf[2] = {"[PASS]", "[FAIL]"};
     static int count[2] = {0, 0};
