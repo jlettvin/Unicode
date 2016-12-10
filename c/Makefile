@@ -30,7 +30,12 @@ VERSION=0.0.1
 MODULES=PassFail Endian B64 UTF8 Classify
 
 # A useful function for keeping track of time while running make.
+pipe:=|
+empty:=
+space:=$(empty) $(empty)
+egreps="$(subst $(space),$(pipe),$(MODULES))"
 timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
+line=__________________________________________________________________________
 
 # Compiler options
 SHARED_OPTS=-O0 -Wall -Wextra -fPIC
@@ -135,12 +140,20 @@ gcov: $(GCOVS)
 
 .PHONY:
 results:
+	@echo $(line)
+	@echo "\tout out out out out out out out out out out out out out out out "
+	@echo "\trelevant .out file content"
 	@cat *.out | \
 		grep -v "C-style cast" | \
 		grep -v "2-space indent" | \
 		grep -v "rather than the C type long" | \
 		grep -v "should include its header" | \
 		grep -v '^[PASS]'
+	@echo $(line)
+	@echo "\tvalgrind valgrind valgrind valgrind valgrind valgrind valgrind"
+	@echo "\trelevant .valgrind file content"
+	@cat *.valgrind | egrep $(egreps)
+	@echo $(line)
 	@$(call timestamp,$@)
 
 .PHONY:

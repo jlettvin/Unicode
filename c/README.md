@@ -34,14 +34,15 @@ for development of a shared Python library
 because CFFI is less friendly to C++
 than it is to C function entrypoints.
 
+valgrind does not identify any memory leaks
+resulting from the code in this library
+There are memory leaks in the test modules
+due to standard library calls.
+
 ## TODO
 * Improve unit testing
 * Clarify typedefs in Unicode.h
 * Find a worthy gprof for Mac OS X
-
-### TODO valgrind
-* Document memory leaks due to C standard library calls
-* Eliminate memory leaks (if any) due to code in this library
 
 ### TODO Unicode.c
 * Improve Tests of UTF8 <-> char32 transforms in test_Unicode.c
