@@ -37,7 +37,7 @@ than it is to C function entrypoints.
 ## TODO
 * Improve unit testing
 * Eliminate extra includes
-* Clarify typedefs (maybe move all to a single header)
+* Clarify typedefs in Unicode.h
 * Find a worthy gprof for Mac OS X
 
 ### TODO valgrind

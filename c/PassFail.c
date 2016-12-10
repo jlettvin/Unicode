@@ -5,28 +5,31 @@
 
 /** passfail
  *
- * \param T a 0 or 1 value (boolean) to decide reporting.
+ * \param count is 0 [FAIL] or nonzero [PASS] to decide reporting.
  * \return nothing.
  *
  * This function reports comparisons where T==PASS and F=FAIL.
  * Use of this function with an empty string causes a tally of results so far.
  */
 void passfail(
-        const int T,
-        const char*file,
+        const int count,
+        const char* source,
         const unsigned line,
-        const char* message)
-{
+        const char* msg) {
     const char* pf[2] = {"[PASS]", "[FAIL]"};
-    static int count[2] = {0, 0};
-    if (message[0] == 0) {
-        printf("%s (%s:%u) %d\t", pf[0], file, line, count[0]);
-        if (count[1]) puts("");
-        printf("%s (%s:%u) %d\t", pf[1], file, line, count[1]);
-        puts("RESULT");
+    static int tally[2] = {0, 0};
+
+    FILE* handle = fopen("PassFail.out", "a");
+
+    if (msg[0] == 0) {
+        fprintf(handle, "%s (%s:%u) %d\t", pf[0], source, line, tally[0]);
+        if (tally[1] != count) fprintf(handle, "\n");
+        fprintf(handle, "%s (%s:%u) %d\t", pf[1], source, line, tally[1]);
+        fprintf(handle, "RESULT\n");
     } else {
-        int sense = !T;
-        count[sense]++;
-        printf("%s (%s:%u) %s\n", pf[sense], file, line, message);
+        tally[!count]++;
+        fprintf(handle, "%s (%s:%u) %s\n", pf[!count], source, line, msg);
     }
+
+    fclose(handle);
 }

@@ -14,7 +14,7 @@
  * Output both ways and show the final tally by using a 0-length message.
  */
 void test_passfail() {
-    puts("\tExpect exactly 1 [FAIL]");
+    PASSFAIL(1, "Expect exactly 1 [FAIL]");
     PASSFAIL(1, "This shall pass");
     PASSFAIL(0, "This shall fail");
     PASSFAIL(1, "");

@@ -1,7 +1,5 @@
 /* B64.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 
-#include <stdio.h>
-
 #include "B64.h"
 
 typedef unsigned int uint_t;

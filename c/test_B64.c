@@ -43,6 +43,8 @@ static const char* sample[4][3] = {
  * This test determines that the decoded text encodes back identically.
  */
 void test_B64(const int index) {
+    static const char* format = "%s: string %s";
+
     const char *titling = sample[index][0];
     const char *decoded = sample[index][1];
     const char *encoded = sample[index][2];
@@ -51,31 +53,27 @@ void test_B64(const int index) {
     char etarget[strlen(encoded)+2];  
     unsigned lengths, compare;
     unsigned source, target;
-
-    printf("\t%s:\n", titling);
+    char buffer[1024];
 
     B64_decode(encoded, dtarget);
     source = strlen(decoded);
     target = strlen(dtarget);
     lengths = (source == target);
     compare = !strcmp(dtarget, decoded);
-    PASSFAIL(lengths, "decode string lengths");
-    PASSFAIL(compare, "decode string content");
+    snprintf(buffer, 1023, format, titling, "decode lengths");
+    PASSFAIL(lengths, buffer);
+    snprintf(buffer, 1023, format, titling, "decode content");
+    PASSFAIL(compare, buffer);
 
     B64_encode(dtarget, etarget);
     source = strlen(encoded);
     target = strlen(etarget);
     lengths = (source == target);
     compare = !strcmp(etarget, encoded);
-    PASSFAIL(lengths, "encode string lengths");
-    PASSFAIL(compare, "encode string content");
-    if (!(lengths && compare)) {
-        puts(etarget);
-        puts(encoded);
-        printf("[FAIL] %u == %u ?\n", source, target);
-        B64_decode(etarget, dtarget);
-        puts(dtarget);
-    }
+    snprintf(buffer, 1023, format, titling, "encode lengths");
+    PASSFAIL(lengths, buffer);
+    snprintf(buffer, 1023, format, titling, "encode content");
+    PASSFAIL(compare, buffer);
     PASSFAIL(0, "");
 }
 

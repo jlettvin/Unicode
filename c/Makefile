@@ -1,5 +1,29 @@
 #!/usr/bin/env make
+# Makefile Copyright(c)2016 Jonathan D. Lettvin, All Rights Reserved.
 ###############################################################################
+
+###############################################################################
+# This makefile is typically run by the following command:
+# 	$ make clean;clear;make
+#
+# It generates text as it executes demarcated by two lines of 'v' and '^':
+#   vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+#   Generated output.
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#
+# Output is generated in this sequence (see rule "all").
+# 	doxygen:	generate documentation from source code comments.
+# 	cpplint:  evaluate source for static quality control.
+# 	test_*:	execute unit tests on each compiled library object.
+# 	valgrind:	identify memory leaks (none due to this library).
+# 	library:	generate a shared library for use by client programs.
+# 	gcov:		assess coverage for each object.
+# 	results:	review quality/compiler/test output for issues.
+#
+# Rules output target names and whether the controlling rule is "generic".
+# Rules output timestamps to enable assessment of make progress.
+###############################################################################
+
 # Identity of this repository subdirectory
 IDENTITY=Unicode
 VERSION=0.0.1
@@ -70,9 +94,9 @@ LIBOPT=$(MACDYLIBOPT)
 
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
-all:	start doxygen lint test valgrind results $(LIBRARY) gcov end
+all:	start doxygen lint test valgrind $(LIBRARY) gcov results end
 	@echo "\t$@ SUMMARY gcov percentages"
-	@grep '%' *.out
+	@grep '%' *.gcov.out
 	@$(call timestamp,$@)
 
 
@@ -115,7 +139,8 @@ results:
 		grep -v "C-style cast" | \
 		grep -v "2-space indent" | \
 		grep -v "rather than the C type long" | \
-		grep -v "should include its header"
+		grep -v "should include its header" | \
+		grep -v '^[PASS]'
 	@$(call timestamp,$@)
 
 .PHONY:
@@ -149,7 +174,7 @@ PassFail.c.gcov: PassFail.c
 		$(basename $<).o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_PassFail.valgrind:	test_PassFail
@@ -174,7 +199,7 @@ B64.c.gcov: B64.c
 		PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_B64.valgrind:	test_B64
@@ -200,7 +225,7 @@ Endian.c.gcov: Endian.c
 		PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_Endian.valgrind:	test_Endian
@@ -226,7 +251,7 @@ UTF8.c.gcov: UTF8.c
 		B64.o PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_UTF8.valgrind:	test_UTF8
@@ -252,7 +277,7 @@ Classify.c.gcov: Classify.c
 		PassFail.o B64.o UTF8.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
 test_Classify.valgrind:	test_Classify

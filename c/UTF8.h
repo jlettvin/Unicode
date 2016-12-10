@@ -1,15 +1,13 @@
 /* Unicode.h Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
-#ifndef C_UNICODE_H_
-#define C_UNICODE_H_
+#ifndef C_UTF8_H_
+#define C_UTF8_H_
 
 /**
  * \class Omni
  *
  * \ingroup jlettvin
  *
- * \brief Shared resources.
- *
- * (i.e. jlettvin::sentinel = 0x10FFFF; )
+ * \brief Conversions between UTF8 and char32_t
  *
  * \author Jonathan D. Lettvin
  * jlettvin@gmail.com
@@ -26,28 +24,10 @@
  *  http://lemire.me/blog/2012/06/20/do-not-waste-time-with-stl-vectors/
  */
 
-typedef unsigned char ubyte_t;                 ///< imitate c++ type
-typedef unsigned long size_t;                  ///< imitate c++ type
-typedef size_t char32_t;                       ///< imitate c++ type
-typedef char32_t* u32string;                   ///< imitate c++ type
-
-typedef size_t codepoint_t;                    ///< clear type of codepoint
-typedef size_t target_t;                       ///< clear type of result
-typedef size_t either_t;                       ///< ambiguous type
+#include "Unicode.h"
 
 // typedef size_t[8] subtable_t;                  ///< type of table entry
 // typedef subtable_t* T_type;                    ///< type of table
-
-/**
- * A type to support linkage.
- */
-typedef struct {
-    codepoint_t codepoint;  ///< the value
-    target_t table;         ///< the linkage
-} entry_t;
-typedef entry_t* M_type;                       ///< type of dict
-
-static const codepoint_t sentinel = 0x10FFFF;  ///< highest legal Unicode
 
 /** char32_t_to_UTF8 converts internal 32 bit codepoints to UTF8.
  *
@@ -135,4 +115,4 @@ u32string_to_UTF8(const u32string& source, string& target) {
     }
 }
 */
-#endif  // C_UNICODE_H_
+#endif  // C_UTF8_H_
