@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>Unicode: Unicode (C) for dynamic lib Python support of high speed lexing</title>
+<title>Unicode: Unicode dynamic lib for scripting language support of high speed lexing</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -77,22 +77,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Unicode (C) for dynamic lib Python support of high speed lexing </div>  </div>
+<div class="title">Unicode dynamic lib for scripting language support of high speed lexing </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This library offers a set of functions designed to be very high performance while being as high quality as reasonable.</p>
-<p>The principle approach uses two methods considered unusual for modern development.</p><ul>
-<li>Multiple dereferencing table-driven paths</li>
-<li>Computed GOTO to eliminate if/for/while</li>
-</ul>
-<p>The code is designed to be very short and tight. It makes use of the gnu compiler stack where computed GOTO has been a standard extension for many years, where other compilers have not.</p>
-<p>The general approach to table-driven paths is explained in the main README.md which is in the parent directory to this.</p>
+<div class="textblock"><p>This C language optimized library offers a set of functions designed to enable development of DSL lexing/parsing at very high performance while being as high quality as is reasonable without obfuscating what is done and why the implementation works.</p>
+<p>The principle insight is that GOTO and table-driven transforms outperform architectures which test for values and take alternate code paths. GOTO and table-driven are considered unusual for modern development.</p>
+<p>The code is designed to be very short and tight. It makes use of the gnu compiler stack where computed GOTO has been a standard extension for many years, where other compilers have no support for this efficiency.</p>
+<p>A benefit of the use of GOTO in this library is that the likely code path has been prefetched into the processor cache (so there is no flushing of the cache for either of the two directions the GOTO may take).</p>
+<p>The general approach to table-driven paths is explained in the main README.md which is in the parent directory to this library source.</p>
 <p>This directory will be the primary area for development of a shared Python library because CFFI is less friendly to C++ than it is to C function entrypoints.</p>
 <h2>TODO</h2>
 <ul>
 <li>Improve unit testing</li>
 <li>Eliminate extra includes</li>
-<li>Clarify typedefs</li>
+<li>Clarify typedefs (maybe move all to a single header)</li>
 <li>Find a worthy gprof for Mac OS X</li>
 </ul>
 <h3>TODO valgrind</h3>
@@ -104,15 +102,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ul>
 <li>Improve Tests of UTF8 &lt;-&gt; char32 transforms in test_Unicode.c</li>
 </ul>
-<h3>TODO doxygen</h3>
-<ul>
-<li>Review doxygen comments</li>
-</ul>
 <h3>TODO gcov</h3>
 <ul>
 <li>Discover how to make Makefile generic rule for gcov work</li>
-<li>Improve coverage</li>
-<li>Reduce gcov misses </li>
+<li>Improve coverage </li>
 </ul>
 </div></div><!-- contents -->
 <!-- start footer part -->

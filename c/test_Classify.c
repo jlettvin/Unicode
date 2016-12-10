@@ -14,7 +14,7 @@
  * the hand-determined classification string.
  */
 void test_codepoint(unsigned codepoint, char* expect) {
-    passfail(!strcmp(Classify_Label[Classify[codepoint]], expect), "classify");
+    PASSFAIL(!strcmp(Classify_Label[Classify[codepoint]], expect), "classify");
 }
 
 /** test_codepoints
@@ -28,7 +28,7 @@ void test_codepoints() {
     for (char c='0'; c <= '9'; ++c) test_codepoint((unsigned)c, "Nd");
     for (char c='A'; c <= 'Z'; ++c) test_codepoint((unsigned)c, "Lu");
     for (char c='a'; c <= 'z'; ++c) test_codepoint((unsigned)c, "Ll");
-    passfail(0, "");
+    PASSFAIL(0, "");
 }
 
 /** main

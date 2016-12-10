@@ -1,14 +1,12 @@
-This library offers a set of functions designed to be very high performance while being as high quality as reasonable.
+This C language optimized library offers a set of functions designed to enable development of D\+S\+L lexing/parsing at very high performance while being as high quality as is reasonable without obfuscating what is done and why the implementation works.
 
-The principle approach uses two methods considered unusual for modern development.
-\begin{DoxyItemize}
-\item Multiple dereferencing table-\/driven paths
-\item Computed G\+O\+T\+O to eliminate if/for/while
-\end{DoxyItemize}
+The principle insight is that G\+O\+T\+O and table-\/driven transforms outperform architectures which test for values and take alternate code paths. G\+O\+T\+O and table-\/driven are considered unusual for modern development.
 
-The code is designed to be very short and tight. It makes use of the gnu compiler stack where computed G\+O\+T\+O has been a standard extension for many years, where other compilers have not.
+The code is designed to be very short and tight. It makes use of the gnu compiler stack where computed G\+O\+T\+O has been a standard extension for many years, where other compilers have no support for this efficiency.
 
-The general approach to table-\/driven paths is explained in the main R\+E\+A\+D\+M\+E.\+md which is in the parent directory to this.
+A benefit of the use of G\+O\+T\+O in this library is that the likely code path has been prefetched into the processor cache (so there is no flushing of the cache for either of the two directions the G\+O\+T\+O may take).
+
+The general approach to table-\/driven paths is explained in the main R\+E\+A\+D\+M\+E.\+md which is in the parent directory to this library source.
 
 This directory will be the primary area for development of a shared Python library because C\+F\+F\+I is less friendly to C++ than it is to C function entrypoints.
 
@@ -18,7 +16,7 @@ This directory will be the primary area for development of a shared Python libra
 \begin{DoxyItemize}
 \item Improve unit testing
 \item Eliminate extra includes
-\item Clarify typedefs
+\item Clarify typedefs (maybe move all to a single header)
 \item Find a worthy gprof for Mac O\+S X
 \end{DoxyItemize}
 
@@ -37,18 +35,10 @@ This directory will be the primary area for development of a shared Python libra
 \item Improve Tests of U\+T\+F8 $<$-\/$>$ char32 transforms in test\+\_\+\+Unicode.\+c
 \end{DoxyItemize}
 
-\subsubsection*{T\+O\+D\+O doxygen}
-
-
-\begin{DoxyItemize}
-\item Review doxygen comments
-\end{DoxyItemize}
-
 \subsubsection*{T\+O\+D\+O gcov}
 
 
 \begin{DoxyItemize}
 \item Discover how to make Makefile generic rule for gcov work
-\item Improve coverage
-\item Reduce gcov misses 
+\item Improve coverage 
 \end{DoxyItemize}

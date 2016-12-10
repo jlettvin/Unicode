@@ -59,16 +59,16 @@ void test_B64(const int index) {
     target = strlen(dtarget);
     lengths = (source == target);
     compare = !strcmp(dtarget, decoded);
-    passfail(lengths, "decode string lengths");
-    passfail(compare, "decode string content");
+    PASSFAIL(lengths, "decode string lengths");
+    PASSFAIL(compare, "decode string content");
 
     B64_encode(dtarget, etarget);
     source = strlen(encoded);
     target = strlen(etarget);
     lengths = (source == target);
     compare = !strcmp(etarget, encoded);
-    passfail(lengths, "encode string lengths");
-    passfail(compare, "encode string content");
+    PASSFAIL(lengths, "encode string lengths");
+    PASSFAIL(compare, "encode string content");
     if (!(lengths && compare)) {
         puts(etarget);
         puts(encoded);
@@ -76,7 +76,7 @@ void test_B64(const int index) {
         B64_decode(etarget, dtarget);
         puts(dtarget);
     }
-    passfail(0, "");
+    PASSFAIL(0, "");
 }
 
 /** test

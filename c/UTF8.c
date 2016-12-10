@@ -6,8 +6,7 @@
 #include <assert.h>
 
 #include "PassFail.h"
-#include "B64.h"
-#include "Unicode.h"
+#include "UTF8.h"
 
 typedef unsigned char ubyte_t;                 ///< imitate c++ type
 typedef unsigned long size_t;                  ///< imitate c++ type

@@ -20,7 +20,7 @@ void test_Endian() {
     struct { unsigned long wide; char*  thin; } d = { 0x64636261,  "abcd" };
     for (int i = 0; i < 4; ++i) {
         char c = *(char*)Endian_invariant(&d.wide, i);
-        passfail(c == d.thin[i], "Endian invariant byte indexing");
+        PASSFAIL(c == d.thin[i], "Endian invariant byte indexing");
     }
 }
 

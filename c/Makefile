@@ -3,7 +3,7 @@
 # Identity of this repository subdirectory
 IDENTITY=Unicode
 VERSION=0.0.1
-MODULES=PassFail Endian B64 Unicode Classify
+MODULES=PassFail Endian B64 UTF8 Classify
 
 # A useful function for keeping track of time while running make.
 timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
@@ -216,7 +216,7 @@ Endian.o:	Endian.c Makefile
 
 
 ###############################################################################
-Unicode.c.gcov: Unicode.c
+UTF8.c.gcov: UTF8.c
 	@echo "\t$@"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
@@ -229,15 +229,15 @@ Unicode.c.gcov: Unicode.c
 	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
 	@$(call timestamp,$@)
 
-test_Unicode.valgrind:	test_Unicode
+test_UTF8.valgrind:	test_UTF8
 
-test_Unicode.out:	test_Unicode
+test_UTF8.out:	test_UTF8
 
-test_Unicode:	test_Unicode.c Unicode.o B64.o PassFail.o
+test_UTF8:	test_UTF8.c UTF8.o B64.o PassFail.o
 	@-gcc -o $@ $^
 	@$(call timestamp,$@)
 
-Unicode.o:	Unicode.c Makefile
+UTF8.o:	UTF8.c Makefile
 
 
 
@@ -249,7 +249,7 @@ Classify.c.gcov: Classify.c
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
 		test_$(basename $<).o \
 		$(basename $<).o \
-		PassFail.o B64.o Unicode.o
+		PassFail.o B64.o UTF8.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
 	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
@@ -259,7 +259,7 @@ test_Classify.valgrind:	test_Classify
 
 test_Classify.out:	test_Classify
 
-test_Classify:	test_Classify.c Classify.o Unicode.o B64.o PassFail.o
+test_Classify:	test_Classify.c Classify.o UTF8.o B64.o PassFail.o
 	@-gcc -o $@ $^
 	@$(call timestamp,$@)
 

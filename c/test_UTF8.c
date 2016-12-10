@@ -1,4 +1,4 @@
-/* test_Unicode.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* test_UTF8.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -6,7 +6,7 @@
 #include <assert.h>
 
 #include "PassFail.h"
-#include "Unicode.h"
+#include "UTF8.h"
 
 void test_u32string() {
 }
@@ -21,7 +21,7 @@ void test_codepoint() {
     source = 0x41;
     char32_t_to_UTF8(source, utf8);
     target = UTF8_to_char32_t(utf8, &head, tail);
-    passfail(source == target, utf8);
+    PASSFAIL(source == target, utf8);
 }
 
 int main(int argc, char **argv) {

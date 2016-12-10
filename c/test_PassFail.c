@@ -15,9 +15,9 @@
  */
 void test_passfail() {
     puts("\tExpect exactly 1 [FAIL]");
-    passfail(1, "This shall pass");
-    passfail(0, "This shall fail");
-    passfail(1, "");
+    PASSFAIL(1, "This shall pass");
+    PASSFAIL(0, "This shall fail");
+    PASSFAIL(1, "");
 }
 
 /** main

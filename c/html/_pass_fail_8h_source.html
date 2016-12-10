@@ -89,8 +89,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#ifndef C_PASSFAIL_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define C_PASSFAIL_H_</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">void</span> passfail(<span class="keyword">const</span> <span class="keywordtype">int</span> T, <span class="keyword">const</span> <span class="keywordtype">char</span>* message);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#endif  // C_PASSFAIL_H_</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">void</span> passfail(<span class="keyword">const</span> <span class="keywordtype">int</span> T, <span class="keyword">const</span> <span class="keywordtype">char</span>* F, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> L, <span class="keyword">const</span> <span class="keywordtype">char</span>* msg);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define PASSFAIL(T, msg) passfail(T, __FILE__, __LINE__, msg)</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif  // C_PASSFAIL_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
