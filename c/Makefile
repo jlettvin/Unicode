@@ -27,7 +27,7 @@
 # Identity of this repository subdirectory
 IDENTITY=Unicode
 VERSION=0.0.1
-MODULES=PassFail Endian B64 UTF8 Classify
+MODULES=PassFail Endian B64 UTF8 Classify Page
 
 # A useful function for keeping track of time while running make.
 pipe:=|
@@ -38,9 +38,9 @@ timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 line=__________________________________________________________________________
 
 # Compiler options
-SHARED_OPTS=-O0 -Wall -Wextra -fPIC
-GOPTS=$(SHARED_OPTS) -g -coverage -pg
-COPTS=$(SHARED_OPTS)
+SHARED_OPTS=-std=gnu11 -o3 -Wall -Wextra -fPIC
+GOPTS=$(SHARED_OPTS) -O0 -g -coverage -pg
+COPTS=$(SHARED_OPTS) -O3
 
 # Usefule sets of names
 CSRCS=$(addsuffix .c,$(MODULES))
@@ -271,7 +271,7 @@ test_UTF8.valgrind:	test_UTF8
 
 test_UTF8.out:	test_UTF8
 
-test_UTF8:	test_UTF8.c UTF8.o B64.o PassFail.o
+test_UTF8:	test_UTF8.c UTF8.o PassFail.o
 	@-gcc -o $@ $^
 	@$(call timestamp,$@)
 
@@ -297,8 +297,33 @@ test_Classify.valgrind:	test_Classify
 
 test_Classify.out:	test_Classify
 
-test_Classify:	test_Classify.c Classify.o UTF8.o B64.o PassFail.o
+test_Classify:	test_Classify.c Classify.o PassFail.o
 	@-gcc -o $@ $^
 	@$(call timestamp,$@)
 
 Classify.o:	Classify.c Makefile
+
+
+###############################################################################
+Page.c.gcov: Page.c
+	@echo "\t$@"
+	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
+	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
+		test_$(basename $<).o \
+		$(basename $<).o \
+		PassFail.o B64.o UTF8.o
+	@-./gcov_test_$(basename $<)
+	@-gcov $< >$@.out 2>&1
+	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@$(call timestamp,$@)
+
+test_Page.valgrind:	test_Page
+
+test_Page.out:	test_Page
+
+test_Page:	test_Page.c Page.o PassFail.o
+	@-gcc -o $@ $^
+	@$(call timestamp,$@)
+
+Page.o:	Page.c Makefile

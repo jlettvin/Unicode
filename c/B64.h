@@ -1,6 +1,23 @@
 /* B64.h Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 
-/** B64 is en encoding/decoding algorith (see en.wikipedia.org/wiki/Base64).
+/** B64.h and B64.c
+ *
+ * \class Omni
+ *
+ * \ingroup jlettvin
+ *
+ * \brief encoding/decoding algorithm (see en.wikipedia.org/wiki/Base64).
+ *
+ * \author Jonathan D. Lettvin
+ * jlettvin@gmail.com
+ *
+ * \version 0.0.1
+ *
+ * \date 2016/12/10 09:47
+ *
+ * license GPLv3
+ *
+ * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  *
  * Using these examples from wikipedia, a two-way transform is shown.
  * "M"      <=>     "TQ=="

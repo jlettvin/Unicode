@@ -10,6 +10,8 @@ The general approach to table-\/driven paths is explained in the main R\+E\+A\+D
 
 This directory will be the primary area for development of a shared Python library because C\+F\+F\+I is less friendly to C++ than it is to C function entrypoints.
 
+valgrind does not identify any memory leaks resulting from the code in this library There are memory leaks in the test modules due to standard library calls.
+
 \subsection*{T\+O\+D\+O}
 
 
@@ -17,14 +19,6 @@ This directory will be the primary area for development of a shared Python libra
 \item Improve unit testing
 \item Clarify typedefs in \hyperlink{_unicode_8h_source}{Unicode.\+h}
 \item Find a worthy gprof for Mac O\+S X
-\end{DoxyItemize}
-
-\subsubsection*{T\+O\+D\+O valgrind}
-
-
-\begin{DoxyItemize}
-\item Document memory leaks due to C standard library calls
-\item Eliminate memory leaks (if any) due to code in this library
 \end{DoxyItemize}
 
 \subsubsection*{T\+O\+D\+O Unicode.\+c}

@@ -1,7 +1,27 @@
 /* Endian.h Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 #ifndef C_ENDIAN_H_
 #define C_ENDIAN_H_
-/** endian_invariant returns a pointer to invariant indexed byte in 32 bits.
+/** Endian.h and Endian.c
+ *
+ * \class Omni
+ *
+ * \ingroup jlettvin
+ *
+ * \brief codepoint classifier (lexer generics)
+ *
+ * \author Jonathan D. Lettvin
+ * jlettvin@gmail.com
+ *
+ * \version 0.0.1
+ *
+ * \date 2016/12/10 09:47
+ *
+ * license GPLv3
+ *
+ * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+ */
+
+/** Endian_invariant
  *
  * \param p32 a pointer to a 32 bit wide datum from which to extract a byte.
  * \param off an index (between 0 and 3) byte position within *p32.

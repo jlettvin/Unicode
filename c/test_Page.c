@@ -1,18 +1,25 @@
-/* test_PassFail.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* test_Page.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 #include <stdio.h>
 
 #include "PassFail.h"
+#include "Page.h"
 
-/** test_passfail
+/** test_page
  *
  * \return nothing
  *
  * Output both ways and show the final tally by using a 0-length message.
  */
-void test_passfail() {
-    PASSFAIL(1, "Expect exactly 1 [FAIL]");
-    PASSFAIL(1, "This shall pass");
-    PASSFAIL(0, "This shall fail");
+void test_page() {
+    ue0_t u0;
+
+    u0 = Page_peek_ue0_t(0);
+    PASSFAIL(u0 == (ue0_t)0, "Unused page memory first peek");
+
+    Page_poke_ue0_t(0, 255);
+    u0 = Page_peek_ue0_t(0);
+    PASSFAIL(u0 == (ue0_t)255, "First poke page memory");
+
     PASSFAIL(1, "");
 }
 
@@ -23,7 +30,8 @@ void test_passfail() {
  * With args, argc and argv are used (avoids lint warnings).
  */
 int main(int argc, char **argv) {
-    test_passfail();
+    test_page();
     while (--argc) puts(*++argv);
     return 0;
 }
+

@@ -86,16 +86,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>A benefit of the use of GOTO in this library is that the likely code path has been prefetched into the processor cache (so there is no flushing of the cache for either of the two directions the GOTO may take).</p>
 <p>The general approach to table-driven paths is explained in the main README.md which is in the parent directory to this library source.</p>
 <p>This directory will be the primary area for development of a shared Python library because CFFI is less friendly to C++ than it is to C function entrypoints.</p>
+<p>valgrind does not identify any memory leaks resulting from the code in this library There are memory leaks in the test modules due to standard library calls.</p>
 <h2>TODO</h2>
 <ul>
 <li>Improve unit testing</li>
 <li>Clarify typedefs in <a class="el" href="_unicode_8h_source.html">Unicode.h</a></li>
 <li>Find a worthy gprof for Mac OS X</li>
-</ul>
-<h3>TODO valgrind</h3>
-<ul>
-<li>Document memory leaks due to C standard library calls</li>
-<li>Eliminate memory leaks (if any) due to code in this library</li>
 </ul>
 <h3>TODO Unicode.c</h3>
 <ul>

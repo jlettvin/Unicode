@@ -2,20 +2,118 @@
 \label{class_omni}\index{Omni@{Omni}}
 
 
-Common header.  
+encoding/decoding algorithm (see en.\+wikipedia.\+org/wiki/\+Base64).  
 
 
 
 
-{\ttfamily \#include $<$Unicode.\+h$>$}
+{\ttfamily \#include $<$B64.\+h$>$}
 
 
 
 \subsection{Detailed Description}
-Common header. 
+encoding/decoding algorithm (see en.\+wikipedia.\+org/wiki/\+Base64). 
 
 Conversions between U\+T\+F8 and char32\+\_\+t.
 
+Common header.
+
+Unit test support function.
+
+memory management scheme to support sparse memory use.
+
+codepoint classifier (lexer generics)
+
+\hyperlink{_b64_8h_source}{B64.\+h} and B64.\+c
+
+\begin{DoxyAuthor}{Author}
+Jonathan D. Lettvin \href{mailto:jlettvin@gmail.com}{\tt jlettvin@gmail.\+com}
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+0.\+1
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2016/12/10 09\+:47
+\end{DoxyDate}
+license G\+P\+Lv3
+
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+\end{DoxyCopyright}
+Using these examples from wikipedia, a two-\/way transform is shown. \char`\"{}\+M\char`\"{} $<$=$>$ \char`\"{}\+T\+Q==\char`\"{} \char`\"{}\+Ma\char`\"{} $<$=$>$ \char`\"{}\+T\+W\+E=\char`\"{} \char`\"{}\+Man\char`\"{} $<$=$>$ \char`\"{}\+T\+W\+Fu\char`\"{}
+
+8 bits taken 3 at a time is equal to 6 bits taken 4 at a time. In other words, encoding expands by 4/3 and decoding shrinkgs by 3/4.
+
+The original 8 bit bytes are sliced up 6 bits at a time and the 6 bits are encoded as common A\+S\+C\+I\+I to avoid encoding problems. The absence of high bits and control characters is historically valuable. The example below shows how 3 bytes is converted to 6 bit fields and how those fields are related to encoding letters.
+
+Man M a n 01001101 01100001 01101110 010011 010110 000101 101110 19 22 5 46 T=\mbox{[}19\mbox{]} W=\mbox{[}22\mbox{]} F=\mbox{[} 5\mbox{]} u=\mbox{[}46\mbox{]} T\+W\+Fu
+
+These are the declared interface functions.
+
+\hyperlink{_classify_8h_source}{Classify.\+h} and Classify.\+c
+
+\begin{DoxyAuthor}{Author}
+Jonathan D. Lettvin \href{mailto:jlettvin@gmail.com}{\tt jlettvin@gmail.\+com}
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+0.\+1
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2016/12/10 09\+:47
+\end{DoxyDate}
+license G\+P\+Lv3
+
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+\end{DoxyCopyright}
+\hyperlink{_endian_8h_source}{Endian.\+h} and Endian.\+c
+
+\begin{DoxyAuthor}{Author}
+Jonathan D. Lettvin \href{mailto:jlettvin@gmail.com}{\tt jlettvin@gmail.\+com}
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+0.\+1
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2016/12/10 09\+:47
+\end{DoxyDate}
+license G\+P\+Lv3
+
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+\end{DoxyCopyright}
+\hyperlink{_page_8h_source}{Page.\+h} and Page.\+c
+
+\begin{DoxyAuthor}{Author}
+Jonathan D. Lettvin \href{mailto:jlettvin@gmail.com}{\tt jlettvin@gmail.\+com}
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+0.\+1
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2016/12/10 09\+:47
+\end{DoxyDate}
+license G\+P\+Lv3
+
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+\end{DoxyCopyright}
+passfail
+
+\begin{DoxyAuthor}{Author}
+Jonathan D. Lettvin \href{mailto:jlettvin@gmail.com}{\tt jlettvin@gmail.\+com}
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+0.\+1
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2016/12/10 09\+:47
+\end{DoxyDate}
+license G\+P\+Lv3
+
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+\end{DoxyCopyright}
 \begin{DoxyAuthor}{Author}
 Jonathan D. Lettvin \href{mailto:jlettvin@gmail.com}{\tt jlettvin@gmail.\+com}
 \end{DoxyAuthor}
@@ -48,4 +146,4 @@ B\+A\+C\+K\+G\+R\+O\+U\+N\+D\+: \href{http://lemire.me/blog/2012/06/20/do-not-wa
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-Unicode.\+h\end{DoxyCompactItemize}
+B64.\+h\end{DoxyCompactItemize}

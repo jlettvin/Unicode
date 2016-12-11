@@ -88,13 +88,52 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Common header.  
+<p>encoding/decoding algorithm (see en.wikipedia.org/wiki/Base64).  
  <a href="class_omni.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_unicode_8h_source.html">Unicode.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_b64_8h_source.html">B64.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Common header. </p>
+<div class="textblock"><p>encoding/decoding algorithm (see en.wikipedia.org/wiki/Base64). </p>
 <p>Conversions between UTF8 and char32_t.</p>
+<p>Common header.</p>
+<p>Unit test support function.</p>
+<p>memory management scheme to support sparse memory use.</p>
+<p>codepoint classifier (lexer generics)</p>
+<p><a class="el" href="_b64_8h_source.html">B64.h</a> and B64.c</p>
+<dl class="section author"><dt>Author</dt><dd>Jonathan D. Lettvin <a href="#" onclick="location.href='mai'+'lto:'+'jle'+'tt'+'vin'+'@g'+'mai'+'l.'+'com'; return false;">jlett<span style="display: none;">.nosp@m.</span>vin@<span style="display: none;">.nosp@m.</span>gmail<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.0.1</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016/12/10 09:47</dd></dl>
+<p>license GPLv3</p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"</dd></dl>
+<p>Using these examples from wikipedia, a two-way transform is shown. "M" &lt;=&gt; "TQ==" "Ma" &lt;=&gt; "TWE=" "Man" &lt;=&gt; "TWFu"</p>
+<p>8 bits taken 3 at a time is equal to 6 bits taken 4 at a time. In other words, encoding expands by 4/3 and decoding shrinkgs by 3/4.</p>
+<p>The original 8 bit bytes are sliced up 6 bits at a time and the 6 bits are encoded as common ASCII to avoid encoding problems. The absence of high bits and control characters is historically valuable. The example below shows how 3 bytes is converted to 6 bit fields and how those fields are related to encoding letters.</p>
+<p>Man M a n 01001101 01100001 01101110 010011 010110 000101 101110 19 22 5 46 T=[19] W=[22] F=[ 5] u=[46] TWFu</p>
+<p>These are the declared interface functions.</p>
+<p><a class="el" href="_classify_8h_source.html">Classify.h</a> and Classify.c</p>
+<dl class="section author"><dt>Author</dt><dd>Jonathan D. Lettvin <a href="#" onclick="location.href='mai'+'lto:'+'jle'+'tt'+'vin'+'@g'+'mai'+'l.'+'com'; return false;">jlett<span style="display: none;">.nosp@m.</span>vin@<span style="display: none;">.nosp@m.</span>gmail<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.0.1</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016/12/10 09:47</dd></dl>
+<p>license GPLv3</p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"</dd></dl>
+<p><a class="el" href="_endian_8h_source.html">Endian.h</a> and Endian.c</p>
+<dl class="section author"><dt>Author</dt><dd>Jonathan D. Lettvin <a href="#" onclick="location.href='mai'+'lto:'+'jle'+'tt'+'vin'+'@g'+'mai'+'l.'+'com'; return false;">jlett<span style="display: none;">.nosp@m.</span>vin@<span style="display: none;">.nosp@m.</span>gmail<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.0.1</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016/12/10 09:47</dd></dl>
+<p>license GPLv3</p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"</dd></dl>
+<p><a class="el" href="_page_8h_source.html">Page.h</a> and Page.c</p>
+<dl class="section author"><dt>Author</dt><dd>Jonathan D. Lettvin <a href="#" onclick="location.href='mai'+'lto:'+'jle'+'tt'+'vin'+'@g'+'mai'+'l.'+'com'; return false;">jlett<span style="display: none;">.nosp@m.</span>vin@<span style="display: none;">.nosp@m.</span>gmail<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.0.1</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016/12/10 09:47</dd></dl>
+<p>license GPLv3</p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"</dd></dl>
+<p>passfail</p>
+<dl class="section author"><dt>Author</dt><dd>Jonathan D. Lettvin <a href="#" onclick="location.href='mai'+'lto:'+'jle'+'tt'+'vin'+'@g'+'mai'+'l.'+'com'; return false;">jlett<span style="display: none;">.nosp@m.</span>vin@<span style="display: none;">.nosp@m.</span>gmail<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.0.1</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2016/12/10 09:47</dd></dl>
+<p>license GPLv3</p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Jonathan D. Lettvin <a href="#" onclick="location.href='mai'+'lto:'+'jle'+'tt'+'vin'+'@g'+'mai'+'l.'+'com'; return false;">jlett<span style="display: none;">.nosp@m.</span>vin@<span style="display: none;">.nosp@m.</span>gmail<span style="display: none;">.nosp@m.</span>.com</a></dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.0.1</dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2016/12/10 09:47</dd></dl>
@@ -107,7 +146,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"</dd></dl>
 <p>BACKGROUND: <a href="http://lemire.me/blog/2012/06/20/do-not-waste-time-with-stl-vectors/">http://lemire.me/blog/2012/06/20/do-not-waste-time-with-stl-vectors/</a> </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="_unicode_8h_source.html">Unicode.h</a></li>
+<li><a class="el" href="_b64_8h_source.html">B64.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
