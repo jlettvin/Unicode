@@ -54,6 +54,7 @@ Were this implementation not available, here are issues to consider:
 * Run additional tests to guarantee that the imports perform fully
 * Additional concerns not listed here...
 
+```
     # Here is all that will be needed to use these library functions:
     
     with open("UTF8encoded_source.txt", "rb") as source:
@@ -63,6 +64,7 @@ Were this implementation not available, here are issues to consider:
     with open("UTF8encoded_target.txt", "wb") as target:
         u32string_to_UTF8(asString32, asUTF8)
         target.write(asUTF8)
+```
 
 ## TODO
 * Improve unit testing
