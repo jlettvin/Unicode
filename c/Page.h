@@ -36,9 +36,82 @@
  *
  * These are the declared interface functions.
  */
+#include <stdio.h>   ///< remove after debugging
 #include <stdlib.h>
 
 #include "Unicode.h"
+
+/** NEW MACROS
+ * These macros enable object-oriented programming in C where
+ * a data space of all one data type is declared, constructed
+ * and operated upon by peek and poke methods, and finally destructed.
+ *
+ * Subsequent to construction, the object acts as an autonomous data space
+ * containing data all of one type where peek of non-existent data returns 0
+ * and poke of non-existent data causes sparse allocation of sufficient
+ * data and linkage to allow a peek operation to recover the data.
+ */
+
+/** PAGE_TYPEDEF must be a macro.
+ * inline was considered but could not vary with types.
+ * The struct and constructor must be declared in Page.h.
+ */
+#define PAGE_TYPEDEF(type, address_bits) \
+typedef struct _page_t_##type { \
+    void** base; \
+    size_t shift; \
+    size_t abits; \
+    size_t psize; \
+    struct _page_t_##type* (*ctor)(); \
+    void (*dtor)(struct _page_t_##type* self); \
+    type (*peek)(struct _page_t_##type* self, size_t address); \
+    void (*poke)(struct _page_t_##type* self, size_t address, type value); \
+} page_t_##type; \
+page_t_##type* page_t_##type##_ctor();
+
+/** PAGE_DEFINE must be a macro.
+ * inline was considered but could not vary with types.
+ * The implementations of the constructor and other pointed at functions
+ * must be defined in Page.c to avoid duplicate symbols.
+ * TODO implement peek/poke/dtor recursion
+ */
+#define PAGE_DEFINE(type, address_bits) \
+void page_t_##type##_dtor(page_t_##type *self) { \
+    free(self->base);  /* recursively free before this. */ \
+} \
+type page_t_##type##_peek(page_t_##type *self, size_t address) { \
+    address <<= self->shift; \
+    return (type)0; \
+} \
+void page_t_##type##_poke(page_t_##type* self, size_t address, type value) { \
+    address <<= self->shift; \
+    value = (type)0; \
+} \
+page_t_##type* page_t_##type##_ctor() { \
+    size_t N = sizeof(type); \
+    page_t_##type* made = \
+        (page_t_##type *)calloc(sizeof(page_t_##type), 1); \
+    made->shift = (size_t)(N>1)+(size_t)(N>2)+(size_t)(N>4); \
+    made->abits = address_bits; \
+    made->psize = 0x10000; \
+    made->base = (void**)calloc(made->psize, 1); \
+    made->dtor = &page_t_##type##_dtor; \
+    made->peek = &page_t_##type##_peek; \
+    made->poke = &page_t_##type##_poke; \
+    return made; \
+}
+
+/** PAGE_TYPEDEF declares the struct types/constructor for paged typed data.
+ */
+PAGE_TYPEDEF(ue0_t, 32)
+PAGE_TYPEDEF(ue1_t, 32)
+PAGE_TYPEDEF(ue2_t, 32)
+PAGE_TYPEDEF(ue3_t, 32)
+PAGE_TYPEDEF(se0_t, 32)
+PAGE_TYPEDEF(se1_t, 32)
+PAGE_TYPEDEF(se2_t, 32)
+PAGE_TYPEDEF(se3_t, 32)
+
 
 #define PAGE_ADDRESS_BITS 32  // Must be either 32 or 64
 

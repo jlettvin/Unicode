@@ -1,0 +1,53 @@
+\hypertarget{struct__page__t}{}\section{\+\_\+page\+\_\+t Struct Reference}
+\label{struct__page__t}\index{\+\_\+page\+\_\+t@{\+\_\+page\+\_\+t}}
+
+
+$<$ remove after debugging  
+
+
+
+
+{\ttfamily \#include $<$Page.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct__page__t_ade35703804a906c244bb2f986a6bcbad}{}void {\bfseries ctor} (struct \hyperlink{struct__page__t}{\+\_\+page\+\_\+t} $\ast$self)\label{struct__page__t_ade35703804a906c244bb2f986a6bcbad}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{struct__page__t_a49fb9029db435e7aa3253f75bc413d5b}{}void $\ast$$\ast$ {\bfseries base}\label{struct__page__t_a49fb9029db435e7aa3253f75bc413d5b}
+
+\item 
+\hypertarget{struct__page__t_a2df2f5e28d8ee1c05baff75b27778226}{}size\+\_\+t {\bfseries shift}\label{struct__page__t_a2df2f5e28d8ee1c05baff75b27778226}
+
+\item 
+\hypertarget{struct__page__t_ac96e4c4ad514b7bbc6180191150828ec}{}void($\ast$ {\bfseries dtor} )(struct \hyperlink{struct__page__t}{\+\_\+page\+\_\+t} $\ast$self)\label{struct__page__t_ac96e4c4ad514b7bbc6180191150828ec}
+
+\item 
+\hypertarget{struct__page__t_a35153ca389bf1758e8c002159d9e6d12}{}void($\ast$ {\bfseries peek} )(struct \hyperlink{struct__page__t}{\+\_\+page\+\_\+t} $\ast$self)\label{struct__page__t_a35153ca389bf1758e8c002159d9e6d12}
+
+\item 
+\hypertarget{struct__page__t_aa779e2bb69a64b9765eba3ebd931f1f4}{}void($\ast$ {\bfseries poke} )(struct \hyperlink{struct__page__t}{\+\_\+page\+\_\+t} $\ast$self)\label{struct__page__t_aa779e2bb69a64b9765eba3ebd931f1f4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+$<$ remove after debugging 
+
+Page
+
+Memory management for getting (peek) and setting (poke) unsigned and signed values of sizes of 1, 2, 4, and 8 bytes.
+
+Pages are allocated on demand by poke. Values are assumed to be 0 when peek addresses unallocated memory.
+
+I\+M\+P\+O\+R\+T\+A\+N\+T! These are implemented as macros generating inline functions. This is a nod to the D\+R\+Y principle (Don\textquotesingle{}t repeat yourself) and also avoiding generation of stack frames by function calls.
+
+These are the declared interface functions. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Page.\+h\end{DoxyCompactItemize}
