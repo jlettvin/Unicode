@@ -56,7 +56,7 @@
  * inline was considered but could not vary with types.
  * The struct and constructor must be declared in Page.h.
  */
-#define PAGE_TYPEDEF(type, address_bytes) \
+#define PAGE_TYPEDEF(type, abytes) \
 typedef struct _page_t_##type { \
     void** base; \
     size_t bytes; \
@@ -74,11 +74,11 @@ page_t_##type* page_t_##type##_ctor();
  * The implementations of the constructor and other pointed at functions
  * must be defined in Page.c to avoid duplicate symbols.
  * TODO implement peek/poke/dtor recursion
- * TODO assert that address_bytes is 1, 2, 3, or 4.
- * TODO make peek/poke/dtor recursion use that address_bytes for dereference.
+ * TODO assert that abytes is 1, 2, 3, or 4.
+ * TODO make peek/poke/dtor recursion use that abytes for dereference.
  * TODO rather than recursion, simply iterate updating a pointer.
  */
-#define PAGE_DEFINE(type, address_bytes, elements_per_page) \
+#define PAGE_DEFINE(type, abytes, elements_per_page) \
 void page_t_##type##_dtor(page_t_##type *self) { \
     free(self->base);  /* recursively free before this. */ \
 } \
@@ -90,21 +90,22 @@ type page_t_##type##_peek(page_t_##type *self, size_t index) { \
 void page_t_##type##_poke(page_t_##type* self, size_t index, type value) { \
     size_t address = index << sizeof(type); \
     self = self; \
+    self->base || (self->base = (void**)calloc(self->psize, 1)); \
     value = (type)address; \
 } \
 page_t_##type* page_t_##type##_ctor() { \
     size_t bytes_per_element = sizeof(type); \
     size_t bytes_per_page = bytes_per_element * elements_per_page; \
-    page_t_##type* made = \
+    page_t_##type* self = \
         (page_t_##type *)calloc(sizeof(page_t_##type), 1); \
-    made->bytes = address_bytes; \
-    made->bits = address_bytes * 8; \
-    made->psize = bytes_per_page; \
-    made->base = (void**)calloc(made->psize, 1); \
-    made->dtor = &page_t_##type##_dtor; \
-    made->peek = &page_t_##type##_peek; \
-    made->poke = &page_t_##type##_poke; \
-    return made; \
+    self->bytes = abytes; \
+    self->bits = abytes * 8; \
+    self->psize = bytes_per_page; \
+    self->base = (void**)0; \
+    self->dtor = &page_t_##type##_dtor; \
+    self->peek = &page_t_##type##_peek; \
+    self->poke = &page_t_##type##_poke; \
+    return self; \
 }
 
 /** PAGE_TYPEDEF declares the struct types/constructor for paged typed data.
