@@ -34,6 +34,13 @@
  * This is a nod to the DRY principle (Don't repeat yourself)
  * and also avoiding generation of stack frames by function calls.
  *
+ * inline functions (used for one approach) has some advantage while
+ * C preprocessor macros (another approach) has other advantages.
+ *
+ * http://stackoverflow.com/questions/22767523/
+ *      what-inline-attribute-always-inline-means-in-the-function
+ * https://gcc.gnu.org/ml/gcc-help/2007-01/msg00049.html
+ *
  * These are the declared interface functions.
  */
 #include <stdio.h>   ///< remove after debugging
@@ -61,6 +68,8 @@ typedef struct _page_t_##type { \
     void** base; \
     size_t bytes; \
     size_t bits; \
+    size_t pshift; \
+    size_t pcount; \
     size_t psize; \
     struct _page_t_##type* (*ctor)(); \
     void (*dtor)(struct _page_t_##type* self); \
@@ -78,7 +87,7 @@ page_t_##type* page_t_##type##_ctor();
  * TODO make peek/poke/dtor recursion use that abytes for dereference.
  * TODO rather than recursion, simply iterate updating a pointer.
  */
-#define PAGE_DEFINE(type, abytes, elements_per_page) \
+#define PAGE_DEFINE(type, abytes, power) \
 void page_t_##type##_dtor(page_t_##type *self) { \
     free(self->base);  /* recursively free before this. */ \
 } \
@@ -95,11 +104,14 @@ void page_t_##type##_poke(page_t_##type* self, size_t index, type value) { \
 } \
 page_t_##type* page_t_##type##_ctor() { \
     size_t bytes_per_element = sizeof(type); \
+    size_t elements_per_page = 1L << power; \
     size_t bytes_per_page = bytes_per_element * elements_per_page; \
     page_t_##type* self = \
         (page_t_##type *)calloc(sizeof(page_t_##type), 1); \
     self->bytes = abytes; \
     self->bits = abytes * 8; \
+    self->pshift = power; \
+    self->pcount = bytes_per_page; \
     self->psize = bytes_per_page; \
     self->base = (void**)0; \
     self->dtor = &page_t_##type##_dtor; \

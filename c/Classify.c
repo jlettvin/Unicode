@@ -430,6 +430,10 @@ unsigned char Classify[0x110000];
 /**
  * Classify_init is run before main is called.
  * It initializes the Classify array from the RLE data.
+ * https://www.hackerearth.com/practice/notes/
+ *      functions-which-get-executed-before-and-after-main-in-c/
+ * http://www.geeksforgeeks.org/
+ *      functions-that-are-executed-before-and-after-main-in-c/
  */
 __attribute__((constructor))
 void Classify_init(void) {

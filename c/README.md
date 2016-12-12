@@ -37,7 +37,32 @@ than it is to C function entrypoints.
 valgrind does not identify any memory leaks
 resulting from the code in this library
 There are memory leaks in the test modules
-due to standard library calls.
+due to implementation errors in the standard library.
+
+## Points of Interest
+
+### UTF8 <-> char32_t
+Python libraries for handling UTF8 and full-width Unicode codepoints
+are fraught with pitfalls for the everyday developer.
+This library offers a simple pair of symmetric operations which convert
+between UTF8 encoded strings (the default most popular Unicode format)
+and string32 (the necessary ordinal size for internal Unicode).
+
+Were this implementation not available, here are issues to consider:
+* Recompile Python to handle 21 bit codepoints rather than only 16 bit
+* Import libraries for which the encode/decode interface is richer
+* Run additional tests to guarantee that the imports perform fully
+* Additional concerns not listed here...
+
+    # Here is all that will be needed to use these library functions:
+    
+    with open("UTF8encoded_source.txt", "rb") as source:
+        asUTF8 = source.read()
+        UTF8_to_u32string(asUTF8, asString32)
+    
+    with open("UTF8encoded_target.txt", "wb") as target:
+        u32string_to_UTF8(asString32, asUTF8)
+        target.write(asUTF8)
 
 ## TODO
 * Improve unit testing
