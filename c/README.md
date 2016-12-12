@@ -59,10 +59,12 @@ Were this implementation not available, here are issues to consider:
     
     with open("UTF8encoded_source.txt", "rb") as source:
         asUTF8 = source.read()
-        UTF8_to_u32string(asUTF8, asString32)
+        UTF8_to_u32string(asUTF8, asU32String)
+
+    # asU32String is an array of 32 bit codepoints.
     
     with open("UTF8encoded_target.txt", "wb") as target:
-        u32string_to_UTF8(asString32, asUTF8)
+        u32string_to_UTF8(asU32String, asUTF8)
         target.write(asUTF8)
 ```
 
