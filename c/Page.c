@@ -5,15 +5,17 @@
 
 /** PAGE_DEFINE implements all the functions needed by Page.h: PAGE_TYPEDEFa.
  */
-PAGE_DEFINE(ue0_t, 32)
-PAGE_DEFINE(ue1_t, 32)
-PAGE_DEFINE(ue2_t, 32)
-PAGE_DEFINE(ue3_t, 32)
-PAGE_DEFINE(se0_t, 32)
-PAGE_DEFINE(se1_t, 32)
-PAGE_DEFINE(se2_t, 32)
-PAGE_DEFINE(se3_t, 32)
+PAGE_DEFINE(ue0_t, 4, 256)
+PAGE_DEFINE(ue1_t, 4, 256)
+PAGE_DEFINE(ue2_t, 4, 256)
+PAGE_DEFINE(ue3_t, 4, 256)
+PAGE_DEFINE(se0_t, 4, 256)
+PAGE_DEFINE(se1_t, 4, 256)
+PAGE_DEFINE(se2_t, 4, 256)
+PAGE_DEFINE(se3_t, 4, 256)
 
+/** TODO Eliminate Page_init and commented dealloc when new macros work.
+ */
 __attribute__((constructor))
 void Page_init(void) {
     // size_t Page_Break = sizeof(address_t) / sizeof(unsigned short);
