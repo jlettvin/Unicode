@@ -73,10 +73,10 @@ endif
 
 # Other platform specificity
 ifeq ($(UNAME), Darwin)
-GPROF=echo "no Mac gprof"
+GPROF=echo "No Mac gprof"
 endif
 ifeq ($(UNAME), Linux)
-GPROF=echo "Linux gprof"
+GPROF=gprof -b
 endif
 
 ###############################################################################
@@ -111,7 +111,7 @@ endif
 		-L . -l $(LIBRARY)
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "no Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
 	@$(call timestamp,$@)
 
 ###############################################################################
@@ -168,9 +168,9 @@ results:
 		grep -v '^[PASS]'
 	@echo $(line)
 	@echo "\tvalgrind valgrind valgrind valgrind valgrind valgrind valgrind"
-	@echo "\trelevant .valgrind file content"
-	@cat *.valgrind | egrep $(egreps)
-	@echo $(line)
+	echo "\trelevant .valgrind file content"
+	cat *.valgrind | egrep $(egreps)
+	echo $(line)
 	@$(call timestamp,$@)
 
 .PHONY:
@@ -196,7 +196,7 @@ $(LINUXLIB):	$(OBJS)
 
 ###############################################################################
 PassFail.c.gcov: PassFail.c
-	@echo "\t$@"
+	@echo "\t$@ and gprof(on linux)"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -204,7 +204,7 @@ PassFail.c.gcov: PassFail.c
 		$(basename $<).o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
 	@$(call timestamp,$@)
 
 test_PassFail.valgrind:	test_PassFail
@@ -220,7 +220,7 @@ PassFail.o:	PassFail.c Makefile
 
 ###############################################################################
 B64.c.gcov: B64.c
-	@echo "\t$@"
+	@echo "\t$@ and gprof(on linux)"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -229,7 +229,7 @@ B64.c.gcov: B64.c
 		PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
 	@$(call timestamp,$@)
 
 test_B64.valgrind:	test_B64
@@ -246,7 +246,7 @@ B64.o:	B64.c Makefile
 
 ###############################################################################
 Endian.c.gcov: Endian.c
-	@echo "\t$@"
+	@echo "\t$@ and gprof(on linux)"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -255,7 +255,7 @@ Endian.c.gcov: Endian.c
 		PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
 	@$(call timestamp,$@)
 
 test_Endian.valgrind:	test_Endian
@@ -272,7 +272,7 @@ Endian.o:	Endian.c Makefile
 
 ###############################################################################
 UTF8.c.gcov: UTF8.c
-	@echo "\t$@"
+	@echo "\t$@ and gprof(on linux)"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -281,7 +281,7 @@ UTF8.c.gcov: UTF8.c
 		B64.o PassFail.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
 	@$(call timestamp,$@)
 
 test_UTF8.valgrind:	test_UTF8
@@ -298,7 +298,7 @@ UTF8.o:	UTF8.c Makefile
 
 ###############################################################################
 Classify.c.gcov: Classify.c
-	@echo "\t$@"
+	@echo "\t$@ and gprof(on linux)"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
@@ -307,7 +307,7 @@ Classify.c.gcov: Classify.c
 		PassFail.o B64.o UTF8.o
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
 	@$(call timestamp,$@)
 
 test_Classify.valgrind:	test_Classify
@@ -323,7 +323,7 @@ Classify.o:	Classify.c Makefile
 
 ###############################################################################
 Page.c.gcov: Page.c
-	@echo "\t$@"
+	@echo "\t$@ and gprof(on linux)"
 	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
 	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
