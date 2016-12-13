@@ -61,7 +61,7 @@ void B64_encode(const char* src, char *tgt) {
     static const void *Z[4][2] =
         { {&&B, &&E0}, {&&C, &&E2}, {&&D, &&E1}, {&&A, &&E0} };
     char* encode = B64_static.encode;
-    char s, t;
+    char s, t=0;
 A:  s = *src++; goto *Z[0][!s];
 B:  *tgt++ = encode[    (s >> 2)]; t = (s & 0x3) << 4;
     *tgt = encode[t & 0xff]; s = *src++; goto *Z[1][!s];

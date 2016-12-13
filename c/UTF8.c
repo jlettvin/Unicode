@@ -90,9 +90,9 @@ codepoint_t UTF8_to_char32_t(char* buf, size_t* head, size_t tail) {
         static void *headed[] = { &&err, &&ingest };
         static void *tailed[] = { &&err, &&enough };
 
-        size_t off = *head, high;
+        size_t off = *head, high = 0;
         char32_t _ = 0;
-        char a, b, c, d;
+        char a=0, b=0, c=0, d=0;
 
         // Execution begins with this goto.
         goto *headed[(size_t)(*head < tail)];
