@@ -136,11 +136,10 @@ endif
 
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
-all:	start doxygen lint test valgrind $(LIBRARY) gcov results end
+all:	start graph doxygen lint test valgrind $(LIBRARY) gcov results end
 	@echo "\t$@ SUMMARY gcov percentages"
 	@grep '%' *.gcov.out
 	@$(call timestamp,$@)
-
 
 .PHONY:
 clean:
@@ -167,6 +166,12 @@ start:
 doxygen:
 	@doxygen > doxygen.out 2>&1
 	@$(call timestamp,$@)
+
+# https://github.com/lindenb/makefile2graph
+# Modified with fputs("    rankdir=LR;\n",out);  ///< jlettvin 20161213
+.PHONY:
+graph: Makefile
+	make -Bnd | makefile2graph | dot -Tpng -o Makefile.png
 
 .PHONY:
 lint:	$(SRCS)
