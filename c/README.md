@@ -73,6 +73,7 @@ Were this implementation not available, here are issues to consider:
 * Clarify typedefs in Unicode.h
 * Find a worthy gprof for Mac OS X
 * Continue port to linux
+* Eliminate warnings on linux
 
 ### TODO Unicode.c
 * Improve Tests of UTF8 <-> char32 transforms in test_Unicode.c
