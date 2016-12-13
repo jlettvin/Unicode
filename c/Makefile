@@ -120,20 +120,6 @@ endif
 	@-valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
 	@$(call timestamp,$@)
 
-# generic production of coverage files (unused)
-%.gcov : %
-	@echo "\t$@ generic (needs work)"
-	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
-	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
-	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
-		test_$(basename $<).o \
-		$(basename $<).o \
-		-L . -l $(LIBRARY)
-	@-./gcov_test_$(basename $<)
-	@-gcov $< >$@.out 2>&1
-	@-$(call profile,gcov_test_$(basename $<),$<.prof)
-	@$(call timestamp,$@)
-
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
 all:	start graph doxygen lint test valgrind $(LIBRARY) gcov results end
