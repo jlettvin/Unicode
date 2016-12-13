@@ -71,12 +71,36 @@ LIBRARY=$(LINUXLIB)
 LIBOPT=$(LINUXLIBOPT)
 endif
 
-# Other platform specificity
+# Generic functions
+# $(1) == $@
+# $(2) == $<
+# $(3) == $(basename $(2))
+# $(4) == list of .o files needed for link
+define coverage2
+	echo "$(1),$(2),$(3),$(4)"
+	gcc $(GOPTS) -c -o test_$(3).o test_$(2)
+	gcc $(GOPTS) -c -o      $(3).o      $(2)
+	gcc $(GOPTS)    -o gcov_test_$(3) test_$(3).o $(3).o $(4)
+	./gcov_test_$(3)
+	gcov $(2) >$(1).out 2>&1
+endef
+
+define coverage
+	./gcov_test_$(basename $(2))
+	gcov $(2) >$(1).out 2>&1
+endef
+
+# Other specific platform funtions
 ifeq ($(UNAME), Darwin)
-GPROF=echo "No Mac gprof"
+define profile
+	echo "No Mac gprof"
+endef
 endif
+
 ifeq ($(UNAME), Linux)
-GPROF=gprof -b
+define profile
+	gprof -b $(1) gmon.out > $(2) 2>&1
+endef
 endif
 
 ###############################################################################
@@ -111,7 +135,7 @@ endif
 		-L . -l $(LIBRARY)
 	@-./gcov_test_$(basename $<)
 	@-gcov $< >$@.out 2>&1
-	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
+	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 ###############################################################################
@@ -124,7 +148,17 @@ all:	start doxygen lint test valgrind $(LIBRARY) gcov results end
 
 .PHONY:
 clean:
-	@-rm -f $(TESTS) *.o *.out *.valgrind *gcov* *gcda* *gcno* *.prof *.dylib
+	@-rm -f \
+		$(TESTS) \
+		*.o \
+		*.out \
+		*.valgrind \
+		*gcov* \
+		*gcda* \
+		*gcno* \
+		*.prof \
+		*.dylib \
+		*.so
 	@$(call timestamp,$@)
 
 ###############################################################################
@@ -197,14 +231,8 @@ $(LINUXLIB):	$(OBJS)
 ###############################################################################
 PassFail.c.gcov: PassFail.c
 	@echo "\t$@ and gprof(on linux)"
-	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
-	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
-	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
-		test_$(basename $<).o \
-		$(basename $<).o
-	@-./gcov_test_$(basename $<)
-	@-gcov $< >$@.out 2>&1
-	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
+	@-$(call coverage2,$@,$<,$(basename $<),)
+	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_PassFail.valgrind:	test_PassFail
@@ -221,15 +249,8 @@ PassFail.o:	PassFail.c Makefile
 ###############################################################################
 B64.c.gcov: B64.c
 	@echo "\t$@ and gprof(on linux)"
-	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
-	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
-	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
-		test_$(basename $<).o \
-		$(basename $<).o \
-		PassFail.o
-	@-./gcov_test_$(basename $<)
-	@-gcov $< >$@.out 2>&1
-	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
+	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o)
+	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_B64.valgrind:	test_B64
@@ -247,15 +268,8 @@ B64.o:	B64.c Makefile
 ###############################################################################
 Endian.c.gcov: Endian.c
 	@echo "\t$@ and gprof(on linux)"
-	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
-	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
-	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
-		test_$(basename $<).o \
-		$(basename $<).o \
-		PassFail.o
-	@-./gcov_test_$(basename $<)
-	@-gcov $< >$@.out 2>&1
-	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
+	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o)
+	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_Endian.valgrind:	test_Endian
@@ -273,15 +287,8 @@ Endian.o:	Endian.c Makefile
 ###############################################################################
 UTF8.c.gcov: UTF8.c
 	@echo "\t$@ and gprof(on linux)"
-	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
-	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
-	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
-		test_$(basename $<).o \
-		$(basename $<).o \
-		B64.o PassFail.o
-	@-./gcov_test_$(basename $<)
-	@-gcov $< >$@.out 2>&1
-	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
+	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o B64.o)
+	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_UTF8.valgrind:	test_UTF8
@@ -299,15 +306,8 @@ UTF8.o:	UTF8.c Makefile
 ###############################################################################
 Classify.c.gcov: Classify.c
 	@echo "\t$@ and gprof(on linux)"
-	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
-	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
-	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
-		test_$(basename $<).o \
-		$(basename $<).o \
-		PassFail.o B64.o UTF8.o
-	@-./gcov_test_$(basename $<)
-	@-gcov $< >$@.out 2>&1
-	@-$(GPROF) gcov_test_$(basename $<) gmon.out > $<.prof
+	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o B64.o UTF8.o)
+	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_Classify.valgrind:	test_Classify
@@ -324,15 +324,8 @@ Classify.o:	Classify.c Makefile
 ###############################################################################
 Page.c.gcov: Page.c
 	@echo "\t$@ and gprof(on linux)"
-	@-gcc $(GOPTS) -c -o test_$(basename $<).o test_$<
-	@-gcc $(GOPTS) -c -o      $(basename $<).o      $<
-	@-gcc $(GOPTS)    -o gcov_test_$(basename $<) \
-		test_$(basename $<).o \
-		$(basename $<).o \
-		PassFail.o B64.o UTF8.o
-	@-./gcov_test_$(basename $<)
-	@-gcov $< >$@.out 2>&1
-	@echo "\tno Mac gprof: -gprof gcov_test_$(basename $<) gmon.out > $<.prof"
+	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o B64.o UTF8.o)
+	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_Page.valgrind:	test_Page
