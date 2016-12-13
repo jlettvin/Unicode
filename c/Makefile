@@ -74,18 +74,14 @@ endif
 # Generic functions
 # $(1) == $@
 # $(2) == $<
-# $(3) == $(basename $(2))
-# $(4) == list of .o files needed for link
-define coverage2
-	echo "$(1),$(2),$(3),$(4)"
-	gcc $(GOPTS) -c -o test_$(3).o test_$(2)
-	gcc $(GOPTS) -c -o      $(3).o      $(2)
-	gcc $(GOPTS)    -o gcov_test_$(3) test_$(3).o $(3).o $(4)
-	./gcov_test_$(3)
-	gcov $(2) >$(1).out 2>&1
-endef
-
+# $(3) == list of .o files needed for link
 define coverage
+	gcc $(GOPTS) -c -o test_$(basename $(2)).o test_$(2)
+	gcc $(GOPTS) -c -o      $(basename $(2)).o      $(2)
+	gcc $(GOPTS)    -o gcov_test_$(basename $(2)) \
+		test_$(basename $(2)).o \
+		$(basename $(2)).o \
+		$(3)
 	./gcov_test_$(basename $(2))
 	gcov $(2) >$(1).out 2>&1
 endef
@@ -231,7 +227,7 @@ $(LINUXLIB):	$(OBJS)
 ###############################################################################
 PassFail.c.gcov: PassFail.c
 	@echo "\t$@ and gprof(on linux)"
-	@-$(call coverage2,$@,$<,$(basename $<),)
+	@-$(call coverage,$@,$<,)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
@@ -249,7 +245,7 @@ PassFail.o:	PassFail.c Makefile
 ###############################################################################
 B64.c.gcov: B64.c
 	@echo "\t$@ and gprof(on linux)"
-	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o)
+	@-$(call coverage,$@,$<,PassFail.o)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
@@ -268,7 +264,7 @@ B64.o:	B64.c Makefile
 ###############################################################################
 Endian.c.gcov: Endian.c
 	@echo "\t$@ and gprof(on linux)"
-	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o)
+	@-$(call coverage,$@,$<,PassFail.o)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
@@ -287,7 +283,7 @@ Endian.o:	Endian.c Makefile
 ###############################################################################
 UTF8.c.gcov: UTF8.c
 	@echo "\t$@ and gprof(on linux)"
-	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o B64.o)
+	@-$(call coverage,$@,$<,PassFail.o B64.o)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
@@ -306,7 +302,7 @@ UTF8.o:	UTF8.c Makefile
 ###############################################################################
 Classify.c.gcov: Classify.c
 	@echo "\t$@ and gprof(on linux)"
-	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o B64.o UTF8.o)
+	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
@@ -324,7 +320,7 @@ Classify.o:	Classify.c Makefile
 ###############################################################################
 Page.c.gcov: Page.c
 	@echo "\t$@ and gprof(on linux)"
-	@-$(call coverage2,$@,$<,$(basename $<),PassFail.o B64.o UTF8.o)
+	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 

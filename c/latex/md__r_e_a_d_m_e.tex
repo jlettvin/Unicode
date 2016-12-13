@@ -26,11 +26,21 @@ Were this implementation not available, here are issues to consider\+:
 \item Additional concerns not listed here...
 \end{DoxyItemize}
 
-\section*{Here is all that will be needed to use these library functions\+:}
 
-with open(\char`\"{}\+U\+T\+F8encoded\+\_\+source.\+txt\char`\"{}, \char`\"{}rb\char`\"{}) as source\+: as\+U\+T\+F8 = source.\+read() U\+T\+F8\+\_\+to\+\_\+u32string(as\+U\+T\+F8, as\+String32)
+\begin{DoxyCode}
+1 # Here is all that will be needed to use these library functions:
+2 
+3 with open("UTF8encoded\_source.txt", "rb") as source:
+4     asUTF8 = source.read()
+5     UTF8\_to\_u32string(asUTF8, asU32String)
+6 
+7 # asU32String is an array of 32 bit codepoints.
+8 
+9 with open("UTF8encoded\_target.txt", "wb") as target:
+10     u32string\_to\_UTF8(asU32String, asUTF8)
+11     target.write(asUTF8)
+\end{DoxyCode}
 
-with open(\char`\"{}\+U\+T\+F8encoded\+\_\+target.\+txt\char`\"{}, \char`\"{}wb\char`\"{}) as target\+: u32string\+\_\+to\+\_\+\+U\+T\+F8(as\+String32, as\+U\+T\+F8) target.\+write(as\+U\+T\+F8)
 
 \subsection*{T\+O\+D\+O}
 
@@ -39,6 +49,8 @@ with open(\char`\"{}\+U\+T\+F8encoded\+\_\+target.\+txt\char`\"{}, \char`\"{}wb\
 \item Improve unit testing
 \item Clarify typedefs in \hyperlink{_unicode_8h_source}{Unicode.\+h}
 \item Find a worthy gprof for Mac O\+S X
+\item Continue port to linux
+\item Eliminate warnings on linux
 \end{DoxyItemize}
 
 \subsubsection*{T\+O\+D\+O Unicode.\+c}
