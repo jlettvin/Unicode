@@ -29,12 +29,15 @@ IDENTITY=Unicode
 VERSION=0.0.1
 MODULES=PassFail Endian B64 UTF8 Classify Page
 
-# A useful function for keeping track of time while running make.
+# Platform Specificity
+UNAME := $(shell uname)
+
+# Useful functions for keeping track of time and modules while running make.
+timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 pipe:=|
 empty:=
 space:=$(empty) $(empty)
 egreps="$(subst $(space),$(pipe),$(MODULES))"
-timestamp=echo `date '+%Y/%m/%d %H:%M:%S'` $(1)
 line=__________________________________________________________________________
 
 # Compiler options
@@ -58,9 +61,23 @@ MACDYLIBOPT=
 LINUXLIB=libjlettvin.so.$(VERSION)
 LINUXLIBOPT=-L. -ljlettvin
 
-# Platfirm specific shared library controls
+# Platform specific shared library controls
+ifeq ($(UNAME), Darwin)
 LIBRARY=$(MACDYLIB)
 LIBOPT=$(MACDYLIBOPT)
+endif
+ifeq ($(UNAME), Linux)
+LIBRARY=$(LINUXLIB)
+LIBOPT=$(LINUXLIBOPT)
+endif
+
+# Other platform specificity
+ifeq ($(UNAME), Darwin)
+GPROF=echo "no Mac gprof"
+endif
+ifeq ($(UNAME), Linux)
+GPROF=echo "Linux gprof"
+endif
 
 ###############################################################################
 # generic rules
@@ -114,7 +131,7 @@ clean:
 .PHONY:
 start:
 	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'
-	@$(call timestamp,$@)
+	@$(call timestamp,$@ $(UNAME))
 
 .PHONY:
 doxygen:
