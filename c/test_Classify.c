@@ -12,6 +12,8 @@
  *
  * This test determines that the codepoint classification matches
  * the hand-determined classification string.
+ *
+ * TODO Identify why there are so many [FAIL]s when count is so low.
  */
 void test_codepoint(unsigned codepoint, char* expect) {
     PASSFAIL(!strcmp(Classify_Label[Classify[codepoint]], expect), "classify");

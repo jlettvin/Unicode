@@ -68,6 +68,10 @@ Were this implementation not available, here are issues to consider:
         target.write(asUTF8)
 ```
 
+### Refactored Classify.c Classify.h
+These files are now generated from DerivedGeneralCategory.txt by
+gen_Classify.py.
+
 ## TODO
 * Improve unit testing
 * Clarify typedefs in Unicode.h

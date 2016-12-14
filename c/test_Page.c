@@ -25,7 +25,7 @@ void test_page() {
     PASSFAIL(bytes->peek(bytes, 0) == (ue0_t)0xff, "New 1st poke");
     
     ue0_t u0;
-    address_t off = 0;
+    // address_t off = 0;
 
     u0 = Page_peek_ue0_t(0);
     PASSFAIL(u0 == (ue0_t)0, "Unused page memory first peek");

@@ -7,12 +7,12 @@
  *
  * \ingroup jlettvin
  *
- * \brief codepoint classifier (lexer generics)
+ * rief codepoint classifier (lexer generics)
  *
- * \author Jonathan D. Lettvin
+ * uthor Jonathan D. Lettvin
  * jlettvin@gmail.com
  *
- * \version 0.0.1
+ * ersion 0.0.1
  *
  * \date 2016/12/10 09:47
  *
@@ -47,4 +47,4 @@
 
 const char Classify_Label[31][3];  ///< All valid toplevel Unicode classifiers
 unsigned char Classify[0x110000];  ///< Runtime reconstructed classifier array
-#endif  // C_CLASSIFY_H_
+#endif  // C_CLASSIFY_H_    
