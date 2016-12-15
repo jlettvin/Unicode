@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 # pragma pylint: disable=bad-whitespace
+# pragma pylint: disable=relative-import
+# pragma pylint: disable=too-many-instance-attributes
+# pragma pylint: disable=too-many-locals
+# pragma pylint: disable=consider-using-enumerate
+# pragma pylint: disable=consider-iterating-dictionary
 
 """gen_Classify.py
 Generates Classify.c and Classify.h from the file: DerivedGeneralCategory.txt

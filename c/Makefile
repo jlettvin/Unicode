@@ -28,7 +28,7 @@
 IDENTITY=Unicode
 VERSION=0.0.1
 MODULES=PassFail Endian B64 UTF8 Classify Page
-PYMODS=gen_Classify Self
+PYMODS=Classify Self
 
 # Platform Specificity
 UNAME := $(shell uname)
@@ -179,8 +179,8 @@ graph: Makefile
 	@$(call timestamp,$@)
 
 .PHONY:
-gen: Makefile gen_Classify.py
-	@./gen_Classify.py
+gen: Makefile Classify.py
+	@./Classify.py
 	@$(call timestamp,$@)
 
 .PHONY:
@@ -244,7 +244,7 @@ $(LINUXLIB):	$(OBJS)
 
 
 ###############################################################################
-gen_Classify.pep8:	gen_Classify.py
+Classify.pep8:	Classify.py
 
 Self.pep8:	Self.py
 

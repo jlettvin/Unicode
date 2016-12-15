@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 # pragma pylint: disable=bad-whitespace
+# pragma pylint: disable=broad-except
 
 """Self.py
 This function enables the calling function to retrieve its own __doc__ string.
