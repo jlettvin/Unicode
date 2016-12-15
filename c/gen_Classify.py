@@ -1,24 +1,32 @@
 #!/usr/bin/env python
+# pragma pylint: disable=bad-whitespace
 
 """gen_Classify.py
 Generates Classify.c and Classify.h from the file: DerivedGeneralCategory.txt
 which is downloaded as "normative" from unicode.org for Unicode 9.0.
 
-Currently, the code is very "hackish" as a first cut.
 It will be improved with quality control (pep8, pyflakes, pylint, pychecker)
 with unit tests, and with documentation at a later date.
-
-TODO Apply quality controls
-TODO turn this OO
 """
+
+__module__     = "gen_Classify.py"
+__author__     = "Jonathan D. Lettvin"
+__copyright__  = "\
+Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+__credits__    = ["Jonathan D. Lettvin"]
+__license__    = "GPLv3"
+__version__    = "0.0.1"
+__maintainer__ = "Jonathan D. Lettvin"
+__email__      = "jlettvin@gmail.com"
+__contact__    = "jlettvin@gmail.com"
+__status__     = "Demonstration"
+__date__       = "20161215"
 
 from Self import (Self)
 
-my = Self()
 
 class Classify(object):
-    """TODO begin refactor to make process easier to understand.
-    """
+    """Generate Classify.c and Classify.h"""
 
     def __init__(self):
         """
@@ -41,25 +49,27 @@ class Classify(object):
         # Keep only lines beginning with a hex digit
         fields = [field for field in fields if digit[ord(field[0][0])]]
         # Split first into range and cut extra text from second
-        fields = [[f1.split('..'), f2[0:2]] for f1, f2 in fields]
+        fields = [
+            [field1.split('..'), field2[0:2]] for field1, field2 in fields]
         # Fill in ranges for solitary codepoints
-        for n in range(len(fields)):
-            if len(fields[n][0]) == 1:
-                fields[n][0] = fields[n][0] * 2
+        for number in range(len(fields)):
+            if len(fields[number][0]) == 1:
+                fields[number][0] = fields[number][0] * 2
 
         # Extract, sort, and enhance uniq general category labels.
-        self.label = ['__'] + sorted(set([f2 for f1, f2 in fields]))
+        self.label = ['__'] + sorted(
+            set([field2 for field1, field2 in fields]))
         # Create a reverse lookup for label index from label
-        self.index = {label:n for n, label in enumerate(self.label)}
+        self.index = {label: n for n, label in enumerate(self.label)}
 
         # Create dictionaries of starts:parameters and labels:lengths.
         self.fields = {}
         self.ranges = {}
-        for f1, f2 in fields:
-            n1, n2 = int(f1[0], 0x10), int(f1[1], 0x10)
-            index, length = self.index[f2], 1 + n2 - n1
-            self.fields[n1] = {
-                'start': n1,
+        for field1, field2 in fields:
+            number1, number2 = int(field1[0], 0x10), int(field1[1], 0x10)
+            index, length = self.index[field2], 1 + number2 - number1
+            self.fields[number1] = {
+                'start': number1,
                 'length': length,
                 'index': index
             }
@@ -69,6 +79,8 @@ class Classify(object):
         # Sort codepoint range starts into correct order.
         self.starts = sorted(self.fields.keys())
         self.text = ""
+        self.assoc = {}
+        self.pairs = 0
 
     def header(self):
         """\
@@ -99,7 +111,7 @@ after being reconstructed from RunLength pairs.
 
 #include "Classify.h"
 """
-        self.text += my.doc()
+        self.text += Self.doc()
         return self
 
     def labels(self):
@@ -114,9 +126,9 @@ const char Classify_Label[%d][3] = {
         cols, count, text, twixt = 10, len(self.label), "", ["    ", ",\n    "]
         # Formatting is carefully customized to have a pleasing arrangement
         for i in range(count):
-            text += twixt[1 == (i % cols)] + '"' + self.label[i] + '"'
+            text += twixt[(i % cols) == 1] + '"' + self.label[i] + '"'
             twixt[0] = ", "
-        self.text += my.doc() % (count, text)
+        self.text += Self.doc() % (count, text)
         return self
 
     def uniques(self):
@@ -129,10 +141,8 @@ static const unsigned Classify_uniq[%d][2] = {
 %s
 };
 """
-        rle = sum([len(lengths) for key, lengths in self.ranges.iteritems()])
+        rle = sum([len(lengths) for lengths in self.ranges.values()])
         text = "    "
-        self.pairs = 0
-        self.assoc = {}
         columns = 5
         for index in sorted(self.ranges.keys()):
             for length in sorted(self.ranges[index]):
@@ -143,7 +153,7 @@ static const unsigned Classify_uniq[%d][2] = {
                 if (self.pairs % columns) == 0:
                     text += '\n    '
         text += " { 0,      0}"
-        self.text += my.doc() % (rle + 1, text)
+        self.text += Self.doc() % (rle + 1, text)
         return self
 
     def indices(self):
@@ -165,12 +175,12 @@ static const unsigned Classify_RLE[%d] = {
             field = self.fields[start]
             index = field['index']
             length = field['length']
-            text += " %3d," % ( self.assoc[index][length])
+            text += " %3d," % (self.assoc[index][length])
             count = count + 1
             if (count % columns) == 0:
                 text += '\n'
         text += "   0"
-        self.text += my.doc() % (len(self.starts) + 1, text)
+        self.text += Self.doc() % (len(self.starts) + 1, text)
         return self
 
     def classify(self):
@@ -180,7 +190,7 @@ static const unsigned Classify_RLE[%d] = {
  */
 unsigned char Classify[0x110000];
 """
-        self.text += my.doc()
+        self.text += Self.doc()
         return self
 
     def constructor(self):
@@ -207,7 +217,7 @@ void Classify_init(void) {
     }
 }
 """
-        self.text += my.doc()
+        self.text += Self.doc()
         return self
 
     def __call__(self):
@@ -228,22 +238,22 @@ if __name__ == "__main__":
 #define C_CLASSIFY_H_
 /** Classify.h and Classify.c
  *
- * \class Omni
+ * \\class Omni
  *
- * \ingroup jlettvin
+ * \\ingroup jlettvin
  *
- * \brief codepoint classifier (lexer generics)
+ * \\brief codepoint classifier (lexer generics)
  *
- * \author Jonathan D. Lettvin
+ * \\author Jonathan D. Lettvin
  * jlettvin@gmail.com
  *
- * \version 0.0.1
+ * \\version 0.0.1
  *
- * \date 2016/12/10 09:47
+ * \\date 2016/12/10 09:47
  *
  * license GPLv3
  *
- * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+ * \\copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  */
 
 /**
@@ -276,6 +286,10 @@ unsigned char Classify[0x110000];  ///< Runtime reconstructed classifier array
     """
 
     def main():
+        """
+This is the main entrypoint.
+It instances the class and fills the two target files with contents.
+        """
         classify = Classify()
         with open("Classify.c", "w") as target:
             print>>target, classify()

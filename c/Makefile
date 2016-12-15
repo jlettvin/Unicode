@@ -28,6 +28,7 @@
 IDENTITY=Unicode
 VERSION=0.0.1
 MODULES=PassFail Endian B64 UTF8 Classify Page
+PYMODS=gen_Classify Self
 
 # Platform Specificity
 UNAME := $(shell uname)
@@ -45,13 +46,18 @@ SHARED_OPTS=-std=gnu11 -o3 -Wall -Wextra -fPIC
 GOPTS=$(SHARED_OPTS) -O0 -g -coverage -pg
 COPTS=$(SHARED_OPTS) -O3
 
-# Usefule sets of names
+# Useful sets of names
 CSRCS=$(addsuffix .c,$(MODULES))
 HSRCS=$(addsuffix .h,$(MODULES))
 OBJS=$(addsuffix .o,$(MODULES))
 TESTS=$(addprefix test_,$(MODULES))
 GCOVS=$(addsuffix .gcov,$(CSRCS))
 SRCS=$(CSRCS) $(HSRCS)
+PYSRCS=$(addsuffix .py,$(PYMODS))
+PEP8S=$(addsuffix .pep8,$(PYMODS))
+
+# Useful runtime parameters
+PEP8IGNORE=--ignore=E122,E128,E201,E202,E203,E221,E241,E272
 
 # Shared library generic information
 CURDIR=.
@@ -102,6 +108,12 @@ endif
 ###############################################################################
 # generic rules
 
+%.pep8 : %.py
+	@-pep8 $(PEP8IGNORE) $< >$(basename $<).pep8 2>&1
+	@-pyflakes $< >$(basename $<).pyflakes 2>&1
+	@-pylint $< >$(basename $<).pylint 2>&1
+	@$(call timestamp,$@)
+
 # generic translation of c source files to library objects.
 %.o	:	%.c
 	@echo "\t$@ generic"
@@ -140,7 +152,10 @@ clean:
 		*.o \
 		*.out \
 		*.prof \
+		*.pep8 \
 		*.pyc \
+		*.pyflakes \
+		*.pylint \
 		*.so \
 		*.valgrind
 	@$(call timestamp,$@)
@@ -169,7 +184,7 @@ gen: Makefile gen_Classify.py
 	@$(call timestamp,$@)
 
 .PHONY:
-lint:	$(SRCS)
+lint:	$(SRCS) $(PEP8S)
 	@-cpplint $(SRCS) > lint.out 2>&1
 	@echo "See file 'lint.out' to review ignored cpplint errors"
 	@$(call timestamp,$@)
@@ -189,6 +204,10 @@ gcov: $(GCOVS)
 results:
 	@echo $(line)
 	@echo "\tout out out out out out out out out out out out out out out out "
+	@echo "\tPython QC"
+	@cat -s *.pep8
+	@cat -s *.pyflakes
+	@cat -s *.pylint
 	@echo "\trelevant .out file content"
 	@cat *.out | \
 		grep -v "C-style cast" | \
@@ -223,6 +242,11 @@ $(LINUXLIB):	$(OBJS)
 	@g++ -shared -Wl,-soname,libjlettvin.so.1 -lc $^ -o $@
 	@$(call timestamp,$@)
 
+
+###############################################################################
+gen_Classify.pep8:	gen_Classify.py
+
+Self.pep8:	Self.py
 
 ###############################################################################
 PassFail.c.gcov: PassFail.c

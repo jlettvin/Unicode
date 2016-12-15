@@ -7,12 +7,12 @@
  *
  * \ingroup jlettvin
  *
- * rief codepoint classifier (lexer generics)
+ * \brief codepoint classifier (lexer generics)
  *
- * uthor Jonathan D. Lettvin
+ * \author Jonathan D. Lettvin
  * jlettvin@gmail.com
  *
- * ersion 0.0.1
+ * \version 0.0.1
  *
  * \date 2016/12/10 09:47
  *

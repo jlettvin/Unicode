@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+# pragma pylint: disable=bad-whitespace
 
 """Self.py
 This function enables the calling function to retrieve its own __doc__ string.
@@ -39,8 +40,8 @@ class Self(object):
                         if inspect.ismethod(member):
                             if member.im_func.func_code == frame.f_code:
                                 return member.__doc__ + more
-        except:
-            return "undocumented:" + more
+        except Exception as specific:
+            return "undocumented:" + more + str(specific)
 
     @staticmethod
     def name(more=""):
