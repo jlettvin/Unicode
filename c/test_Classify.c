@@ -25,7 +25,8 @@ void test_codepoint(unsigned codepoint, char* expect) {
  *
  * This test runs the singular test function above on several codepoints.
  */
-void test_codepoints() {
+void test_codepoints(int disable) {
+    if (disable) PASSFAIL(1, "");  // Disable PassFail
     for (char c='0'; c <= '9'; ++c) test_codepoint((unsigned)c, "Nd");
     for (char c='A'; c <= 'Z'; ++c) test_codepoint((unsigned)c, "Lu");
     for (char c='a'; c <= 'z'; ++c) test_codepoint((unsigned)c, "Ll");
@@ -39,7 +40,7 @@ void test_codepoints() {
  * With args, argc and argv are used (avoids lint warnings).
  */
 int main(int argc, char **argv) {
-    test_codepoints();
+    test_codepoints(0);
     while (--argc) puts(*++argv);
     return 0;
 }

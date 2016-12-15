@@ -111,18 +111,20 @@ endif
 # generic running of test_* executables
 %.out : %
 	@echo "\t$@ generic"
+	@echo "GENERIC $@" >> PassFail.out
 	@./$< >$@ 2>&1
 	@$(call timestamp,$@)
 
 # generic production of valgrind output
 %.valgrind : %
 	@echo "\t$@ generic"
+	@echo "GENERIC $@" >> PassFail.out
 	@-valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
 	@$(call timestamp,$@)
 
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
-all:	start graph gen doxygen lint test valgrind $(LIBRARY) gcov results end
+all:	start graph gen doxygen lint $(LIBRARY) test valgrind gcov results end
 	@echo "\t$@ SUMMARY gcov percentages"
 	@grep '%' *.gcov.out
 	@$(call timestamp,$@)

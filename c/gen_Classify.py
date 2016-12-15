@@ -9,7 +9,21 @@ It will be improved with quality control (pep8, pyflakes, pylint, pychecker)
 with unit tests, and with documentation at a later date.
 
 TODO Apply quality controls
+TODO turn this OO
 """
+
+class Classify(object):
+    """TODO begin refactor to make process easier to understand.
+    """
+
+    def __init__(self):
+        digit = [False] * 256
+        for c in "0123456789ABCDEF":
+            digit[int(c, 0x10)] = True
+        #semi = [field.strip() for field in line.split(';')]
+        #if len(semi) >= 2 and digit[int(semi[0][0], 0x10)]:
+        #with open("Normative/DerivedGeneralCategory.txt") as source:
+            #self.lines = source.readlines()
 
 if __name__ == "__main__":
     CLASSIFY_H = """\
