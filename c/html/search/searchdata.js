@@ -1,24 +1,27 @@
 var indexSectionsWithContent =
 {
-  0: "ceotu",
-  1: "ceo",
-  2: "ctu",
-  3: "u"
+  0: "_cehilostu",
+  1: "ceos",
+  2: "_chilu",
+  3: "ctu",
+  4: "u"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "variables",
-  3: "pages"
+  2: "functions",
+  3: "variables",
+  4: "pages"
 };
 
 var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Variables",
-  3: "Pages"
+  2: "Functions",
+  3: "Variables",
+  4: "Pages"
 };
 

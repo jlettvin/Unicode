@@ -133,15 +133,16 @@ all:	start graph gen doxygen lint $(LIBRARY) test valgrind gcov results end
 clean:
 	@-rm -f \
 		$(TESTS) \
-		*.o \
-		*.out \
-		*.valgrind \
-		*gcov* \
+		*.dylib \
 		*gcda* \
 		*gcno* \
+		*gcov* \
+		*.o \
+		*.out \
 		*.prof \
-		*.dylib \
-		*.so
+		*.pyc \
+		*.so \
+		*.valgrind
 	@$(call timestamp,$@)
 
 ###############################################################################

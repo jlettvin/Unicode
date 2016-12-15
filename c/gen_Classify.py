@@ -12,18 +12,214 @@ TODO Apply quality controls
 TODO turn this OO
 """
 
+from Self import (Self)
+
+my = Self()
+
 class Classify(object):
     """TODO begin refactor to make process easier to understand.
     """
 
     def __init__(self):
-        digit = [False] * 256
-        for c in "0123456789ABCDEF":
-            digit[int(c, 0x10)] = True
-        #semi = [field.strip() for field in line.split(';')]
-        #if len(semi) >= 2 and digit[int(semi[0][0], 0x10)]:
-        #with open("Normative/DerivedGeneralCategory.txt") as source:
-            #self.lines = source.readlines()
+        """
+        This process may be slightly inefficient, but that is for clarity.
+        """
+
+        # Setup for rapid recognition of hex digits
+        digit = [chr(d) in "0123456789ABCDEF" for d in range(255)]
+
+        # Read the entire file
+        with open("Normative/DerivedGeneralCategory.txt") as source:
+            lines = source.readlines()
+
+        # This sequence refines/updates local variable fields several times.
+
+        # Keep only lines divided by semicolons
+        fields = [line.split(';') for line in lines if ';' in line]
+        # Strip extra whitespace
+        fields = [[f.strip() for f in field] for field in fields]
+        # Keep only lines beginning with a hex digit
+        fields = [field for field in fields if digit[ord(field[0][0])]]
+        # Split first into range and cut extra text from second
+        fields = [[f1.split('..'), f2[0:2]] for f1, f2 in fields]
+        # Fill in ranges for solitary codepoints
+        for n in range(len(fields)):
+            if len(fields[n][0]) == 1:
+                fields[n][0] = fields[n][0] * 2
+
+        # Extract, sort, and enhance uniq general category labels.
+        self.label = ['__'] + sorted(set([f2 for f1, f2 in fields]))
+        # Create a reverse lookup for label index from label
+        self.index = {label:n for n, label in enumerate(self.label)}
+
+        # Create dictionaries of starts:parameters and labels:lengths.
+        self.fields = {}
+        self.ranges = {}
+        for f1, f2 in fields:
+            n1, n2 = int(f1[0], 0x10), int(f1[1], 0x10)
+            index, length = self.index[f2], 1 + n2 - n1
+            self.fields[n1] = {
+                'start': n1,
+                'length': length,
+                'index': index
+            }
+            self.ranges[index] = self.ranges.get(index, set())
+            self.ranges[index].add(length)
+
+        # Sort codepoint range starts into correct order.
+        self.starts = sorted(self.fields.keys())
+        self.text = ""
+
+    def header(self):
+        """\
+/* Classify.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+
+/** Classify.h and Classify.c
+These files contain sufficient data to reconstruct the array "Classify"
+containing the index to the string in "Classify_Label" for each codepoint.
+The reason for the odd construction is that classifications are
+highly concentrated into RunLengths.
+Classify_uniq is an array of ALL uniq pairs of (index, length)
+found when constructing the Classify array.
+The odd-looking "Classigy_RLE" is the index into Classify_uniq
+to a given pair.
+The sequence of pairs fills the entire valid codepoint range with
+index-to-label.
+The classification of a codepoint devolves into the simple:
+    Classify[codepoint];
+which returns a NUL terminated label char*.
+
+Immediately after the declaration of Classify is an
+__attribute__((constructor)) which is executed before entry into main
+for gnu c compilers.
+This guarantees that Classify is filled and ready at runtime
+after being reconstructed from RunLength pairs.
+ */
+
+
+#include "Classify.h"
+"""
+        self.text += my.doc()
+        return self
+
+    def labels(self):
+        """
+/**
+ * Classify_Label contains all legal top-level Unicode codepoint classifiers
+ */
+const char Classify_Label[%d][3] = {
+%s
+};
+"""
+        cols, count, text, twixt = 10, len(self.label), "", ["    ", ",\n    "]
+        # Formatting is carefully customized to have a pleasing arrangement
+        for i in range(count):
+            text += twixt[1 == (i % cols)] + '"' + self.label[i] + '"'
+            twixt[0] = ", "
+        self.text += my.doc() % (count, text)
+        return self
+
+    def uniques(self):
+        """
+/**
+ * Classify_uniq contains all unique (label_index, length) pairs.
+ * This is useful because the actual pairs are quire repetitive.
+ */
+static const unsigned Classify_uniq[%d][2] = {
+%s
+};
+"""
+        rle = sum([len(lengths) for key, lengths in self.ranges.iteritems()])
+        text = "    "
+        self.pairs = 0
+        self.assoc = {}
+        columns = 5
+        for index in sorted(self.ranges.keys()):
+            for length in sorted(self.ranges[index]):
+                text += " {%2d, %6d}," % (index, length)
+                self.assoc[index] = self.assoc.get(index, {})
+                self.assoc[index][length] = self.pairs
+                self.pairs = self.pairs + 1
+                if (self.pairs % columns) == 0:
+                    text += '\n    '
+        text += " { 0,      0}"
+        self.text += my.doc() % (rle + 1, text)
+        return self
+
+    def indices(self):
+        """
+/**
+ * Classify_RLE contains indices to pairs in the Classify_uniq table.
+ * The sequence of pairs is used to fill the Classify array.
+ */
+static const unsigned Classify_RLE[%d] = {
+%s
+};
+"""
+        # self.starts is the ordered codepoint range starts
+        # self.assoc enables label:length indexing
+        text = ""
+        columns = 16
+        count = 0
+        for start in self.starts:
+            field = self.fields[start]
+            index = field['index']
+            length = field['length']
+            text += " %3d," % ( self.assoc[index][length])
+            count = count + 1
+            if (count % columns) == 0:
+                text += '\n'
+        text += "   0"
+        self.text += my.doc() % (len(self.starts) + 1, text)
+        return self
+
+    def classify(self):
+        """
+/**
+ * Classify is the array of indices to classification labels for ALL codepoints
+ */
+unsigned char Classify[0x110000];
+"""
+        self.text += my.doc()
+        return self
+
+    def constructor(self):
+        """
+/**
+ * Classify_init is run before main is called.
+ * It initializes the Classify array from the RLE data.
+ * https://www.hackerearth.com/practice/notes/
+ *      functions-which-get-executed-before-and-after-main-in-c/
+ * http://www.geeksforgeeks.org/
+ *      functions-that-are-executed-before-and-after-main-in-c/
+ */
+__attribute__((constructor))
+void Classify_init(void) {
+    unsigned codepoint = 0;
+
+    for (int i=0; i < 3655 ; ++i) {
+        const unsigned *pair = Classify_uniq[Classify_RLE[i]];
+        unsigned index = pair[0];
+        unsigned width = pair[1];
+
+        for (unsigned n=0; n < width; ++n)
+            Classify[codepoint++] = (unsigned char)index;
+    }
+}
+"""
+        self.text += my.doc()
+        return self
+
+    def __call__(self):
+
+        self.header().labels().uniques().indices().classify().constructor()
+
+        return self
+
+    def __str__(self):
+
+        return self.text
+
 
 if __name__ == "__main__":
     CLASSIFY_H = """\
@@ -79,187 +275,11 @@ unsigned char Classify[0x110000];  ///< Runtime reconstructed classifier array
 #endif  // C_CLASSIFY_H_\
     """
 
-    CLASSIFY_C_1 = """\
-/* Classify.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
-
-/** Classify.h and Classify.c
-These files contain sufficient data to reconstruct the array "Classify"
-containing the index to the string in "Classify_Label" for each codepoint.
-The reason for the odd construction is that classifications are
-highly concentrated into RunLengths.
-The provate array Classify_uniq contains ALL the uniq pairs of
-(index, length) found when constructing the Classify array.
-The odd-looking "Classigy_RLE" is the index into Classify_uniq
-to a given pair.
-The sequence of pairs fills the entire valid codepoint range with
-index-to-label.
-The classification of a codepoint devolves into the simple:
-    Classify[codepoint];
-which returns a NUL terminated label char*.
-
-Immediately after the declaration of Classify is an __attribut__((constructor))
-which is executed before entry into main for gnu c compilers.
-This guarantees that Classify is filled and ready at runtime
-after being reconstructed from RunLength pairs.
- */
-
-
-#include "Classify.h"
-
-/**
- * Classify_Label contains all legal top-level Unicode codepoint classifiers
- */
-const char Classify_Label[%d][3] = {\
-"""
-
-    CLASSIFY_C_2 = """\
-};
-
-/**
- * Classify_uniq contains all unique (label_index, length) pairs.
- * This is useful because the actual pairs are quire repetitive.
- */
-static const unsigned Classify_uniq[%d][2] = {\
-"""
-
-    CLASSIFY_C_3 = """\
-};
-
-/**
- * Classify_RLE contains indices to pairs in the Classify_uniq table.
- * The sequence of pairs is used to fill the Classify array.
- */
-static const unsigned Classify_RLE[%d] = {\
-"""
-
-    CLASSIFY_C_4 = """\
-};
-
-/**
- * Classify is the array of indices to classification labels for ALL codepoints
- */
-unsigned char Classify[0x110000];
-
-/**
- * Classify_init is run before main is called.
- * It initializes the Classify array from the RLE data.
- * https://www.hackerearth.com/practice/notes/
- *      functions-which-get-executed-before-and-after-main-in-c/
- * http://www.geeksforgeeks.org/
- *      functions-that-are-executed-before-and-after-main-in-c/
- */
-__attribute__((constructor))
-void Classify_init(void) {
-    unsigned codepoint = 0;
-
-    for (int i=0; i < %d ; ++i) {
-        const unsigned *pair = Classify_uniq[Classify_RLE[i]];
-        unsigned index = pair[0];
-        unsigned width = pair[1];
-
-        for (unsigned n=0; n < width; ++n)
-            Classify[codepoint++] = (unsigned char)index;
-    }
-}\
-"""
-
     def main():
-        total = 0
-        ranges = []
-        labels = set()
-        start = {}
-        count = {}
-        digit = [False] * 256
-        for c in "0123456789ABCDEF":
-            digit[int(c, 0x10)] = True
-        with open("Normative/DerivedGeneralCategory.txt") as source:
-            for line in source:
-                semi = [field.strip() for field in line.split(';')]
-                if len(semi) >= 2 and digit[int(semi[0][0], 0x10)]:
-                    label = semi[1][0:2]
-                    labels.add(label)
-                    dots = [int(field,0x10) for field in semi[0].split('..')]
-                    if len(dots) == 2:
-                        total = total + 1 + dots[1] - dots[0]
-                        ranges.append([label, 1 + dots[1] - dots[0], dots[0]])
-                        start[dots[0]] = {
-                                'start': dots[0],
-                                'end': dots[1],
-                                'label': label,
-                                'len': 1 + dots[1] - dots[0]
-                                }
-                    else:
-                        total = total + 1
-                        ranges.append([label, 1 + dots[0] - dots[0], dots[0]])
-                        start[dots[0]] = {
-                                'start': dots[0],
-                                'end': dots[0],
-                                'label': label,
-                                'len': 1
-                                }
-        starts = sorted(start.keys())
-        labels = ['__'] + sorted(labels)
-        index = {k:n for n, k in enumerate(labels)}
-
-        ranges = [[index[pair[0]], pair[1], pair[2]] for pair in ranges]
-
-        # Generate the uniq range lengths for each label.
-        for triple in ranges:
-            count[triple[0]] = count.get(triple[0], set())
-            count[triple[0]].add(triple[1])
-        uniqs = sum([len(count[n]) for n in count.keys()])
-
+        classify = Classify()
         with open("Classify.c", "w") as target:
-            twixt = ["    ", ",\n    "]
-    
-            print>>target, CLASSIFY_C_1 % (len(labels))
-    
-            for i in range(len(labels)):
-                print>>target, twixt[1 == (i % 6)] + '"' + labels[i] + '"',
-                twixt[0] = ", "
-            print>>target
-    
-            print>>target, CLASSIFY_C_2 % (uniqs + 1),
-            find = {}
-            fmt = " {%2d, %6d},"
-            on0 = 0
-            j = 0
-            for i, k in enumerate(sorted(count.keys())):
-                for n in sorted(count[k]):
-                    if on0 == 0:
-                        print>>target
-                        print>>target, "   ",
-                    on0 = (on0 + 1) & 3
-                    newkey = fmt % (k, n)
-                    find[newkey] = j
-                    j += 1
-                    print>>target, newkey,
-            print>>target
-            print>>target, "     { 0,     0}"
-    
-    
-            print>>target, CLASSIFY_C_3 % (len(starts) + 1),
-    
-            on0 = 0
-            for item in starts:  # list of sorted start codepoints
-                # want the label index and the range length
-                this = start[item]
-                newkey = fmt % (index[this['label']], this['len'])
-                rng = find[newkey]
-                if on0 == 0:
-                    print>>target
-                on0 = (on0 + 1) & 0xf
-                print>>target, "%3d," % rng,
-            print>>target
-            print>>target, "   0"
-    
-            print>>target, CLASSIFY_C_4 % (len(starts) + 1)
-    
-            if total != 0x110000:
-                print>>target, "MISSING CLASSIFIERS"
-
+            print>>target, classify()
         with open("Classify.h", "w") as target:
-            print>>target, CLASSIFY_H % (len(labels))
-
+            print>>target, CLASSIFY_H % (len(classify.label))
 
     main()
