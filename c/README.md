@@ -68,7 +68,7 @@ Were this implementation not available, here are issues to consider:
         target.write(asUTF8)
 ```
 
-### Refactored Classify.c Classify.h
+### Generate refactored Classify.c Classify.h
 These files are now generated from DerivedGeneralCategory.txt by
 gen_Classify.py.
 
@@ -83,5 +83,4 @@ gen_Classify.py.
 * Improve Tests of UTF8 <-> char32 transforms in test_Unicode.c
 
 ### TODO gcov
-* Discover how to make Makefile generic rule for gcov work
 * Improve coverage
