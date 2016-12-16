@@ -255,6 +255,8 @@ Classify.pyflakes:	Classify.py
 
 Classify.pylint:	Classify.py
 
+Classify.py:	Self.py
+
 Self.pep8:	Self.py
 
 Self.pyflakes:	Self.py
@@ -380,10 +382,8 @@ test_Classify:	test_Classify.c Classify.o PassFail.o
 # Finally, this is how the shared library object is created
 Classify.o:	Classify.c Classify.h Makefile
 
-Classify.c: Classify.h
-
 # Classify.py generates Classify.[ch] from DerivedGeneralCategory.txt
-Classify.h:	Classify.py
+Classify.h Classify.c:	Classify.py Makefile
 	@-./$<
 	@$(call timestamp,$@)
 
