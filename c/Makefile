@@ -23,6 +23,8 @@
 #
 # Rules output target names and whether the controlling rule is "generic".
 # Rules output timestamps to enable assessment of make progress.
+#
+# TODO(jlettvin): summarize gprof output on linux systems.
 ###############################################################################
 
 # Identity of this repository subdirectory
@@ -152,7 +154,6 @@ endif
 all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@echo "\t$@ SUMMARY gcov percentages"
 	@grep '%' *.gcov.out
-	@grep '%' *.gprof.out
 	@$(call timestamp,$@)
 
 .PHONY:
@@ -259,6 +260,8 @@ Self.pep8:	Self.py
 Self.pyflakes:	Self.py
 
 Self.pylint:	Self.py
+
+Self.py:	START
 
 ###############################################################################
 PassFail.c.gprof: PassFail.c
