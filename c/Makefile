@@ -136,7 +136,7 @@ endif
 
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
-all:	start graph gen doxygen lint $(LIBRARY) test valgrind gcov results end
+all:	start graph doxygen lint $(LIBRARY) test valgrind gcov results end
 	@echo "\t$@ SUMMARY gcov percentages"
 	@grep '%' *.gcov.out
 	@$(call timestamp,$@)
@@ -176,11 +176,6 @@ doxygen:
 .PHONY:
 graph: Makefile
 	@make -Bnd | makefile2graph | dot -Tpng -o Makefile.png
-	@$(call timestamp,$@)
-
-.PHONY:
-gen: Makefile Classify.py
-	@./Classify.py
 	@$(call timestamp,$@)
 
 .PHONY:
@@ -324,20 +319,35 @@ UTF8.o:	UTF8.c Makefile
 
 
 ###############################################################################
+# Classify
+
+# Self.py implements access to the callers function/method name and __doc__
+Classify.py:	Self.py
+
+# Classify.py generates the two C source files from DerivedGeneralCategory.txt
+Classify.c Classify.h:	Classify.py
+	@-./$<
+	@$(call timestamp,$@)
+
+# Classify coverage and profiling use thusly named generic functions
 Classify.c.gcov: Classify.c
 	@echo "\t$@ and gprof(on linux)"
 	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
+# Memory leaks are detected by a generic rule
 test_Classify.valgrind:	test_Classify
 
+# Here we run the unit tests
 test_Classify.out:	test_Classify
 
+# This is how the the unit test is compiled
 test_Classify:	test_Classify.c Classify.o PassFail.o
 	@-gcc -o $@ $^
 	@$(call timestamp,$@)
 
+# Finally, this is how the shared library object is created
 Classify.o:	Classify.c Makefile
 
 
