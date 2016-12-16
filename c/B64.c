@@ -34,10 +34,11 @@ void B64_init(void) {
  */
 void B64_decode(const void* vsrc, void* vtgt) {
 #define __NEXT(N) U = (size_t)(d=src[O+N]); goto *Z[N][(!d) || (d == '=')]
-// #define INSTR(ARG) (\
-     // printf(#ARG \
-     // " tgt=%p src=%p U=%lu d=%u c=%c\n", tgt, src, U, d, (char)d) \
-     // );
+/* #define INSTR(ARG) (\
+     printf(#ARG \
+     " tgt=%p src=%p U=%lu d=%u c=%c\n", tgt, src, U, d, (char)d) \
+     );
+ */
 #define INSTR(ARG)
     static const void *Z[4][2] =
         { {&&B, &&F}, {&&C, &&F}, {&&D, &&F}, {&&E, &&F} };
@@ -69,9 +70,10 @@ F:  INSTR(F) *tgt = 0;
  * Note that computed GOTO is used liberally to eliminate conditionals.
  */
 void B64_encode(const void* vsrc, void* vtgt) {
-// #define INSTR(ARG) (\
-        // printf(#ARG " i=%lu\n", i) \
-        // );
+/* #define INSTR(ARG) (\
+        printf(#ARG " i=%lu\n", i) \
+        );
+ */
 #define INSTR(ARG)
     static const void *Z[4][2] =
         { {&&B, &&E0}, {&&C, &&E2}, {&&D, &&E1}, {&&A, &&E0} };
