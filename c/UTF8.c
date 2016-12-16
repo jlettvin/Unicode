@@ -1,4 +1,4 @@
-/* Unicode.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* UTF8.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 
 #include "UTF8.h"
 
@@ -92,7 +92,7 @@ codepoint_t UTF8_to_char32_t(char* buf, size_t* head, size_t tail) {
 
         size_t off = *head, high = 0;
         char32_t _ = 0;
-        char a=0, b=0, c=0, d=0;
+        char a = 0, b = 0, c = 0, d = 0;
 
         // Execution begins with this goto.
         goto *headed[(size_t)(*head < tail)];

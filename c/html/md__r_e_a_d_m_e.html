@@ -87,6 +87,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>The general approach to table-driven paths is explained in the main README.md which is in the parent directory to this library source.</p>
 <p>This directory will be the primary area for development of a shared Python library because CFFI is less friendly to C++ than it is to C function entrypoints.</p>
 <p>valgrind does not identify any memory leaks resulting from the code in this library There are memory leaks in the test modules due to implementation errors in the standard library.</p>
+<h2>Dependency graph</h2>
+<div class="image">
+<img src="Makefile.png"  alt="Dependency Graph"/>
+</div>
 <h2>Points of Interest</h2>
 <h3>UTF8 &lt;-&gt; char32_t</h3>
 <p>Python libraries for handling UTF8 and full-width Unicode codepoints are fraught with pitfalls for the everyday developer. This library offers a simple pair of symmetric operations which convert between UTF8 encoded strings (the default most popular Unicode format) and string32 (the necessary ordinal size for internal Unicode).</p>

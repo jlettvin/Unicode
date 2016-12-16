@@ -1,3 +1,4 @@
+/* Page.c Copyright(c)2016 Jonathan D. Lettvin, All Rights Reserved */
 #include <stdlib.h>
 
 #include "Unicode.h"
@@ -14,7 +15,7 @@ PAGE_DEFINE(se1_t, 4, 10)
 PAGE_DEFINE(se2_t, 4, 10)
 PAGE_DEFINE(se3_t, 4, 10)
 
-/** TODO Eliminate Page_init and commented dealloc when new macros work.
+/** TODO(jlettvin): Eliminate Page_init and commented dealloc after new macros.
  */
 __attribute__((constructor))
 void Page_init(void) {

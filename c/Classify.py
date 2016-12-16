@@ -226,12 +226,14 @@ void Classify_init(void) {
         return self
 
     def __call__(self):
+        "Guarantees order of production."
 
         self.header().labels().uniques().indices().classify().constructor()
 
         return self
 
     def __str__(self):
+        "Returns contents of Classify.c source"
 
         return self.text
 
@@ -287,8 +289,8 @@ if __name__ == "__main__":
 
 const char Classify_Label[%d][3];  ///< All valid toplevel Unicode classifiers
 unsigned char Classify[0x110000];  ///< Runtime reconstructed classifier array
-#endif  // C_CLASSIFY_H_\
-    """
+#endif  // C_CLASSIFY_H_
+"""
 
     def main():
         """

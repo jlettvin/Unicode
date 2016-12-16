@@ -18,6 +18,7 @@
 # 	valgrind:	identify memory leaks (none due to this library).
 # 	library:	generate a shared library for use by client programs.
 # 	gcov:		assess coverage for each object.
+# 	gprof:		assess efficiency for each object
 # 	results:	review quality/compiler/test output for issues.
 #
 # Rules output target names and whether the controlling rule is "generic".
@@ -42,7 +43,7 @@ egreps="$(subst $(space),$(pipe),$(MODULES))"
 line=__________________________________________________________________________
 
 # Compiler options
-SHARED_OPTS=-std=gnu11 -o3 -Wall -Wextra -fPIC
+SHARED_OPTS=-std=gnu11 -O3 -Wall -Wextra -fPIC
 GOPTS=$(SHARED_OPTS) -O0 -g -coverage -pg
 COPTS=$(SHARED_OPTS) -O3
 
@@ -52,9 +53,12 @@ HSRCS=$(addsuffix .h,$(MODULES))
 OBJS=$(addsuffix .o,$(MODULES))
 TESTS=$(addprefix test_,$(MODULES))
 GCOVS=$(addsuffix .gcov,$(CSRCS))
+GPROFS=$(addsuffix .gprof,$(CSRCS))
 SRCS=$(CSRCS) $(HSRCS)
 PYSRCS=$(addsuffix .py,$(PYMODS))
 PEP8S=$(addsuffix .pep8,$(PYMODS))
+PYFLAKES=$(addsuffix .pyflakes,$(PYMODS))
+PYLINTS=$(addsuffix .pylint,$(PYMODS))
 
 # Useful runtime parameters
 PEP8IGNORE=--ignore=E122,E128,E201,E202,E203,E221,E241,E272
@@ -82,36 +86,45 @@ endif
 # $(2) == $<
 # $(3) == list of .o files needed for link
 define coverage
-	gcc $(GOPTS) -c -o test_$(basename $(2)).o test_$(2)
-	gcc $(GOPTS) -c -o      $(basename $(2)).o      $(2)
-	gcc $(GOPTS)    -o gcov_test_$(basename $(2)) \
+	@-gcc $(GOPTS) -c -o test_$(basename $(2)).o test_$(2)
+	@-gcc $(GOPTS) -c -o      $(basename $(2)).o      $(2)
+	@-gcc $(GOPTS)    -o gcov_test_$(basename $(2)) \
 		test_$(basename $(2)).o \
 		$(basename $(2)).o \
 		$(3)
-	./gcov_test_$(basename $(2))
-	gcov $(2) >$(1).out 2>&1
+	@-./gcov_test_$(basename $(2))
+	@-gcov $(2) >$(1).out 2>&1
+	@$(call timestamp,$@ coverage)
 endef
 
 # Other specific platform funtions
 ifeq ($(UNAME), Darwin)
 define profile
-	echo "No Mac gprof"
+	@-echo "No Mac gprof (ignoring $(2))" > $(2)
+	@$(call timestamp,$@ profile)
 endef
 endif
 
 ifeq ($(UNAME), Linux)
 define profile
-	gprof -b $(1) gmon.out > $(2) 2>&1
+	@-gprof -b $(1) gmon.out > $(2) 2>&1
+	@$(call timestamp,$@ profile)
 endef
 endif
 
 ###############################################################################
 # generic rules
 
+%.pylint : %.py
+	@-pylint $< >$(basename $<).pylint 2>&1
+	@$(call timestamp,$@)
+
+%.pyflakes : %.py
+	@-pyflakes $< >$(basename $<).pyflakes 2>&1
+	@$(call timestamp,$@)
+
 %.pep8 : %.py
 	@-pep8 $(PEP8IGNORE) $< >$(basename $<).pep8 2>&1
-	@-pyflakes $< >$(basename $<).pyflakes 2>&1
-	@-pylint $< >$(basename $<).pylint 2>&1
 	@$(call timestamp,$@)
 
 # generic translation of c source files to library objects.
@@ -124,21 +137,22 @@ endif
 %.out : %
 	@echo "\t$@ generic"
 	@echo "GENERIC $@" >> PassFail.out
-	@./$< >$@ 2>&1
+	@-./$< >$@ 2>&1
 	@$(call timestamp,$@)
 
 # generic production of valgrind output
 %.valgrind : %
 	@echo "\t$@ generic"
 	@echo "GENERIC $@" >> PassFail.out
-	@-valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
+	@--valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
 	@$(call timestamp,$@)
 
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
-all:	start graph doxygen lint $(LIBRARY) test valgrind gcov results end
+all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@echo "\t$@ SUMMARY gcov percentages"
 	@grep '%' *.gcov.out
+	@grep '%' *.gprof.out
 	@$(call timestamp,$@)
 
 .PHONY:
@@ -149,6 +163,7 @@ clean:
 		*gcda* \
 		*gcno* \
 		*gcov* \
+		*gprof* \
 		*.o \
 		*.out \
 		*.prof \
@@ -162,41 +177,36 @@ clean:
 
 ###############################################################################
 .PHONY:
-start:
+START:
 	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'
 	@$(call timestamp,$@ $(UNAME))
 
-.PHONY:
-doxygen:
-	@doxygen > doxygen.out 2>&1
-	@$(call timestamp,$@)
-
 # https://github.com/lindenb/makefile2graph
 # Modified with fputs("    rankdir=LR;\n",out);  ///< jlettvin 20161213
-.PHONY:
-graph: Makefile
+graph: Makefile START
 	@make -Bnd | makefile2graph | dot -Tpng -o Makefile.png
 	@$(call timestamp,$@)
 
-.PHONY:
-lint:	$(SRCS) $(PEP8S)
+doxygen:	graph
+	@doxygen > doxygen.out 2>&1
+	@$(call timestamp,$@)
+
+lint:	$(SRCS) $(PEP8S) $(PYFLAKES) $(PYLINTS) doxygen
 	@-cpplint $(SRCS) > lint.out 2>&1
 	@echo "See file 'lint.out' to review ignored cpplint errors"
 	@$(call timestamp,$@)
 
-.PHONY:
 test:	$(addsuffix .out,$(TESTS))
 	@$(call timestamp,$@)
 
-.PHONY:
-valgrind:	$(addsuffix .valgrind,$(TESTS))
+valgrind:	$(addsuffix .valgrind,$(TESTS)) test
 	@$(call timestamp,$@)
 
-.PHONY:
-gcov: $(GCOVS)
+gprof: $(GPROFS) gcov
 
-.PHONY:
-results:
+gcov: $(GCOVS) valgrind
+
+results:	gprof
 	@echo $(line)
 	@echo "\tout out out out out out out out out out out out out out out out "
 	@echo "\tPython QC"
@@ -217,8 +227,7 @@ results:
 	echo $(line)
 	@$(call timestamp,$@)
 
-.PHONY:
-end:
+END:	results
 	@$(call timestamp,$@)
 	@echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 
@@ -241,13 +250,23 @@ $(LINUXLIB):	$(OBJS)
 ###############################################################################
 Classify.pep8:	Classify.py
 
+Classify.pyflakes:	Classify.py
+
+Classify.pylint:	Classify.py
+
 Self.pep8:	Self.py
 
+Self.pyflakes:	Self.py
+
+Self.pylint:	Self.py
+
 ###############################################################################
+PassFail.c.gprof: PassFail.c
+	@-$(call profile,gcov_test_$(basename $<),$@)
+	@$(call timestamp,$@)
+
 PassFail.c.gcov: PassFail.c
-	@echo "\t$@ and gprof(on linux)"
 	@-$(call coverage,$@,$<,)
-	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_PassFail.valgrind:	test_PassFail
@@ -255,36 +274,21 @@ test_PassFail.valgrind:	test_PassFail
 test_PassFail.out:	test_PassFail
 
 test_PassFail:	test_PassFail.c PassFail.o
-	@-gcc -o $@ $^
+	@--gcc -o $@ $^
 	@$(call timestamp,$@)
 
 PassFail.o:	PassFail.c Makefile
 
-
-###############################################################################
-B64.c.gcov: B64.c
-	@echo "\t$@ and gprof(on linux)"
-	@-$(call coverage,$@,$<,PassFail.o)
-	@-$(call profile,gcov_test_$(basename $<),$<.prof)
-	@$(call timestamp,$@)
-
-test_B64.valgrind:	test_B64
-
-test_B64.out:	test_B64
-
-test_B64:	test_B64.c B64.o PassFail.o
-	@-gcc -o $@ $^
-	@$(call timestamp,$@)
-
-B64.o:	B64.c Makefile
-
+PassFail.c:	PassFail.h Makefile
 
 
 ###############################################################################
+Endian.c.gprof: Endian.c
+	@-$(call profile,gcov_test_$(basename $<),$@)
+	@$(call timestamp,$@)
+
 Endian.c.gcov: Endian.c
-	@echo "\t$@ and gprof(on linux)"
 	@-$(call coverage,$@,$<,PassFail.o)
-	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_Endian.valgrind:	test_Endian
@@ -292,18 +296,43 @@ test_Endian.valgrind:	test_Endian
 test_Endian.out:	test_Endian
 
 test_Endian:	test_Endian.c Endian.o PassFail.o
-	@-gcc -o $@ $^
+	@--gcc -o $@ $^
 	@$(call timestamp,$@)
 
 Endian.o:	Endian.c Makefile
 
+Endian.c:	Endian.h Makefile
 
 
 ###############################################################################
+B64.c.gprof: B64.c
+	@-$(call profile,gcov_test_$(basename $<),$@)
+	@$(call timestamp,$@)
+
+B64.c.gcov: B64.c
+	@-$(call coverage,$@,$<,PassFail.o)
+	@$(call timestamp,$@)
+
+test_B64.valgrind:	test_B64
+
+test_B64.out:	test_B64
+
+test_B64:	test_B64.c B64.o PassFail.o
+	@--gcc -o $@ $^
+	@$(call timestamp,$@)
+
+B64.o:	B64.c Makefile
+
+B64.c:	B64.h Makefile
+
+
+###############################################################################
+UTF8.c.gprof: UTF8.c
+	@-$(call profile,gcov_test_$(basename $<),$@)
+	@$(call timestamp,$@)
+
 UTF8.c.gcov: UTF8.c
-	@echo "\t$@ and gprof(on linux)"
 	@-$(call coverage,$@,$<,PassFail.o B64.o)
-	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_UTF8.valgrind:	test_UTF8
@@ -311,11 +340,12 @@ test_UTF8.valgrind:	test_UTF8
 test_UTF8.out:	test_UTF8
 
 test_UTF8:	test_UTF8.c UTF8.o PassFail.o
-	@-gcc -o $@ $^
+	@--gcc -o $@ $^
 	@$(call timestamp,$@)
 
 UTF8.o:	UTF8.c Makefile
 
+UTF8.c:	UTF8.h Unicode.h Makefile
 
 
 ###############################################################################
@@ -324,16 +354,13 @@ UTF8.o:	UTF8.c Makefile
 # Self.py implements access to the callers function/method name and __doc__
 Classify.py:	Self.py
 
-# Classify.py generates the two C source files from DerivedGeneralCategory.txt
-Classify.c Classify.h:	Classify.py
-	@-./$<
+Classify.c.gprof: Classify.c
+	@-$(call profile,gcov_test_$(basename $<),$@)
 	@$(call timestamp,$@)
 
 # Classify coverage and profiling use thusly named generic functions
 Classify.c.gcov: Classify.c
-	@echo "\t$@ and gprof(on linux)"
 	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
-	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 # Memory leaks are detected by a generic rule
@@ -344,16 +371,26 @@ test_Classify.out:	test_Classify
 
 # This is how the the unit test is compiled
 test_Classify:	test_Classify.c Classify.o PassFail.o
-	@-gcc -o $@ $^
+	@--gcc -o $@ $^
 	@$(call timestamp,$@)
 
 # Finally, this is how the shared library object is created
-Classify.o:	Classify.c Makefile
+Classify.o:	Classify.c Classify.h Makefile
+
+Classify.c: Classify.h
+
+# Classify.py generates Classify.[ch] from DerivedGeneralCategory.txt
+Classify.h:	Classify.py
+	@-./$<
+	@$(call timestamp,$@)
 
 
 ###############################################################################
+Page.c.gprof: Page.c
+	@-$(call profile,gcov_test_$(basename $<),$@)
+	@$(call timestamp,$@)
+
 Page.c.gcov: Page.c
-	@echo "\t$@ and gprof(on linux)"
 	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
 	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
@@ -363,7 +400,9 @@ test_Page.valgrind:	test_Page
 test_Page.out:	test_Page
 
 test_Page:	test_Page.c Page.o PassFail.o
-	@-gcc -o $@ $^
+	@--gcc -o $@ $^
 	@$(call timestamp,$@)
 
 Page.o:	Page.c Makefile
+
+Page.c:	Page.h Unicode.h

@@ -82,10 +82,10 @@ page_t_##type* page_t_##type##_ctor();
  * inline was considered but could not vary with types.
  * The implementations of the constructor and other pointed at functions
  * must be defined in Page.c to avoid duplicate symbols.
- * TODO implement peek/poke/dtor recursion
- * TODO assert that abytes is 1, 2, 3, or 4.
- * TODO make peek/poke/dtor recursion use that abytes for dereference.
- * TODO rather than recursion, simply iterate updating a pointer.
+ * TODO(jlettvin): implement peek/poke/dtor recursion
+ * TODO(jlettvin): assert that abytes is 1, 2, 3, or 4.
+ * TODO(jlettvin): make peek/poke/dtor recursion use abytes for dereference.
+ * TODO(jlettvin): rather than recursion, simply iterate updating a pointer.
  */
 #define PAGE_DEFINE(type, abytes, power) \
 void page_t_##type##_dtor(page_t_##type *self) { \
@@ -193,7 +193,7 @@ typedef unsigned long long address_t;
         return retval; \
     }
 
-// TODO Note that no new page is created when going off last page.
+// TODO(jlettvin): Note that no new page is created when going off last page.
 // Cause page fault equivalent and make a new page.
 #define POKE_FOR(type) \
     __attribute__((always_inline)) \

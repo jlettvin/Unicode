@@ -1,4 +1,4 @@
-/* Unicode.h Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* UTF8.h Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 #ifndef C_UTF8_H_
 #define C_UTF8_H_
 

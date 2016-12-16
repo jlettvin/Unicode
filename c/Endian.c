@@ -1,4 +1,4 @@
-/* Unicode.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
+/* Endian.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 
 /**
  * Invariant Endian handling
