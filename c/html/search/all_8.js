@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['table',['table',['../structentry__t.html#aee9f08e356b624555bb6101ea4633f3a',1,'entry_t']]]
+  ['label',['label',['../classc_1_1_classify_1_1_classify.html#a39504bd936bf5576befb10e0ac43d83f',1,'c::Classify::Classify']]],
+  ['labels',['labels',['../classc_1_1_classify_1_1_classify.html#a5d8e1a6fbcbab785107f9e3a40b7e154',1,'c::Classify::Classify']]]
 ];

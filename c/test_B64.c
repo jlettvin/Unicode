@@ -65,11 +65,11 @@ void test_B64(const int index) {
     unsigned source, target;
     char buffer[1024];
 
-    printf("\t\ttest_B64 %d v %s %s\n", index, decoded, encoded);
+    // printf("\t\ttest_B64 %d v %s %s\n", index, decoded, encoded);
 
-    printf("\t\tB64_decode 2 %lu %lu\n", dlenb, elenb);
+    // printf("\t\tB64_decode 2 %lu %lu\n", dlenb, elenb);
     B64_decode(encoded, dtarget);
-    printf("\t\tB64_decode ^ %lu %lu\n", dlenb, elenb);
+    // printf("\t\tB64_decode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(decoded);
     target = strlen(dtarget);
     lengths = (source == target);
@@ -79,9 +79,9 @@ void test_B64(const int index) {
     snprintf(buffer, 1023, format, titling, "decode content");
     PASSFAIL(compare, buffer);
 
-    printf("\t\tB64_encode 3 %lu %lu\n", dlenb, elenb);
+    // printf("\t\tB64_encode 3 %lu %lu\n", dlenb, elenb);
     B64_encode(dtarget, etarget);
-    printf("\t\tB64_encode ^ %lu %lu\n", dlenb, elenb);
+    // printf("\t\tB64_encode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(encoded);
     target = strlen(etarget);
     lengths = (source == target);

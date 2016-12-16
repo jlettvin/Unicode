@@ -63,15 +63,17 @@ class Classify(object):
             if len(fields[number][0]) == 1:
                 fields[number][0] = fields[number][0] * 2
 
-        # Extract, sort, and enhance uniq general category labels.
+        ## Extract, sort, and enhance uniq general category labels.
         self.label = ['__'] + sorted(
             set([field2 for field1, field2 in fields]))
-        # Create a reverse lookup for label index from label
+        ## Create a reverse lookup for label index from label
         self.index = {label: n for n, label in enumerate(self.label)}
 
-        # Create dictionaries of starts:parameters and labels:lengths.
+        ## Create dictionaries of starts:parameters and labels:lengths.
         self.fields = {}
+        ## Create dictionaries of starts:parameters and labels:lengths.
         self.ranges = {}
+
         for field1, field2 in fields:
             number1, number2 = int(field1[0], 0x10), int(field1[1], 0x10)
             index, length = self.index[field2], 1 + number2 - number1
@@ -83,10 +85,13 @@ class Classify(object):
             self.ranges[index] = self.ranges.get(index, set())
             self.ranges[index].add(length)
 
-        # Sort codepoint range starts into correct order.
+        ## Sort codepoint range starts into correct order.
         self.starts = sorted(self.fields.keys())
+        ## Text buffer for generation of C source file
         self.text = ""
+        ## assoc is the index of a specific unique label:runlength pair
         self.assoc = {}
+        ## pairs counts the unique label:runlength pairs
         self.pairs = 0
 
     def header(self):
@@ -228,14 +233,18 @@ void Classify_init(void) {
         return self
 
     def __call__(self):
-        "Guarantees order of production."
+        """
+Guarantees order of production.
+        """
 
         self.header().labels().uniques().indices().classify().constructor()
 
         return self
 
     def __str__(self):
-        "Returns contents of Classify.c source"
+        """
+Returns contents of Classify.c source.
+        """
 
         return self.text
 

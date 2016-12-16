@@ -24,11 +24,15 @@ __date__       = "20161107"
 
 
 class Self(object):
-    "Access routines for runtime introspection."
+    """
+Access routines for runtime introspection.
+    """
 
     @staticmethod
     def doc(msg=""):
-        "Fetch the docstring of the calling(running) function."
+        """
+Fetch the docstring of the calling(running) function.
+        """
         more = " (%s)" % (msg) if msg else ""
         try:
             frame = inspect.currentframe().f_back
@@ -47,5 +51,7 @@ class Self(object):
 
     @staticmethod
     def name(more=""):
-        "Fetch the name of the calling(running) function."
+        """
+Fetch the name of the calling(running) function.
+        """
         return inspect.stack()[1][3] + more

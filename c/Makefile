@@ -138,14 +138,14 @@ endif
 # generic running of test_* executables
 %.out : %
 	@echo "\t$@ generic"
-	@echo "GENERIC $@" >> PassFail.out
+	@echo "\tGENERIC $@" >> PassFail.out
 	@-./$< >$@ 2>&1
 	@$(call timestamp,$@)
 
 # generic production of valgrind output
 %.valgrind : %
 	@echo "\t$@ generic"
-	@echo "GENERIC $@" >> PassFail.out
+	@echo "\tGENERIC $@" >> PassFail.out
 	@--valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
 	@$(call timestamp,$@)
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['codepoint',['codepoint',['../structentry__t.html#a1e82af966dbc9caa8129a7b4320417bc',1,'entry_t']]]
+  ['assoc',['assoc',['../classc_1_1_classify_1_1_classify.html#ab4f473fa1589075793de2f93ebe9bfa6',1,'c::Classify::Classify']]]
 ];

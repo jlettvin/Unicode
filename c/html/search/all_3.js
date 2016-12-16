@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['header',['header',['../classc_1_1_classify_1_1_classify.html#a76c7951d7b300167925e145e58ed3fa3',1,'c::Classify::Classify']]]
+  ['doc',['doc',['../classc_1_1_self_1_1_self.html#a8f9e8a2b42246052390649399265f4ed',1,'c::Self::Self']]]
 ];
