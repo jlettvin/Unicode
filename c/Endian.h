@@ -36,10 +36,21 @@
  * into the correct indices.
  * The extra cost is one instruction for one extra indirection.
  *
- * size_t funny = 0x76543210;
- * cout << hex << *endless(&funny, 0); // outputs 10 on all machines.
- * cout << hex << *endless(&funny, 3); // outputs 76 on all machines.
+ * size_t sample = 0x76543210;
+ * cout << hex << *Endian_invariant(&sample, 0); // outputs 10 on all machines.
+ * cout << hex << *Endian_invariant(&sample, 3); // outputs 76 on all machines.
  * *endless(&funny, 3) = 0x98;         // always replaces 76 with 98.
  */
-unsigned char* Endian_invariant(void* p32, unsigned long off);
+
+#include "Unicode.h"
+
+#define ENDIAN_INDICES 0x03020100
+
+typedef union {
+    ue2_t u32;      ///< data as a 32 bit representation
+    ue0_t u8[4];    ///< data as 4  8 bit representations
+} Endian_invariant32_t, *Endian_invariant32_p;
+
+unsigned char* Endian_invariant(void* p32, size_t off);
+
 #endif  // C_ENDIAN_H_

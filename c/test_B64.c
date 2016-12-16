@@ -49,8 +49,8 @@ void test_B64(const int index) {
     const char *decoded = sample[index][1];
     const char *encoded = sample[index][2];
 
-    char dtarget[strlen(decoded)+2];  
-    char etarget[strlen(encoded)+2];  
+    char dtarget[strlen(decoded)+4];  
+    char etarget[strlen(encoded)+4];  
     unsigned lengths, compare;
     unsigned source, target;
     char buffer[1024];

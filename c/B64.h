@@ -46,6 +46,9 @@
 
 #ifndef C_B64_H_
 #define C_B64_H_
-void B64_decode(const char* source, char* target);  ///< as wikipedia describes
-void B64_encode(const char* source, char* target);  ///< as wikipedia describes
+
+#include "Types.h"
+
+void B64_decode(const void* source, void* target);  ///< as wikipedia describes
+void B64_encode(const void* source, void* target);  ///< as wikipedia describes
 #endif  // C_B64_H_

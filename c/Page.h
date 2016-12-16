@@ -136,9 +136,9 @@ PAGE_TYPEDEF(se3_t, 32)
 
 #if     PAGE_ADDRESS_BITS == 32
 
-typedef unsigned long address_t;
+typedef ue2_t address_t;
 #define Page_field \
-    size_t field[sizeof(address_t)/sizeof(unsigned short)]; \
+    size_t field[sizeof(address_t)/sizeof(ue1_t)]; \
     field[0] = offset>>16; \
     field[1] = offset & 0xffff; \
     void** next = (void**)Page_Base; \
@@ -153,9 +153,9 @@ typedef unsigned long address_t;
 
 #elif   PAGE_ADDRESS_BITS == 64
 
-typedef unsigned long long address_t;
+typedef ue3_t address_t;
 #define Page_field \
-    size_t field[sizeof(address_t)/sizeof(unsigned short)]; \
+    size_t field[sizeof(address_t)/sizeof(ue1_t)]; \
     field[3] = (offset >> 48) & 0xffff; \
     field[2] = (offset >> 32) & 0xffff; \
     field[1] = (offset >> 16) & 0xffff; \

@@ -265,6 +265,8 @@ Self.pylint:	Self.py
 
 Self.py:	START
 
+Unicode.h:	Types.h
+
 ###############################################################################
 PassFail.c.gprof: PassFail.c
 	@-$(call profile,gcov_test_$(basename $<),$@)
@@ -307,6 +309,8 @@ test_Endian:	test_Endian.c Endian.o PassFail.o
 Endian.o:	Endian.c Makefile
 
 Endian.c:	Endian.h Makefile
+
+Endian.h:	Unicode.h Makefile
 
 
 ###############################################################################
