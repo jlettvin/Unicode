@@ -122,6 +122,8 @@ page_t_##type* page_t_##type##_ctor() { \
 
 /** PAGE_TYPEDEF declares the struct types/constructor for paged typed data.
  */
+
+/*
 PAGE_TYPEDEF(ue0_t, 32)
 PAGE_TYPEDEF(ue1_t, 32)
 PAGE_TYPEDEF(ue2_t, 32)
@@ -248,5 +250,6 @@ POKE_FOR(se2_t)
 POKE_FOR(ue3_t)
 // #pragma message "Page_poke_se3_t"
 POKE_FOR(se3_t)
+*/
 
 #endif  // C_PAGE_H_

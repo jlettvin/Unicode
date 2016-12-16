@@ -4,6 +4,7 @@
 # pragma pylint: disable=too-many-instance-attributes
 # pragma pylint: disable=too-many-locals
 # pragma pylint: disable=consider-using-enumerate
+# pragma pylint: disable=bad-option-value
 # pragma pylint: disable=consider-iterating-dictionary
 
 """gen_Classify.py
@@ -13,6 +14,9 @@ which is downloaded as "normative" from unicode.org for Unicode 9.0.
 It will be improved with quality control (pep8, pyflakes, pylint, pychecker)
 with unit tests, and with documentation at a later date.
 """
+
+from Self import (Self)
+
 
 __module__     = "gen_Classify.py"
 __author__     = "Jonathan D. Lettvin"
@@ -26,8 +30,6 @@ __email__      = "jlettvin@gmail.com"
 __contact__    = "jlettvin@gmail.com"
 __status__     = "Demonstration"
 __date__       = "20161215"
-
-from Self import (Self)
 
 
 class Classify(object):

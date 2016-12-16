@@ -19,6 +19,7 @@
 }
 
 void test_page() {
+    /*
     page_t_ue0_t* bytes = page_t_ue0_t_ctor();
     PASSFAIL(bytes->peek(bytes, 0) == (ue0_t)0, "New 1st peek");
     bytes->poke(bytes, 0, 0xff);
@@ -34,6 +35,7 @@ void test_page() {
     PAGE_TEST(ue0_t, 0, 0xff);
     PAGE_TEST(ue0_t, 0x10000, 0xff);
     PASSFAIL(1, "");
+    */
 }
 
 /** main

@@ -6,6 +6,9 @@
 This function enables the calling function to retrieve its own __doc__ string.
 """
 
+import inspect
+
+
 __module__     = "Self.py"
 __author__     = "Jonathan D. Lettvin"
 __copyright__  = "\
@@ -18,8 +21,6 @@ __email__      = "jlettvin@gmail.com"
 __contact__    = "jlettvin@gmail.com"
 __status__     = "Demonstration"
 __date__       = "20161107"
-
-import inspect
 
 
 class Self(object):

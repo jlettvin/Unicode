@@ -6,20 +6,24 @@
 
 /** Sample array of decoded/encoded pairs (see en.wikipedia.org/wiki/Base64)
  */
-static const char* sample[4][3] = {
+static const char* sample[][3] = {
     {
         "Letter",
         "M",
         "TQ=="
-    }, {
+    },
+    {
         "Paired",
         "Ma",
         "TWE="
-    }, {
+    },
+    {
         "Minimal",
         "Man",
         "TWFu"
-    }, {
+    },
+    // { "", "", "" },  // Prevent any further testing
+    {
         "Content",
         "Man is distinguished, not only by his reason, but by this singular "
         "passion from other animals, which is a lust of the mind, that by a "
@@ -32,7 +36,8 @@ static const char* sample[4][3] = {
         "odCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yg"
         "a25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hb"
         "CBwbGVhc3VyZS4="
-    }
+    },
+    { "", "", "" }
 };
 
 /** test_B64
@@ -49,13 +54,22 @@ void test_B64(const int index) {
     const char *decoded = sample[index][1];
     const char *encoded = sample[index][2];
 
-    char dtarget[strlen(decoded)+4];  
-    char etarget[strlen(encoded)+4];  
+    const size_t dlen = strlen(decoded);
+    const size_t elen = strlen(encoded);
+    const size_t dlenb = (dlen + 0x10) & 0xfffffff0;
+    const size_t elenb = (elen + 0x10) & 0xfffffff0;
+
+    char dtarget[dlenb];  
+    char etarget[elenb];  
     unsigned lengths, compare;
     unsigned source, target;
     char buffer[1024];
 
+    printf("\t\ttest_B64 %d v %s %s\n", index, decoded, encoded);
+
+    printf("\t\tB64_decode 2 %lu %lu\n", dlenb, elenb);
     B64_decode(encoded, dtarget);
+    printf("\t\tB64_decode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(decoded);
     target = strlen(dtarget);
     lengths = (source == target);
@@ -65,7 +79,9 @@ void test_B64(const int index) {
     snprintf(buffer, 1023, format, titling, "decode content");
     PASSFAIL(compare, buffer);
 
+    printf("\t\tB64_encode 3 %lu %lu\n", dlenb, elenb);
     B64_encode(dtarget, etarget);
+    printf("\t\tB64_encode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(encoded);
     target = strlen(etarget);
     lengths = (source == target);
@@ -82,7 +98,7 @@ void test_B64(const int index) {
  * This function runs each test for which there is a data pair.
  */
 void test() {
-    for (int i = 0; i < 4; ++i) test_B64(i);
+    for (size_t i = 0; sample[i][2][0] ; ++i) if (sample[i][0][0]) test_B64(i);
 }
 
 /** main

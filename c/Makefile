@@ -273,6 +273,7 @@ PassFail.c.gprof: PassFail.c
 	@$(call timestamp,$@)
 
 PassFail.c.gcov: PassFail.c
+	@echo "\t\tlinux GCOV core dumps"
 	@-$(call coverage,$@,$<,)
 	@$(call timestamp,$@)
 
