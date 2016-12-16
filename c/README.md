@@ -39,6 +39,9 @@ resulting from the code in this library
 There are memory leaks in the test modules
 due to implementation errors in the standard library.
 
+## Dependency graph
+![Dependency Graph](c/Makefile.png)
+
 ## Points of Interest
 
 ### UTF8 <-> char32_t
