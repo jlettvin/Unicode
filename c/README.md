@@ -13,6 +13,7 @@ outperform architectures which
 test for values and take alternate code paths.
 GOTO and table-driven are considered unusual
 for modern development.
+[Here is an article](http://eli.thegreenplace.net/2012/07/12/computed-goto-for-efficient-dispatch-tables).
 
 The code is designed to be very short and tight.
 It makes use of the gnu compiler stack where
