@@ -1,28 +1,32 @@
 /* B64.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
 
-// #include <stdio.h>
-
 #include "B64.h"
 
-static struct {
-    u1_p encode;       ///< the B64 encoding alphabet
-    u1_t decode[256];  ///< that alphabet turned backwards by B64_init.
+static const struct {
+    const u1_p encode;       ///< the B64 encoding alphabet
+    const u1_t decode[256];  ///< that alphabet turned backwards by B64_init.
 } B64_static = {
     (u1_p)"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-    {}
-};
+    {
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 62, 64, 64, 64, 63,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       52, 53, 54, 55, 56, 57, 58, 59,  60, 61, 64, 64, 64, 64, 64, 64,
+       64,  0,  1,  2,  3,  4,  5,  6,   7,  8,  9, 10, 11, 12, 13, 14,
+       15, 16, 17, 18, 19, 20, 21, 22,  23, 24, 25, 64, 64, 64, 64, 64,
+       64, 26, 27, 28, 29, 30, 31, 32,  33, 34, 35, 36, 37, 38, 39, 40,
+       41, 42, 43, 44, 45, 46, 47, 48,  49, 50, 51, 64, 64, 64, 64, 64,
 
-/** B64_init
- *
- * Run before main to initialize data structures.
- */
-__attribute__((constructor))
-void B64_init(void) {
-    u1_p encode = B64_static.encode;
-    u1_p decode = B64_static.decode;
-    for (size_t i=0; i < 256; ++i) decode[i] = 0;
-    for (size_t i=0; encode[i]; ++i) decode[encode[i]&0xff] = i;
-}
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64,
+       64, 64, 64, 64, 64, 64, 64, 64,  64, 64, 64, 64, 64, 64, 64, 64
+    }
+};
 
 /** B64_decode
  *
@@ -33,24 +37,24 @@ void B64_init(void) {
  * Note that computed GOTO is used liberally to eliminate conditionals.
  */
 void B64_decode(const void* vsrc, void* vtgt) {
+// __NEXT macro performs the common code used by all steps.
 #define __NEXT(N) U = (size_t)(d=src[O+N]); goto *Z[N][(!d) || (d == '=')]
-/* #define INSTR(ARG) (\
-     printf(#ARG \
-     " tgt=%p src=%p U=%lu d=%u c=%c\n", tgt, src, U, d, (char)d) \
-     );
+// INSTR is instrumentation to aid in step-by-step review of operations
+/* #define INSTR(L) (\
+     printf(#L " tgt=%p src=%p U=%lu d=%u c=%c\n", tgt, src, U, d, (char)d));
  */
 #define INSTR(ARG)
     static const void *Z[4][2] =
         { {&&B, &&F}, {&&C, &&F}, {&&D, &&F}, {&&E, &&F} };
+    static const u1_t*const decode = B64_static.decode;
     const u1_p src = (const u1_p)vsrc;
     u1_p tgt = (u1_p)vtgt;
-    u1_p decode = B64_static.decode;
     u1_t d = 0, m;
     size_t U, O = 0;
-    goto A;
+    goto A;  ///< skip update on first step.
 I:  INSTR(I) O += 4;
-A:  INSTR(A) __NEXT(0);
-B:  INSTR(B) m = decode[U]; *tgt  = m << 2;                  __NEXT(1);
+A:  INSTR(A)                                                 __NEXT(0);
+B:  INSTR(B) m = decode[U];                   *tgt = m << 2; __NEXT(1);
 C:  INSTR(C) m = decode[U]; *tgt |= m >> 4; *++tgt = m << 4; __NEXT(2);
 D:  INSTR(D) m = decode[U]; *tgt |= m >> 2; *++tgt = m << 6; __NEXT(3);
 E:  INSTR(E) m = decode[U]; *tgt |= m     ; *++tgt = m     ;   goto I;
@@ -70,10 +74,8 @@ F:  INSTR(F) *tgt = 0;
  * Note that computed GOTO is used liberally to eliminate conditionals.
  */
 void B64_encode(const void* vsrc, void* vtgt) {
-/* #define INSTR(ARG) (\
-        printf(#ARG " i=%lu\n", i) \
-        );
- */
+// INSTR is instrumentation to aid in step-by-step review of operations
+// #define INSTR(ARG) ( printf(#ARG " i=%lu\n", i) );
 #define INSTR(ARG)
     static const void *Z[4][2] =
         { {&&B, &&E0}, {&&C, &&E2}, {&&D, &&E1}, {&&A, &&E0} };

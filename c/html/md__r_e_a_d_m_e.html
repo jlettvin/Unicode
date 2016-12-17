@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This C language optimized library offers a set of functions designed to enable development of DSL lexing/parsing at very high performance while being as high quality as is reasonable without obfuscating what is done and why the implementation works.</p>
-<p>The principle insight is that GOTO and table-driven transforms outperform architectures which test for values and take alternate code paths. GOTO and table-driven are considered unusual for modern development.</p>
+<p>The principle insight is that GOTO and table-driven transforms outperform architectures which test for values and take alternate code paths. GOTO and table-driven are considered unusual in the popular development community. <a href="http://eli.thegreenplace.net/2012/07/12/computed-goto-for-efficient-dispatch-tables">Here is an article</a>.</p>
 <p>The code is designed to be very short and tight. It makes use of the gnu compiler stack where computed GOTO has been a standard extension for many years, where other compilers have no support for this efficiency.</p>
 <p>A benefit of the use of GOTO in this library is that the likely code path has been prefetched into the processor cache (so there is no flushing of the cache for either of the two directions the GOTO may take).</p>
 <p>The general approach to table-driven paths is explained in the main README.md which is in the parent directory to this library source.</p>

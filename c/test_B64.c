@@ -69,6 +69,8 @@ void test_B64(const int index) {
 
     // printf("\t\tB64_decode 2 %lu %lu\n", dlenb, elenb);
     B64_decode(encoded, dtarget);
+    // printf("\t\tdecode: %s\n", (char *)encoded);
+    // printf("\t\tdecode: %s\n", (char *)dtarget);
     // printf("\t\tB64_decode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(decoded);
     target = strlen(dtarget);
@@ -76,11 +78,14 @@ void test_B64(const int index) {
     compare = !strcmp(dtarget, decoded);
     snprintf(buffer, 1023, format, titling, "decode lengths");
     PASSFAIL(lengths, buffer);
+
     snprintf(buffer, 1023, format, titling, "decode content");
     PASSFAIL(compare, buffer);
 
     // printf("\t\tB64_encode 3 %lu %lu\n", dlenb, elenb);
     B64_encode(dtarget, etarget);
+    // printf("\t\tencode: %s\n", (char *)dtarget);
+    // printf("\t\tencode: %s\n", (char *)etarget);
     // printf("\t\tB64_encode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(encoded);
     target = strlen(etarget);
