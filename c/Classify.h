@@ -46,6 +46,6 @@
  */
 
 const char Classify_Label[31][3];  ///< All valid toplevel Unicode classifiers
-unsigned char Classify[0x110000];  ///< Runtime reconstructed classifier array
+unsigned char* Classify;           ///< Runtime reconstructed classifier array
 #endif  // C_CLASSIFY_H_
 

@@ -63,7 +63,7 @@ PYFLAKES=$(addsuffix .pyflakes,$(PYMODS))
 PYLINTS=$(addsuffix .pylint,$(PYMODS))
 
 # Useful runtime parameters
-PEP8IGNORE=--ignore=E122,E128,E201,E202,E203,E221,E241,E272
+PEP8IGNORE=--ignore=E122,E128,E201,E202,E203,E221,E241,E266,E272
 
 # Shared library generic information
 CURDIR=.
@@ -153,7 +153,8 @@ endif
 # Doing gcov after library avoids putting coverage objects in the library.
 all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@echo "\t$@ SUMMARY gcov percentages"
-	@grep '%' *.gcov.out
+	@echo "TODO grep for percentages"
+	@echo "grep '[0-9]%' $(GCOVS)"
 	@$(call timestamp,$@)
 
 .PHONY:
@@ -273,7 +274,6 @@ PassFail.c.gprof: PassFail.c
 	@$(call timestamp,$@)
 
 PassFail.c.gcov: PassFail.c
-	@echo "\t\tlinux GCOV core dumps"
 	@-$(call coverage,$@,$<,)
 	@$(call timestamp,$@)
 
@@ -399,8 +399,9 @@ Page.c.gprof: Page.c
 	@$(call timestamp,$@)
 
 Page.c.gcov: Page.c
+	@echo "TODO: make $@ appear normally"
+	@touch $@
 	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
-	@-$(call profile,gcov_test_$(basename $<),$<.prof)
 	@$(call timestamp,$@)
 
 test_Page.valgrind:	test_Page

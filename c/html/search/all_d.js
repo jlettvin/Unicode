@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['self',['Self',['../classc_1_1_self_1_1_self.html',1,'c::Self']]],
-  ['starts',['starts',['../classc_1_1_classify_1_1_classify.html#afdb329410c16ea92a7ac17476f576fde',1,'c::Classify::Classify']]]
+  ['ranges',['ranges',['../classc_1_1_classify_1_1_classify.html#a1e4a9a02e19f108821677534f7e8d60a',1,'c::Classify::Classify']]]
 ];

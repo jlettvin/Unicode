@@ -25,6 +25,9 @@ after being reconstructed from RunLength pairs.
 
 #include "Classify.h"
 
+#include <stdlib.h>
+
+
 /**
  * Classify_Label contains all legal top-level Unicode codepoint classifiers
  */
@@ -371,7 +374,7 @@ static const unsigned Classify_RLE[3655] = {
 /**
  * Classify is the array of indices to classification labels for ALL codepoints
  */
-unsigned char Classify[0x110000];
+unsigned char* Classify;  // [0x110000];
 
 /**
  * Classify_init is run before main is called.
@@ -385,6 +388,7 @@ __attribute__((constructor))
 void Classify_init(void) {
     unsigned codepoint = 0;
 
+    Classify = (unsigned char*)calloc(0x110000, 1);
     for (int i=0; i < 3655 ; ++i) {
         const unsigned *pair = Classify_uniq[Classify_RLE[i]];
         unsigned index = pair[0];

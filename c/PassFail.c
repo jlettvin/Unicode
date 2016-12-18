@@ -1,7 +1,8 @@
 /* PassFail.c Copyright(c) 2016 Jonathan D. Lettvin, All Rights Reserved. */
-#include <stdio.h>
 
 #include "PassFail.h"
+
+#include <stdio.h>
 
 /** passfail
  *
@@ -27,14 +28,15 @@ void passfail(
     FILE* handle = fopen("PassFail.out", "a");
 
     if (msg[0] == 0) {
-        if (count == 1) disable = 1;
-        else if(!disable) {
+        if (count == 1) {
+            disable = 1;
+        } else if (!disable) {
             fprintf(handle, "%s (%s:%u) %d\t", pf[0], source, line, tally[0]);
             if (tally[1] != count) fprintf(handle, "\n");
             fprintf(handle, "%s (%s:%u) %d\t", pf[1], source, line, tally[1]);
             fprintf(handle, "RESULT\n");
         }
-    } else if(!disable) {
+    } else if (!disable) {
         tally[!count]++;
         fprintf(handle, "%s (%s:%u) %s\n", pf[!count], source, line, msg);
     }

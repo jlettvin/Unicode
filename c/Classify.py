@@ -1,11 +1,4 @@
 #!/usr/bin/env python
-# pragma pylint: disable=bad-whitespace
-# pragma pylint: disable=relative-import
-# pragma pylint: disable=too-many-instance-attributes
-# pragma pylint: disable=too-many-locals
-# pragma pylint: disable=consider-using-enumerate
-# pragma pylint: disable=bad-option-value
-# pragma pylint: disable=consider-iterating-dictionary
 
 """gen_Classify.py
 Generates Classify.c and Classify.h from the file: DerivedGeneralCategory.txt
@@ -15,13 +8,20 @@ It will be improved with quality control (pep8, pyflakes, pylint, pychecker)
 with unit tests, and with documentation at a later date.
 """
 
-from Self import (Self)
+# pragma pylint: disable=bad-whitespace
+# pragma pylint: disable=pointless-string-statement
+# pragma pylint: disable=relative-import
+# pragma pylint: disable=too-many-instance-attributes
+# pragma pylint: disable=too-many-locals
+# pragma pylint: disable=consider-using-enumerate
+# pragma pylint: disable=bad-option-value
+# pragma pylint: disable=consider-iterating-dictionary
 
+from Self import (Self)
 
 __module__     = "gen_Classify.py"
 __author__     = "Jonathan D. Lettvin"
-__copyright__  = "\
-Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
+__copyright__  = "Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
 __credits__    = ["Jonathan D. Lettvin"]
 __license__    = "GPLv3"
 __version__    = "0.0.1"
@@ -122,6 +122,9 @@ after being reconstructed from RunLength pairs.
 
 
 #include "Classify.h"
+
+#include <stdlib.h>
+
 """
         self.text += Self.doc()
         return self
@@ -156,7 +159,8 @@ static const unsigned Classify_uniq[%d][2] = {
         rle = sum([len(lengths) for lengths in self.ranges.values()])
         text = "    "
         columns = 5
-        for index in sorted(self.ranges.keys()):
+        indices = sorted(self.ranges.keys())
+        for index in indices:
             for length in sorted(self.ranges[index]):
                 text += " {%2d, %6d}," % (index, length)
                 self.assoc[index] = self.assoc.get(index, {})
@@ -200,7 +204,7 @@ static const unsigned Classify_RLE[%d] = {
 /**
  * Classify is the array of indices to classification labels for ALL codepoints
  */
-unsigned char Classify[0x110000];
+unsigned char* Classify;  // [0x110000];
 """
         self.text += Self.doc()
         return self
@@ -219,6 +223,7 @@ __attribute__((constructor))
 void Classify_init(void) {
     unsigned codepoint = 0;
 
+    Classify = (unsigned char*)calloc(0x110000, 1);
     for (int i=0; i < 3655 ; ++i) {
         const unsigned *pair = Classify_uniq[Classify_RLE[i]];
         unsigned index = pair[0];
@@ -299,7 +304,7 @@ if __name__ == "__main__":
  */
 
 const char Classify_Label[%d][3];  ///< All valid toplevel Unicode classifiers
-unsigned char Classify[0x110000];  ///< Runtime reconstructed classifier array
+unsigned char* Classify;           ///< Runtime reconstructed classifier array
 #endif  // C_CLASSIFY_H_
 """
 
