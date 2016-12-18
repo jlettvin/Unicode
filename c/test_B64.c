@@ -22,7 +22,6 @@ static const char* sample[][3] = {
         "Man",
         "TWFu"
     },
-    // { "", "", "" },  // Prevent any further testing
     {
         "Content",
         "Man is distinguished, not only by his reason, but by this singular "
@@ -37,7 +36,8 @@ static const char* sample[][3] = {
         "a25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hb"
         "CBwbGVhc3VyZS4="
     },
-    { "", "", "" }
+    { "", "", "" },  // Prevent any further testing
+    { "", "", "" }   // Unnecessary sentinel
 };
 
 /** test_B64
@@ -65,13 +65,7 @@ void test_B64(const int index) {
     unsigned source, target;
     char buffer[1024];
 
-    // printf("\t\ttest_B64 %d v %s %s\n", index, decoded, encoded);
-
-    // printf("\t\tB64_decode 2 %lu %lu\n", dlenb, elenb);
     B64_decode(encoded, dtarget);
-    // printf("\t\tdecode: %s\n", (char *)encoded);
-    // printf("\t\tdecode: %s\n", (char *)dtarget);
-    // printf("\t\tB64_decode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(decoded);
     target = strlen(dtarget);
     lengths = (source == target);
@@ -82,11 +76,7 @@ void test_B64(const int index) {
     snprintf(buffer, 1023, format, titling, "decode content");
     PASSFAIL(compare, buffer);
 
-    // printf("\t\tB64_encode 3 %lu %lu\n", dlenb, elenb);
     B64_encode(dtarget, etarget);
-    // printf("\t\tencode: %s\n", (char *)dtarget);
-    // printf("\t\tencode: %s\n", (char *)etarget);
-    // printf("\t\tB64_encode ^ %lu %lu\n", dlenb, elenb);
     source = strlen(encoded);
     target = strlen(etarget);
     lengths = (source == target);

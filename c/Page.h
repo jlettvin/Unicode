@@ -21,6 +21,33 @@
  * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  */
 
+/**
+ * This file provides the interface to a virtual memory which uses
+ * Page frames and a lookaside buffer to maintain access to a memory
+ * that may be partially stored in files when
+ * the number of allocated.pages exceeds the number of frames.
+ * Pages are allocated only after a page fault where the page is marked
+ * unallocated.
+ * If an address to a page is dreferenced and the page is not in a frame
+ * A sequence of activites ensues:
+ *
+ *  The frame-id of the address is used to index the frame
+ *  If the page is not current occupant of the frame
+ *      The LRU frame is chosen
+ *      If the page is marked dirty, it is flushed to disk
+ *      The page frame id is set to the page id
+ *      The page is marked clean
+ *      If the page exists on disk, it is loaded into the frame
+ *      otherwise the frame is filled with zeros
+ *  bits beyond those needed for offset within the frame are masked off
+ *  add remaining bits to pointer to frame to get base byte of address
+ *  On "poke", and the targeted data changes, set the dirty bit.
+ *
+ *  TODO Frame Count
+ *  TODO Variable length address
+ *  TODO Adress contains frame id, byte count, and bytes
+ *
+ */
 
 /** Page
  *
