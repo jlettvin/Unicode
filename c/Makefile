@@ -153,8 +153,7 @@ endif
 # Doing gcov after library avoids putting coverage objects in the library.
 all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@echo "\t$@ SUMMARY gcov percentages"
-	@grep '[0-9]%' *.out"
-	@$(call timestamp,$@)
+	@grep '[0-9]%' *.out
 
 .PHONY:
 clean:
@@ -174,11 +173,14 @@ clean:
 		*.pylint \
 		*.so \
 		*.valgrind
+	@./MakeTime.py --clear
 	@$(call timestamp,$@)
 
 ###############################################################################
 .PHONY:
 START:
+	@./MakeTime.py --clear
+	@./MakeTime.py $@ Measure elapsed time for entire make
 	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'
 	@$(call timestamp,$@ $(UNAME))
 
@@ -230,6 +232,9 @@ results:	gprof
 
 END:	results
 	@$(call timestamp,$@)
+	@echo $(t_total)
+	@./MakeTime.py START
+	@./MakeTime.py
 	@echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 
 

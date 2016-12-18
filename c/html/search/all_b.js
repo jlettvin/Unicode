@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['omni',['Omni',['../class_omni.html',1,'']]]
+  ['pairs',['pairs',['../classc_1_1_classify_1_1_classify.html#ac670ebd238054400347771255ad5d043',1,'c::Classify::Classify']]]
 ];
