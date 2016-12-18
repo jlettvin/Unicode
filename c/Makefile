@@ -153,8 +153,7 @@ endif
 # Doing gcov after library avoids putting coverage objects in the library.
 all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@echo "\t$@ SUMMARY gcov percentages"
-	@echo "TODO grep for percentages"
-	@echo "grep '[0-9]%' $(GCOVS)"
+	@grep '[0-9]%' *.out"
 	@$(call timestamp,$@)
 
 .PHONY:
