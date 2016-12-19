@@ -117,8 +117,8 @@ elif len(argv) == 2:
             v = result[k]
             timing = "unknown MakeTime"
             if v.has_key('t1') and v.has_key('t0'):
-                timing = "%4.3f seconds" % (float(v['t1']) - float(v['t0']))
-            print("\t\t%s [%s] %s" % (timing, k, v['title']))
+                timing = "%6.3f seconds" % (float(v['t1']) - float(v['t0']))
+            print("    %s [%s] %s" % (timing, k, v['title']))
 
     elif arg1[0] == '-':  # -, -h, --help, or anything beginning with '-'
         print __doc__

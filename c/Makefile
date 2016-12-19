@@ -88,6 +88,7 @@ endif
 # $(2) == $<
 # $(3) == list of .o files needed for link
 define coverage
+	@$(call T0,$(2),coverage for $(1))
 	@-gcc $(GOPTS) -c -o test_$(basename $(2)).o test_$(2)
 	@-gcc $(GOPTS) -c -o      $(basename $(2)).o      $(2)
 	@-gcc $(GOPTS)    -o gcov_test_$(basename $(2)) \
@@ -96,21 +97,31 @@ define coverage
 		$(3)
 	@-./gcov_test_$(basename $(2))
 	@-gcov $(2) >$(1).out 2>&1
-	@$(call timestamp,$@ coverage)
+	@$(call T1,$(2))
+endef
+
+define T0
+	@./MakeTime.py $(1) $(2)
+endef
+
+define T1
+	@./MakeTime.py $(1)
 endef
 
 # Other specific platform funtions
 ifeq ($(UNAME), Darwin)
 define profile
+	@$(call T0,$(2),profile for $(1))
 	@-echo "No Mac gprof (ignoring $(2))" > $(2)
-	@$(call timestamp,$@ profile)
+	@$(call T1,$(2))
 endef
 endif
 
 ifeq ($(UNAME), Linux)
 define profile
+	@$(call T0,$(2),profile for $(1))
 	@-gprof -b $(1) gmon.out > $(2) 2>&1
-	@$(call timestamp,$@ profile)
+	@$(call T1,$(2))
 endef
 endif
 
@@ -118,42 +129,56 @@ endif
 # generic rules
 
 %.pylint : %.py
+	@$(call T0,$@,generic rule)
 	@-pylint $< >$(basename $<).pylint 2>&1
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 %.pyflakes : %.py
+	@$(call T0,$@,generic rule)
 	@-pyflakes $< >$(basename $<).pyflakes 2>&1
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 %.pep8 : %.py
+	@$(call T0,$@,generic rule)
 	@-pep8 $(PEP8IGNORE) $< >$(basename $<).pep8 2>&1
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 # generic translation of c source files to library objects.
 %.o	:	%.c
+	@$(call T0,$@,generic rule)
 	@echo "\t$@ generic"
 	@-gcc $(COPTS) -c -o $@ $<
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 # generic running of test_* executables
 %.out : %
+	@$(call T0,$@,generic rule)
 	@echo "\t$@ generic"
 	@echo "\tGENERIC $@" >> PassFail.out
 	@-./$< >$@ 2>&1
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 # generic production of valgrind output
 %.valgrind : %
+	@$(call T0,$@,generic rule)
 	@echo "\t$@ generic"
 	@echo "\tGENERIC $@" >> PassFail.out
 	@--valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
-	@$(call timestamp,$@)
+	@$(call T1,$@)
+
+
+test_% :	test_%.c %.o
+	@--gcc -o $@ $^
 
 ###############################################################################
 # Doing gcov after library avoids putting coverage objects in the library.
 all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@echo "\t$@ SUMMARY gcov percentages"
 	@grep '[0-9]%' *.out
+	@./MakeTime.py START
+	@echo "Elapsed time in order of t0 initialization time:"
+	@./MakeTime.py -s
+	@$(call timestamp,Makefile execution finished timestamp)
 
 .PHONY:
 clean:
@@ -174,36 +199,35 @@ clean:
 		*.so \
 		*.valgrind
 	@./MakeTime.py --clear
-	@$(call timestamp,$@)
 
 ###############################################################################
 .PHONY:
 START:
 	@./MakeTime.py --clear
-	@./MakeTime.py $@ Measure elapsed time for entire make
+	@./MakeTime.py $@ Elapsed time for entire make
 	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'
-	@$(call timestamp,$@ $(UNAME))
 
 # https://github.com/lindenb/makefile2graph
 # Modified with fputs("    rankdir=LR;\n",out);  ///< jlettvin 20161213
 graph: Makefile START
+	@$(call T0,$@,compound rule)
 	@make -Bnd | makefile2graph | dot -Tpng -o Makefile.png
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 doxygen:	graph
+	@$(call T0,$@,compound rule)
 	@doxygen > doxygen.out 2>&1
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 lint:	$(SRCS) $(PEP8S) $(PYFLAKES) $(PYLINTS) doxygen
+	@$(call T0,$@,compound rule)
 	@-cpplint $(SRCS) > lint.out 2>&1
 	@echo "See file 'lint.out' to review ignored cpplint errors"
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 test:	$(addsuffix .out,$(TESTS))
-	@$(call timestamp,$@)
 
 valgrind:	$(addsuffix .valgrind,$(TESTS)) test
-	@$(call timestamp,$@)
 
 gprof: $(GPROFS) gcov
 
@@ -228,29 +252,26 @@ results:	gprof
 	echo "\trelevant .valgrind file content"
 	cat *.valgrind | egrep $(egreps)
 	echo $(line)
-	@$(call timestamp,$@)
 
 END:	results
-	@$(call timestamp,$@)
-	@echo $(t_total)
-	@./MakeTime.py START
-	@./MakeTime.py
 	@echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 
 
 # shared library ##############################################################
 
 $(MACDYLIB):	$(OBJS)
+	@$(call T0,$@,special rule)
 	@g++ \
 		-dynamiclib -undefined suppress -flat_namespace \
 		-install_name '$(CURDIR)/$(MACDYLIB)' -current_version $(VERSION) \
 		$^ \
 		-o $@
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 $(LINUXLIB):	$(OBJS)
+	@$(call T0,$@,special rule)
 	@g++ -shared -Wl,-soname,libjlettvin.so.1 -lc $^ -o $@
-	@$(call timestamp,$@)
+	@$(call T1,$@)
 
 
 ###############################################################################
@@ -275,19 +296,16 @@ Unicode.h:	Types.h
 ###############################################################################
 PassFail.c.gprof: PassFail.c
 	@-$(call profile,gcov_test_$(basename $<),$@)
-	@$(call timestamp,$@)
 
 PassFail.c.gcov: PassFail.c
 	@-$(call coverage,$@,$<,)
-	@$(call timestamp,$@)
 
 test_PassFail.valgrind:	test_PassFail
 
 test_PassFail.out:	test_PassFail
 
-test_PassFail:	test_PassFail.c PassFail.o
-	@--gcc -o $@ $^
-	@$(call timestamp,$@)
+#test_PassFail:	test_PassFail.c PassFail.o
+#	@--gcc -o $@ $^
 
 PassFail.o:	PassFail.c Makefile
 
@@ -297,11 +315,9 @@ PassFail.c:	PassFail.h Makefile
 ###############################################################################
 Endian.c.gprof: Endian.c
 	@-$(call profile,gcov_test_$(basename $<),$@)
-	@$(call timestamp,$@)
 
 Endian.c.gcov: Endian.c
 	@-$(call coverage,$@,$<,PassFail.o)
-	@$(call timestamp,$@)
 
 test_Endian.valgrind:	test_Endian
 
@@ -309,7 +325,6 @@ test_Endian.out:	test_Endian
 
 test_Endian:	test_Endian.c Endian.o PassFail.o
 	@--gcc -o $@ $^
-	@$(call timestamp,$@)
 
 Endian.o:	Endian.c Makefile
 
@@ -321,11 +336,9 @@ Endian.h:	Unicode.h Makefile
 ###############################################################################
 B64.c.gprof: B64.c
 	@-$(call profile,gcov_test_$(basename $<),$@)
-	@$(call timestamp,$@)
 
 B64.c.gcov: B64.c
 	@-$(call coverage,$@,$<,PassFail.o)
-	@$(call timestamp,$@)
 
 test_B64.valgrind:	test_B64
 
@@ -333,7 +346,6 @@ test_B64.out:	test_B64
 
 test_B64:	test_B64.c B64.o PassFail.o
 	@--gcc -o $@ $^
-	@$(call timestamp,$@)
 
 B64.o:	B64.c Makefile
 
@@ -343,11 +355,9 @@ B64.c:	B64.h Makefile
 ###############################################################################
 UTF8.c.gprof: UTF8.c
 	@-$(call profile,gcov_test_$(basename $<),$@)
-	@$(call timestamp,$@)
 
 UTF8.c.gcov: UTF8.c
 	@-$(call coverage,$@,$<,PassFail.o B64.o)
-	@$(call timestamp,$@)
 
 test_UTF8.valgrind:	test_UTF8
 
@@ -355,7 +365,6 @@ test_UTF8.out:	test_UTF8
 
 test_UTF8:	test_UTF8.c UTF8.o PassFail.o
 	@--gcc -o $@ $^
-	@$(call timestamp,$@)
 
 UTF8.o:	UTF8.c Makefile
 
@@ -370,12 +379,10 @@ Classify.py:	Self.py
 
 Classify.c.gprof: Classify.c
 	@-$(call profile,gcov_test_$(basename $<),$@)
-	@$(call timestamp,$@)
 
 # Classify coverage and profiling use thusly named generic functions
 Classify.c.gcov: Classify.c
 	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
-	@$(call timestamp,$@)
 
 # Memory leaks are detected by a generic rule
 test_Classify.valgrind:	test_Classify
@@ -386,7 +393,6 @@ test_Classify.out:	test_Classify
 # This is how the the unit test is compiled
 test_Classify:	test_Classify.c Classify.o PassFail.o
 	@--gcc -o $@ $^
-	@$(call timestamp,$@)
 
 # Finally, this is how the shared library object is created
 Classify.o:	Classify.c Classify.h Makefile
@@ -394,19 +400,16 @@ Classify.o:	Classify.c Classify.h Makefile
 # Classify.py generates Classify.[ch] from DerivedGeneralCategory.txt
 Classify.h Classify.c:	Classify.py Makefile
 	@-./$<
-	@$(call timestamp,$@)
 
 
 ###############################################################################
 Page.c.gprof: Page.c
 	@-$(call profile,gcov_test_$(basename $<),$@)
-	@$(call timestamp,$@)
 
 Page.c.gcov: Page.c
 	@echo "TODO: make $@ appear normally"
 	@touch $@
 	@-$(call coverage,$@,$<,PassFail.o B64.o UTF8.o)
-	@$(call timestamp,$@)
 
 test_Page.valgrind:	test_Page
 
@@ -414,7 +417,6 @@ test_Page.out:	test_Page
 
 test_Page:	test_Page.c Page.o PassFail.o
 	@--gcc -o $@ $^
-	@$(call timestamp,$@)
 
 Page.o:	Page.c Makefile
 

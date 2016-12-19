@@ -1,0 +1,111 @@
+\hypertarget{namespacec_1_1_make_time}{}\section{c.\+Make\+Time Namespace Reference}
+\label{namespacec_1_1_make_time}\index{c.\+Make\+Time@{c.\+Make\+Time}}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string {\bfseries store} = \char`\"{}Make\+Time.\+json\char`\"{}\hypertarget{namespacec_1_1_make_time_a6b0330fd18e2afbe9403b9f33998b344}{}\label{namespacec_1_1_make_time_a6b0330fd18e2afbe9403b9f33998b344}
+
+\item 
+dictionary {\bfseries result} = \{\}\hypertarget{namespacec_1_1_make_time_a9d5db951ea94d034d28051f01d1ea0a8}{}\label{namespacec_1_1_make_time_a9d5db951ea94d034d28051f01d1ea0a8}
+
+\item 
+{\bfseries marked} = time()\hypertarget{namespacec_1_1_make_time_a308a68a775262f6855bc2ed6570688e0}{}\label{namespacec_1_1_make_time_a308a68a775262f6855bc2ed6570688e0}
+
+\item 
+{\bfseries arg1} = argv\mbox{[}1\mbox{]}\hypertarget{namespacec_1_1_make_time_ad452d6c95449deb52683b1a4b7acdb5f}{}\label{namespacec_1_1_make_time_ad452d6c95449deb52683b1a4b7acdb5f}
+
+\item 
+list {\bfseries names} = \mbox{[}$\,$\mbox{]}\hypertarget{namespacec_1_1_make_time_a6d5b36056d1e962520e7fa46ac85e475}{}\label{namespacec_1_1_make_time_a6d5b36056d1e962520e7fa46ac85e475}
+
+\item 
+{\bfseries seen} = set()\hypertarget{namespacec_1_1_make_time_a9e7143b91c7e7b2615545c0515ed8703}{}\label{namespacec_1_1_make_time_a9e7143b91c7e7b2615545c0515ed8703}
+
+\item 
+{\bfseries data} = eval(line)\hypertarget{namespacec_1_1_make_time_accbce86165d3ec19ad823acfcfbf6b5f}{}\label{namespacec_1_1_make_time_accbce86165d3ec19ad823acfcfbf6b5f}
+
+\item 
+{\bfseries v} = result\mbox{[}k\mbox{]}\hypertarget{namespacec_1_1_make_time_a6cc291db716c8921cf59b9b1b62c023c}{}\label{namespacec_1_1_make_time_a6cc291db716c8921cf59b9b1b62c023c}
+
+\item 
+string {\bfseries timing} = \char`\"{}unknown Make\+Time\char`\"{}\hypertarget{namespacec_1_1_make_time_a217479927b217fb07878912415f01efb}{}\label{namespacec_1_1_make_time_a217479927b217fb07878912415f01efb}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}MakeTime.py(support)
+NAME
+    MakeTime.py - Maintain storage for Makefile rule elapsed times.
+SYNOPSIS
+    MakeTime.py [OPTION]
+    MakeTime.py [label] [title text]
+DESCRIPTION
+    Hold timing data in the external file 'MakeTime.json'.
+OPTIONS
+    -c, --clean, --clear, --initialize
+Delete the external file.
+
+    -s, --summary, --summarize, --report
+Generate summary of stored timing data.
+
+    -h, --help, (anything else beginning with '-')
+Show this help
+
+EXAMPLES
+    ./MakeTime.py
+    ./MakeTime.py -h
+    ./MakeTime.py --help
+Show help
+
+    ./MakeTime.py -c
+    ./MakeTime.py --clean
+    ./MakeTime.py --clear
+    ./MakeTime.py --initialize
+Delete JSON file 'MakeTime.json' to prepare for new timings.
+
+    ./MakeTime.py START How much time does the make execution take?
+Associate title and t0 for START rule
+
+    ./MakeTime.py START
+Associate t1 to JSON for START rule
+
+    ./MakeTime.py -r
+    ./MakeTime.py -s
+    ./MakeTime.py --report
+    ./MakeTime.py --summary
+    ./MakeTime.py --summarize
+Perform calculations for execution times then
+summarize collected timings with labels to help.
+
+
+EXAMPLE MAKEFILE
+###############################################################################
+all:    START rule1 rule2 END
+
+.PHONY:
+START:
+@./MakeTime.py --clear
+    @./MakeTime.py $@ Elapsed during the entire make process.
+
+.PHONY:
+rule1:
+    @./MakeTime.py $@ Elapsed during rule1.
+    sleep 3
+    @./MakeTime.py $@
+
+.PHONY:
+rule2:
+    @./MakeTime.py $@ Elapsed during rule2.
+    sleep 5
+    @./MakeTime.py $@
+
+.PHONY:
+END:
+    @./MakeTime.py START
+    @./MakeTime.py --summary
+###############################################################################
+
+COPYRIGHT
+    Copyright(c)2016 Jonathan D. Lettvin, All Rights Reserved
+\end{DoxyVerb}
+ 
