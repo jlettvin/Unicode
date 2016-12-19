@@ -151,6 +151,18 @@ END:    # Note how the label 'START' is re-used from the START rule.
 
 ###############################################################################
 if __name__ == "__main__":
+    """
+Implementation Details:
+
+Goal: Document time elapsed during execution of rules.
+
+Makefile functionality does not include performance measurements for make.
+To remedy this, this script enables thread-safe (I believe) time recording.
+The reason I believe it is thread-safe is that writes to the backstore file
+are shorter than the maximum buffer size guaranteed to be atomic when writing.
+The backstore file is opened in append mode, so records accumulate
+to be ingested and merged into a single dictionary by the reporting mechanism.
+    """
 
     def main(argc, argv):
         "Main entrypoint for command."
