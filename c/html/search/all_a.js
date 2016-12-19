@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['name',['name',['../classc_1_1_self_1_1_self.html#ac085532aafa2c634b302e7de5c0b67a7',1,'c::Self::Self']]]
+  ['omni',['Omni',['../class_omni.html',1,'']]],
+  ['option',['Option',['../classc_1_1_make_time_1_1_option.html',1,'c::MakeTime']]]
 ];
