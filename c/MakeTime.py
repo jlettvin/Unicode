@@ -204,7 +204,9 @@ if __name__ == "__main__":
                     timed[delta] = timed.get(delta, [])
                     timed[delta].append(text)
                 if argv[1] in top or numeric:
-                    N = int(argv[2]) if argv[1][1] == '-' else numeric
+                    N = numeric if numeric > 0 else 0x10000
+                    if argc > 2 and argv[1][1] == '-':
+                        N = int(argv[2])
                     descending = sorted(timed.keys())[::-1]
                     index = 0
                     assemble = []
