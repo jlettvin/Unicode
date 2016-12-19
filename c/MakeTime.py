@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+#pragma pylint: disable=too-many-locals
+#pragma pylint: disable=eval-used
+#pragma pylint: disable=too-many-branches
+#pragma pylint: disable=too-many-statements
 
 """\
 {COMMAND} (Run this script without arguments to see options.)
@@ -28,6 +32,7 @@ import re
 import os
 import sys
 import time
+
 
 ###############################################################################
 class Option(object):
@@ -126,6 +131,7 @@ END:    # Note how the label 'START' is re-used from the START rule.
 
     @staticmethod
     def brief(key):
+        "This method constructs the lines for the OPTIONS portion of help."
         return (
             ", ".join([opt for opt in Option.key[key]['variant'] if opt]) +
             Option.key[key].get('extra', '') +
@@ -134,6 +140,7 @@ END:    # Note how the label 'START' is re-used from the START rule.
 
     @staticmethod
     def prose(key):
+        "This method constructs the lines for the EXAMPLES portion of help."
         command = "\n    {COMMAND} "
         return (
             command+command.join(Option.key[key]['variant']) +
@@ -142,28 +149,26 @@ END:    # Note how the label 'START' is re-used from the START rule.
 
     @staticmethod
     def help(msg):
+        "This method fills and prints the help text."
         helpargs = (
             "\n    ".join(Option.brief(key) for key in Option.order),
             "\n    ".join(Option.prose(key) for key in Option.order)
         )
         print re.sub("{COMMAND}", sys.argv[0], __doc__ % helpargs)
+        print msg
         sys.exit(0)
 
 ###############################################################################
+# Implementation Details:
+# Goal: Document time elapsed during execution of rules.
+# Makefile functionality does not include performance measurements for make.
+# To remedy this, this script enables thread-safe (I believe) time recording.
+# The reason I believe it is thread-safe is that writes to the backstore file
+# are shorter than the maximum buffer size guaranteed to be atomic when writing.
+# The backstore file is opened in append mode, so records accumulate
+# to be ingested and merged into a single dictionary by the reporting mechanism.
+
 if __name__ == "__main__":
-    """
-Implementation Details:
-
-Goal: Document time elapsed during execution of rules.
-
-Makefile functionality does not include performance measurements for make.
-To remedy this, this script enables thread-safe (I believe) time recording.
-The reason I believe it is thread-safe is that writes to the backstore file
-are shorter than the maximum buffer size guaranteed to be atomic when writing.
-The backstore file is opened in append mode, so records accumulate
-to be ingested and merged into a single dictionary by the reporting mechanism.
-    """
-
     def main(argc, argv):
         "Main entrypoint for command."
         result = {}
@@ -180,50 +185,50 @@ to be ingested and merged into a single dictionary by the reporting mechanism.
 
         if argv[1][0] == '-':
             if argv[1] in Option.key['test']['variant']:
-                "Generate the test Makefile"
+                # "Generate the test Makefile"
                 print re.sub("{COMMAND}", argv[0], Option.example)
                 sys.exit(0)
 
             if argv[1] in Option.key['clear']['variant']:
-                "Clear the backstore."
+                # "Clear the backstore."
                 if os.path.exists(Option.store):
                     os.remove(Option.store)
 
             elif argv[1] in report or argv[1] in top or numeric != 0:
-                "Calculate elapsed times and print report"
+                # "Calculate elapsed times and print report"
                 with open(Option.store, "r") as source:
                     names = []
                     seen = set()
-                    for n, line in enumerate(source):
+                    for line in source:
                         data = eval(line)
-                        for k,v in data.iteritems():
-                            result[k] = result.get(k, {})
-                            result[k].update(v)
-                            if not k in seen:
-                                seen.add(k)
-                                names.append(k)
+                        for key, val in data.iteritems():
+                            result[key] = result.get(key, {})
+                            result[key].update(val)
+                            if key not in seen:
+                                seen.add(key)
+                                names.append(key)
                 assemble = []
                 timed = {}
                 for k in names:
-                    "Assemble the report"
-                    v = result[k]
+                    # "Assemble the report"
+                    field = result[k]
                     timing = "unknown MakeTime"
-                    if v.has_key('t1') and v.has_key('t0'):
-                        delta = float(v['t1']) - float(v['t0'])
+                    if 't0' in field and 't1' in field:
+                        delta = float(field['t1']) - float(field['t0'])
                         timing = "%6.3f seconds" % (delta)
-                    text = "    %s [%s] %s" % (timing, k, v['title'])
+                    text = "    %s [%s] %s" % (timing, k, field['title'])
                     assemble += [text]
                     timed[delta] = timed.get(delta, [])
                     timed[delta].append(text)
                 if argv[1] in top or numeric:
-                    N = numeric if numeric > 0 else 0x10000
+                    count = numeric if numeric > 0 else 0x10000
                     if argc > 2 and argv[1][1] == '-':
-                        N = int(argv[2])
+                        count = int(argv[2])
                     descending = sorted(timed.keys())[::-1]
                     index = 0
                     assemble = []
-                    while N > 0:
-                        N -= len(timed[descending[index]])
+                    while count > 0:
+                        count -= len(timed[descending[index]])
                         for line in timed[descending[index]]:
                             assemble += [line]
                         index = index + 1
@@ -235,13 +240,13 @@ to be ingested and merged into a single dictionary by the reporting mechanism.
                 Option.help("HELP requested")
 
         elif argc == 2:
-            "Per rule delta"
+            # "Per rule delta"
             result = {argv[1]: {'t1': marked}}
             with open(Option.store, "a") as target:
                 print>>target, str(result)
 
         else:
-            "Per rule t0"
+            # "Per rule t0"
             result = {argv[1]: {'t0': marked, 'title': " ".join(argv[2:])}}
             with open(Option.store, "a") as target:
                 print>>target, str(result)
