@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-"""
-{COMMAND} (run without arguments to see options)
+"""\
+{COMMAND} (Run this script without arguments to see options.)
 NAME
     {COMMAND} - Maintain json granular elapsed time database for Makefiles.
 SYNOPSIS
@@ -74,37 +74,7 @@ class Option(object):
             ]
         }
     }
-
-    # order maintains the sequence of options for output during HELP.
-    order = ['clear', 'report', 'test', 'help']
-
-    @staticmethod
-    def brief(key):
-        return (
-            ", ".join([opt for opt in Option.key[key]['variant'] if opt]) +
-            Option.key[key].get('extra', '') +
-            "\n        %s\n" % (Option.key[key]['brief'])
-        )
-
-    @staticmethod
-    def prose(key):
-        command = "\n    {COMMAND} "
-        return (
-            command+command.join(Option.key[key]['variant']) +
-            "\n        " + "\n        ".join(Option.key[key]['prose'])
-        )
-
-    @staticmethod
-    def help(msg):
-        helpargs = (
-            "\n    ".join(Option.brief(key) for key in Option.order),
-            "\n    ".join(Option.prose(key) for key in Option.order)
-        )
-        print re.sub("{COMMAND}", sys.argv[0], __doc__ % helpargs)
-        sys.exit(0)
-
-###############################################################################
-example = """\
+    example = """\
 #!/usr/bin/env make
 #### EXAMPLE Makefile to unit test {COMMAND} ###
 all:    START rule1 rule2 END
@@ -141,6 +111,34 @@ END:    # Note how the label 'START' is re-used from the START rule.
 ###############################################################################
 """
 
+    # order maintains the sequence of options for output during HELP.
+    order = ['clear', 'report', 'test', 'help']
+
+    @staticmethod
+    def brief(key):
+        return (
+            ", ".join([opt for opt in Option.key[key]['variant'] if opt]) +
+            Option.key[key].get('extra', '') +
+            "\n        %s\n" % (Option.key[key]['brief'])
+        )
+
+    @staticmethod
+    def prose(key):
+        command = "\n    {COMMAND} "
+        return (
+            command+command.join(Option.key[key]['variant']) +
+            "\n        " + "\n        ".join(Option.key[key]['prose'])
+        )
+
+    @staticmethod
+    def help(msg):
+        helpargs = (
+            "\n    ".join(Option.brief(key) for key in Option.order),
+            "\n    ".join(Option.prose(key) for key in Option.order)
+        )
+        print re.sub("{COMMAND}", sys.argv[0], __doc__ % helpargs)
+        sys.exit(0)
+
 ###############################################################################
 if __name__ == "__main__":
 
@@ -157,7 +155,7 @@ if __name__ == "__main__":
             arg1 = argv[1]
 
             if arg1 in Option.key['test']['variant']:
-                print re.sub("{COMMAND}", argv[0], example)
+                print re.sub("{COMMAND}", argv[0], Option.example)
                 sys.exit(0)
 
             if arg1 in Option.key['clear']['variant']:
