@@ -200,6 +200,13 @@ clean:
 		*.valgrind
 	@./MakeTime.py --clear
 
+.PHONY:
+clear:
+	@clear
+
+.PHONY:
+total: clean clear all
+
 ###############################################################################
 .PHONY:
 START:

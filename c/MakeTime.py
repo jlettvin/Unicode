@@ -58,6 +58,16 @@ class Option(object):
                 "report collected timings with labels to help."
             ]
         },
+        'top':    {
+            'variant': ["-{N}", "--top"],
+            'brief': "Generate report of top N stored timing data.",
+            'prose': [
+                "Same as '--report' except re-order by descending delta.",
+                "If number is specified, only show the slowest N.",
+                "Number may be specified after '--top' as in '--top 10'.",
+                "Number may bs specified directly as '-3' or '-12'"
+            ]
+        },
         'help':     {
             'variant': ["", "-h", "--help", "--info"],
             'extra': " (or other args beginning with '-')",
@@ -112,7 +122,7 @@ END:    # Note how the label 'START' is re-used from the START rule.
 """
 
     # order maintains the sequence of options for output during HELP.
-    order = ['clear', 'report', 'test', 'help']
+    order = ['clear', 'report', 'top', 'test', 'help']
 
     @staticmethod
     def brief(key):
@@ -147,23 +157,27 @@ if __name__ == "__main__":
         result = {}
         marked = time.time()
         Option.command = argv[0]
+        report = Option.key['report']['variant']
+        top = Option.key['top']['variant']
+        numeric = 0
+        if argc > 1 and argv[1][0] == '-' and argv[1][1].isdigit():
+            numeric = int(argv[1][1:])
 
         if argc == 1:
             Option.help("HELP requested when no args are given")
 
-        elif argc == 2:
-            arg1 = argv[1]
-
-            if arg1 in Option.key['test']['variant']:
+        if argv[1][0] == '-':
+            if argv[1] in Option.key['test']['variant']:
+                "Generate the test Makefile"
                 print re.sub("{COMMAND}", argv[0], Option.example)
                 sys.exit(0)
 
-            if arg1 in Option.key['clear']['variant']:
+            if argv[1] in Option.key['clear']['variant']:
                 "Clear the backstore."
                 if os.path.exists(Option.store):
                     os.remove(Option.store)
 
-            elif arg1 in Option.key['report']['variant']:
+            elif argv[1] in report or argv[1] in top or numeric != 0:
                 "Calculate elapsed times and print report"
                 with open(Option.store, "r") as source:
                     names = []
@@ -176,21 +190,41 @@ if __name__ == "__main__":
                             if not k in seen:
                                 seen.add(k)
                                 names.append(k)
+                assemble = []
+                timed = {}
                 for k in names:
+                    "Assemble the report"
                     v = result[k]
                     timing = "unknown MakeTime"
                     if v.has_key('t1') and v.has_key('t0'):
-                        timing = "%6.3f seconds" % (float(v['t1']) - float(v['t0']))
-                    print("    %s [%s] %s" % (timing, k, v['title']))
+                        delta = float(v['t1']) - float(v['t0'])
+                        timing = "%6.3f seconds" % (delta)
+                    text = "    %s [%s] %s" % (timing, k, v['title'])
+                    assemble += [text]
+                    timed[delta] = timed.get(delta, [])
+                    timed[delta].append(text)
+                if argv[1] in top or numeric:
+                    N = int(argv[2]) if argv[1][1] == '-' else numeric
+                    descending = sorted(timed.keys())[::-1]
+                    index = 0
+                    assemble = []
+                    while N > 0:
+                        N -= len(timed[descending[index]])
+                        for line in timed[descending[index]]:
+                            assemble += [line]
+                        index = index + 1
+                        if index >= len(descending):
+                            break
+                print '\n'.join(assemble)
 
-            elif arg1[0] == '-':  # -, -h, --help, or anything beginning with '-'
-                help("HELP requested")
+            else:  # -, -h, --help, or anything beginning with '-'
+                Option.help("HELP requested")
 
-            else:
-                "Per rule delta"
-                result = {arg1: {'t1': marked}}
-                with open(Option.store, "a") as target:
-                    print>>target, str(result)
+        elif argc == 2:
+            "Per rule delta"
+            result = {argv[1]: {'t1': marked}}
+            with open(Option.store, "a") as target:
+                print>>target, str(result)
 
         else:
             "Per rule t0"
