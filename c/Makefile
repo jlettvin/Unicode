@@ -177,7 +177,7 @@ all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@grep '[0-9]%' *.out
 	@./MakeTime.py START
 	@echo "Elapsed time in order of t0 initialization time:"
-	@./MakeTime.py -s
+	@./MakeTime.py --report
 	@$(call timestamp,Makefile execution finished timestamp)
 
 .PHONY:
@@ -198,7 +198,7 @@ clean:
 		*.pylint \
 		*.so \
 		*.valgrind
-	@./MakeTime.py --clear
+	@./MakeTime.py --initialize
 
 .PHONY:
 clear:
@@ -210,7 +210,7 @@ total: clean clear all
 ###############################################################################
 .PHONY:
 START:
-	@./MakeTime.py --clear
+	@./MakeTime.py --initialize
 	@./MakeTime.py $@ Elapsed time for entire make
 	@echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'
 

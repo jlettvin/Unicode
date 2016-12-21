@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['omni',['Omni',['../class_omni.html',1,'']]],
-  ['option',['Option',['../classc_1_1_make_time_1_1_option.html',1,'c::MakeTime']]]
+  ['endian_5finvariant32_5ft',['Endian_invariant32_t',['../union_endian__invariant32__t.html',1,'']]],
+  ['entry_5ft',['entry_t',['../structentry__t.html',1,'']]]
 ];
