@@ -10,19 +10,19 @@
 """MakeTime.py
 
 Usage:
-    MakeTime.py LABEL [<text>...]
-    MakeTime.py -t N
+    MakeTime.py (LABEL [<text>...])
     MakeTime.py (-i | --initialize)
     MakeTime.py (-r | --report)
-    MakeTime.py (-u | --unittest)
+    MakeTime.py (-u | --unit)
     MakeTime.py (-t N | --top=N)
-    MakeTime.py -h | --help | --version
+    MakeTime.py (-h | --help)
+    MakeTime.py (--version)
 
 Options:
     -i, --initialize                Clear historical data
     -r, --report                    Generate total granular report of timings
     -t N, --top=N                   Report top N longest times
-    -u, --unittest                  Generate unit test Makefile on stdout
+    -u, --unit                      Generate unit test Makefile on stdout
     -h, --help                      Show this Usage message
     --version                       Show version
 
@@ -87,7 +87,7 @@ __contact__    = "jlettvin@gmail.com"
 __status__     = "Demonstration"
 __date__       = "20161220"
 
-unittest = """\
+unit = """\
 #!/usr/bin/env make
 #### EXAMPLE Makefile to unit test MakeTime.py ###
 all:    START rule1 rule2 END
@@ -152,9 +152,9 @@ if __name__ == "__main__":
         if arg.top is not None:
             numeric = int(arg.top)
 
-        if arg.unittest:
+        if arg.unit:
             # "Generate the test Makefile"
-            print unittest
+            print unit
             sys.exit(0)
 
         elif arg.initialize:

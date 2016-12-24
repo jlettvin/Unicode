@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['self',['Self',['../classc_1_1_self_1_1_self.html',1,'c::Self']]]
+  ['page_5ft',['Page_t',['../struct_page__t.html',1,'']]],
+  ['pagespec_5ft',['PageSpec_t',['../struct_page_spec__t.html',1,'']]]
 ];

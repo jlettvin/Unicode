@@ -22,6 +22,7 @@ __status__     = "Demonstration"
 __date__       = "20161107"
 
 
+## Dictionary converts the["syntax"] to the.syntax.
 class Dictionary(dict):
     "Convert a dictionary into a namespace."
 
@@ -31,16 +32,19 @@ class Dictionary(dict):
             string = string.replace("'", "\\'")
         return string
 
+    ## Connect and initialize the elements.
     def __init__(self, **kw):  # pylint: disable=super-init-not-called
         self.__dict__ = self
         self(**kw)
 
+    ## Update the elements.
     def __call__(self, **kw):
         self.update({
             filter(str.isalpha, k): Dictionary._escape(w)
             for k, w in kw.iteritems()
         })
 
+    ## Serialize the elements for use in javascript.
     def javascript(self, var):
         "Emit as javascript readable string"
         string  = "var %s = {\n    " % (var)

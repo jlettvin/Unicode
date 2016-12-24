@@ -34,6 +34,8 @@ __date__       = "20161215"
 
 class Classify(object):
     """Generate Classify.c and Classify.h"""
+    # http://book.pythontips.com/en/latest/__slots__magic.html
+    __slots__ = "assoc,fields,index,label,pairs,ranges,starts,text".split(',')
 
     def __init__(self):
         """

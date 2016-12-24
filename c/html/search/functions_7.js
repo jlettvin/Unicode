@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uniques',['uniques',['../classc_1_1_classify_1_1_classify.html#ace6a8a06833cfe31d3abcbce270817ad',1,'c::Classify::Classify']]]
+  ['name',['name',['../classc_1_1_self_1_1_self.html#a4d6ada098a142fc3883b2872a6c0248a',1,'c::Self::Self']]]
 ];

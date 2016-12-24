@@ -63,7 +63,7 @@ PYFLAKES=$(addsuffix .pyflakes,$(PYMODS))
 PYLINTS=$(addsuffix .pylint,$(PYMODS))
 
 # Useful runtime parameters
-PEP8IGNORE=--ignore=E122,E128,E201,E202,E203,E221,E241,E266,E272
+PEP8IGNORE=--ignore=E122,E128,E201,E202,E203,E221,E241,E265,E266,E272
 
 # Shared library generic information
 CURDIR=.
@@ -175,10 +175,8 @@ test_% :	test_%.c %.o
 all: START graph doxygen lint $(LIBRARY) test valgrind gcov gprof results END
 	@echo "\t$@ SUMMARY gcov percentages"
 	@grep '[0-9]%' *.out
-	@./MakeTime.py START
-	@echo "Elapsed time in order of t0 initialization time:"
-	@./MakeTime.py --report
 	@$(call timestamp,Makefile execution finished timestamp)
+	@./DeBrief.py
 
 .PHONY:
 clean:
@@ -261,6 +259,9 @@ results:	gprof
 	echo $(line)
 
 END:	results
+	@./MakeTime.py START
+	@echo "Elapsed time in order of t0 initialization time:"
+	@./MakeTime.py --report
 	@echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 
 
@@ -312,7 +313,9 @@ test_PassFail.valgrind:	test_PassFail
 test_PassFail.out:	test_PassFail
 
 #test_PassFail:	test_PassFail.c PassFail.o
+#	@$(call T0,$@,$@)
 #	@--gcc -o $@ $^
+#	@$(call T1,$@)
 
 PassFail.o:	PassFail.c Makefile
 
@@ -331,7 +334,9 @@ test_Endian.valgrind:	test_Endian
 test_Endian.out:	test_Endian
 
 test_Endian:	test_Endian.c Endian.o PassFail.o
+	@$(call T0,$@,$@)
 	@--gcc -o $@ $^
+	@$(call T1,$@)
 
 Endian.o:	Endian.c Makefile
 
@@ -352,7 +357,9 @@ test_B64.valgrind:	test_B64
 test_B64.out:	test_B64
 
 test_B64:	test_B64.c B64.o PassFail.o
+	@$(call T0,$@,$@)
 	@--gcc -o $@ $^
+	@$(call T1,$@)
 
 B64.o:	B64.c Makefile
 
@@ -371,7 +378,9 @@ test_UTF8.valgrind:	test_UTF8
 test_UTF8.out:	test_UTF8
 
 test_UTF8:	test_UTF8.c UTF8.o PassFail.o
+	@$(call T0,$@,$@)
 	@--gcc -o $@ $^
+	@$(call T1,$@)
 
 UTF8.o:	UTF8.c Makefile
 
@@ -399,14 +408,18 @@ test_Classify.out:	test_Classify
 
 # This is how the the unit test is compiled
 test_Classify:	test_Classify.c Classify.o PassFail.o
+	@$(call T0,$@,$@)
 	@--gcc -o $@ $^
+	@$(call T1,$@)
 
 # Finally, this is how the shared library object is created
 Classify.o:	Classify.c Classify.h Makefile
 
 # Classify.py generates Classify.[ch] from DerivedGeneralCategory.txt
 Classify.h Classify.c:	Classify.py Makefile
+	@$(call T0,$@,Generate Classify.[ch])
 	@-./$<
+	@$(call T1,$@)
 
 
 ###############################################################################
@@ -423,7 +436,9 @@ test_Page.valgrind:	test_Page
 test_Page.out:	test_Page
 
 test_Page:	test_Page.c Page.o PassFail.o
+	@$(call T0,$@,$@)
 	@--gcc -o $@ $^
+	@$(call T1,$@)
 
 Page.o:	Page.c Makefile
 

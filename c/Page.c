@@ -24,47 +24,29 @@
  * \copyright Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
  */
 
-/** PAGE_DEFINE implements all the functions needed by Page.h: PAGE_TYPEDEFa.
- */
+void nop() {}
 
-/*
-PAGE_DEFINE(ue0_t, 4, 10)
-PAGE_DEFINE(ue1_t, 4, 10)
-PAGE_DEFINE(ue2_t, 4, 10)
-PAGE_DEFINE(ue3_t, 4, 10)
-PAGE_DEFINE(se0_t, 4, 10)
-PAGE_DEFINE(se1_t, 4, 10)
-PAGE_DEFINE(se2_t, 4, 10)
-PAGE_DEFINE(se3_t, 4, 10)
-*/
+Page_p Page(PageSpec_p specification) {
 
-/** TODO(jlettvin): Eliminate Page_init and commented dealloc after new macros.
- */
+    size_t framebits = 12;
+    size_t  pagebits = 12;
+    size_t  callbits =  5;
 
-/*
-__attribute__((constructor))
-void Page_init(void) {
-    // size_t Page_Break = sizeof(address_t) / sizeof(unsigned short);
-    Page_Fields = (size_t)PAGE_ADDRESS_BITS/sizeof(unsigned);
-    Page_Size = 0x10000;
-    Page_Base = calloc(Page_Size, 1);
-    Page_Allocated = Page_Size;
-    void **Page_ptr = (void **)Page_Base;
-    for (size_t i=0; i < Page_Fields-1; ++i) {
-        Page_ptr[0] = (void **)calloc(Page_Size, 1);
-        Page_ptr = Page_ptr[0];
+    if (specification) {
+        framebits = specification->framebits;
+         pagebits = specification-> pagebits;
+         callbits = specification-> callbits;
     }
-}
-*/
 
-/*
-void dealloc(void** page, int layer) {
-    for (size_t i = 0; i < Page_Size / Page_Fields; ++i) {
-        // TODO dealloc(pointers)
-    }
+    size_t frames = 1 << (framebits-1);
+    size_t  bytes = 1 << ( pagebits-1);
+    size_t  calls = 1 << ( callbits-1);
+
+    Page_p space = (Page_p)calloc(sizeof(Page_t), 1);
+    space-> call = (call_pp)calloc(sizeof(call_p), calls);
+    space->frame = (void*) calloc(bytes, frames);
+
+    for (size_t i = 0; i < calls; ++i) space->call[i] = &nop;
+
+    return space;
 }
-`
-__attribute__((destructor))
-void Page_fini(void) {
-}
-*/
