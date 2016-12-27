@@ -11,8 +11,8 @@
  */
 void test_passfail() {
     PASSFAIL(1, "Expect exactly 1 [FAIL]");
-    PASSFAIL(1, "This shall pass");
-    PASSFAIL(0, "This shall fail");
+    PASSFAIL(1, "Expect [PASS]");
+    PASSFAIL(0, "Expect [FAIL]");
     PASSFAIL(1, "");
 }
 

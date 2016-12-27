@@ -1,4 +1,6 @@
 c*/artifacts
 c*/artifacts/*
 c*/*.dSYM
+*.pyc
 *.old
+*.DS_Store

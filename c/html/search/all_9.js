@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['label',['label',['../classc_1_1_classify_1_1_classify.html#a39504bd936bf5576befb10e0ac43d83f',1,'c::Classify::Classify']]],
-  ['labels',['labels',['../classc_1_1_classify_1_1_classify.html#a5d8e1a6fbcbab785107f9e3a40b7e154',1,'c::Classify::Classify']]]
+  ['javascript',['javascript',['../classc_1_1_dictionary_1_1_dictionary.html#a9a91fbd81961f78f8e4b777db28e89f7',1,'c::Dictionary::Dictionary']]]
 ];

@@ -189,7 +189,6 @@ clean:
 		*gprof* \
 		*.o \
 		*.out \
-		*.prof \
 		*.pep8 \
 		*.pyc \
 		*.pyflakes \

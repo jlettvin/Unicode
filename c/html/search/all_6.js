@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['header',['header',['../classc_1_1_classify_1_1_classify.html#a76c7951d7b300167925e145e58ed3fa3',1,'c::Classify::Classify']]]
+  ['gprof',['gprof',['../classc_1_1_de_brief_1_1_de_brief.html#ad9801d00573a7d1726ebc54fcae3ce4c',1,'c::DeBrief::DeBrief']]]
 ];
