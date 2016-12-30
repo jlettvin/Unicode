@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['indices',['indices',['../classc_1_1_classify_1_1_classify.html#a7c4ec3de2e18e3db3a03ddbca71ccba6',1,'c::Classify::Classify']]]
+  ['javascript',['javascript',['../classc_1_1_dictionary_1_1_dictionary.html#a9a91fbd81961f78f8e4b777db28e89f7',1,'c::Dictionary::Dictionary']]]
 ];

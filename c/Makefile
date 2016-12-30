@@ -50,17 +50,18 @@ GOPTS=$(SHARED_OPTS) -O0 -g -coverage -pg
 COPTS=$(SHARED_OPTS) -O3
 
 # Useful sets of names
-CSRCS=$(addsuffix .c,$(MODULES))
-HSRCS=$(addsuffix .h,$(MODULES))
-OBJS=$(addsuffix .o,$(MODULES))
 TESTS=$(addprefix test_,$(MODULES))
 GCOVS=$(addsuffix .gcov,$(CSRCS))
 GPROFS=$(addsuffix .gprof,$(CSRCS))
-SRCS=$(CSRCS) $(HSRCS)
 PYSRCS=$(addsuffix .py,$(PYMODS))
 PEP8S=$(addsuffix .pep8,$(PYMODS))
 PYFLAKES=$(addsuffix .pyflakes,$(PYMODS))
 PYLINTS=$(addsuffix .pylint,$(PYMODS))
+
+OBJS=$(addsuffix .o,$(MODULES))
+CSRCS=$(addsuffix .c,$(MODULES))
+HSRCS=$(addsuffix .h,$(MODULES))
+SRCS=$(CSRCS) $(HSRCS)
 
 # Useful runtime parameters
 PEP8IGNORE=--ignore=E122,E128,E201,E202,E203,E221,E241,E265,E266,E272
@@ -72,6 +73,20 @@ MACDYLIBOPT=
 
 LINUXLIB=libjlettvin.so.$(VERSION)
 LINUXLIBOPT=-L. -ljlettvin
+
+# Valgrind support
+#  --leak-check=full
+#  --show-reachable=yes
+#  --error-limit=no
+#  --gen-suppressions=all
+# https://wiki.wxwidgets.org/Parse_valgrind_suppressions.sh 
+VALGRINDOPTS=\
+			 --error-limit=no \
+			 --leak-check=full \
+			 --show-reachable=yes \
+			 --show-leak-kinds=all \
+			 --gen-suppressions=all \
+			 --suppressions=./valgrind.supp
 
 # Platform specific shared library controls
 ifeq ($(UNAME), Darwin)
@@ -163,7 +178,7 @@ endif
 	@$(call T0,$@,generic rule)
 	@echo "\t$@ generic"
 	@echo "\tGENERIC $@" >> PassFail.out
-	@--valgrind --leak-check=full --show-leak-kinds=all ./$< > $@ 2>&1
+	@--valgrind $(VALGRINDOPTS) ./$< > $@ 2>&1
 	@$(call T1,$@)
 
 
