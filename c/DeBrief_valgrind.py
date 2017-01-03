@@ -1,18 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
+"""
+DeBrief module for analyzing valgrind output.
+"""
+
 import glob
 
 from Self import Self
+from DeBrief import DeBrief_Module
 
-class DeBrief(object):
 
-    def __init__(self, DeBrief):
-        self.DeBrief = DeBrief
-        self.report = self.DeBrief.report
-        self.todo = self.DeBrief.todo
-        self.failpass = self.DeBrief.failpass
+## DeBrief is the same name used in all DeBrief_Module derived classes.
+class DeBrief(DeBrief_Module):
+    "This class is named the same in each specific module."
 
+    ## Initialize instance
+    def __init__(self, common):
+        "Find memory leaks"
+        super(DeBrief, self).__init__(common, __name__, Self.doc())
+
+    ## instance functor
     def __call__(self):
         """Examine valgrind output files for noteworthy memory leaks.
         Update the list on line[1] when the test_*.valgrind file list changes.

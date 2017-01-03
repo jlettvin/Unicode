@@ -1,19 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
+"""
+This module reports problems discovered by pyflakes.
+"""
+
 import glob
 
 from Self import Self
+from DeBrief import DeBrief_Module
 
-class DeBrief(object):
 
-    def __init__(self, DeBrief):
-        self.DeBrief = DeBrief
-        self.report = self.DeBrief.report
-        self.todo = self.DeBrief.todo
-        self.failpass = self.DeBrief.failpass
+## DeBrief is the same name used in all DeBrief_Module derived classes.
+class DeBrief(DeBrief_Module):
+    "This class is named the same in each specific module."
 
-    def __call__(self):
-        "Eliminate static errors/warnings except those we ignore"
-        self.todo[__name__] = Self.doc()
-        return self
+    ## Initialize instance
+    def __init__(self, common):
+        "Identify pyflakes errors/warnings except those we ignore"
+        super(DeBrief, self).__init__(common, __name__, Self.doc())

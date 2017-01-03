@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['valgrind',['valgrind',['../classc_1_1_de_brief_1_1_de_brief.html#abf83d6ffb3bf219616c38856125f3021',1,'c::DeBrief::DeBrief']]]
+  ['uniques',['uniques',['../classc_1_1_classify_1_1_classify.html#ace6a8a06833cfe31d3abcbce270817ad',1,'c::Classify::Classify']]]
 ];

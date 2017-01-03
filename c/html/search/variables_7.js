@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['starts',['starts',['../classc_1_1_classify_1_1_classify.html#afdb329410c16ea92a7ac17476f576fde',1,'c::Classify::Classify']]]
+  ['pagebits',['pagebits',['../struct_page_spec__t.html#a83358365cf5e133ff0d48faa28c2ef52',1,'PageSpec_t']]],
+  ['pairs',['pairs',['../classc_1_1_classify_1_1_classify.html#ac670ebd238054400347771255ad5d043',1,'c::Classify::Classify']]],
+  ['prefetch',['prefetch',['../struct_page__t.html#ae4e44564fbf5003c8faf21c0bc0f8736',1,'Page_t']]]
 ];

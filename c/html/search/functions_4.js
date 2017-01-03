@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['indices',['indices',['../classc_1_1_classify_1_1_classify.html#a7c4ec3de2e18e3db3a03ddbca71ccba6',1,'c::Classify::Classify']]]
+  ['header',['header',['../classc_1_1_classify_1_1_classify.html#a76c7951d7b300167925e145e58ed3fa3',1,'c::Classify::Classify']]]
 ];

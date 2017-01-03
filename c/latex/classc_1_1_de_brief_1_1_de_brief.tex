@@ -1,5 +1,10 @@
 \hypertarget{classc_1_1_de_brief_1_1_de_brief}{}\section{c.\+De\+Brief.\+De\+Brief Class Reference}
 \label{classc_1_1_de_brief_1_1_de_brief}\index{c.\+De\+Brief.\+De\+Brief@{c.\+De\+Brief.\+De\+Brief}}
+
+
+This class is the core driver of all \hyperlink{classc_1_1_de_brief_1_1_de_brief}{De\+Brief} functionality (run by main).  
+
+
 Inheritance diagram for c.\+De\+Brief.\+De\+Brief\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,45 +14,138 @@ Inheritance diagram for c.\+De\+Brief.\+De\+Brief\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_ae8e09d2674bdfc4190330a3099311973}{}def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, line=\char`\"{}De\+Brief Results\char`\"{}, kw)\label{classc_1_1_de_brief_1_1_de_brief_ae8e09d2674bdfc4190330a3099311973}
-
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_ac723c58ba13bd4b52336e5dd047581e1}{}def {\bfseries \+\_\+\+\_\+call\+\_\+\+\_\+} (self)\label{classc_1_1_de_brief_1_1_de_brief_ac723c58ba13bd4b52336e5dd047581e1}
-
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_ab0a283d7aed66574ee320844ca2e1cfa}{}def {\bfseries \+\_\+\+\_\+str\+\_\+\+\_\+} (self)\label{classc_1_1_de_brief_1_1_de_brief_ab0a283d7aed66574ee320844ca2e1cfa}
-
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_acc4c0719d3ddf7060afaf84667c702c4}{}def {\bfseries report} (self, line)\label{classc_1_1_de_brief_1_1_de_brief_acc4c0719d3ddf7060afaf84667c702c4}
-
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_a9fc39f8add3a4233a20ab9246e385354}{}def {\bfseries summary} (self)\label{classc_1_1_de_brief_1_1_de_brief_a9fc39f8add3a4233a20ab9246e385354}
-
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_aa17666354bdd7236997d346330a95c5a}{}def {\bfseries empty} (self)\label{classc_1_1_de_brief_1_1_de_brief_aa17666354bdd7236997d346330a95c5a}
-
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_a5dc5bbc6ab177f82fc5d682b672e5843}{}def {\bfseries dash} (self)\label{classc_1_1_de_brief_1_1_de_brief_a5dc5bbc6ab177f82fc5d682b672e5843}
-
-\end{DoxyCompactItemize}
+def \hyperlink{classc_1_1_de_brief_1_1_de_brief_ae66c45d45597942bc0853319a64b8273}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self, title=\char`\"{}De\+Brief Results\char`\"{}, kw)
+\begin{DoxyCompactList}\small\item\em Initialize shared resources for all \hyperlink{classc_1_1_de_brief_1_1_de_brief}{De\+Brief} modules. \end{DoxyCompactList}\item 
+def \hyperlink{classc_1_1_de_brief_1_1_de_brief_ac723c58ba13bd4b52336e5dd047581e1}{\+\_\+\+\_\+call\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em Functor to execute module functors. \end{DoxyCompactList}\item 
+def \hyperlink{classc_1_1_de_brief_1_1_de_brief_ab0a283d7aed66574ee320844ca2e1cfa}{\+\_\+\+\_\+str\+\_\+\+\_\+} (self)
+\begin{DoxyCompactList}\small\item\em Display the accumulated analytics. \end{DoxyCompactList}\item 
+def \hyperlink{classc_1_1_de_brief_1_1_de_brief_acc4c0719d3ddf7060afaf84667c702c4}{report} (self, \hyperlink{classc_1_1_de_brief_1_1_de_brief_ab5fbcfb2eed0334f1c700df98856515c}{line})
+\begin{DoxyCompactList}\small\item\em Mechanism used by all modules for accumulating analytics. \end{DoxyCompactList}\item 
+def \hyperlink{classc_1_1_de_brief_1_1_de_brief_a9fc39f8add3a4233a20ab9246e385354}{summary} (self)
+\begin{DoxyCompactList}\small\item\em Assemble accumulated analytics. \end{DoxyCompactList}\item 
+def \hyperlink{classc_1_1_de_brief_1_1_de_brief_aa17666354bdd7236997d346330a95c5a}{empty} (self)
+\begin{DoxyCompactList}\small\item\em Put an empty line in the analytics accumulator. \end{DoxyCompactList}\item 
+def \hyperlink{classc_1_1_de_brief_1_1_de_brief_a5dc5bbc6ab177f82fc5d682b672e5843}{dash} (self)
+\begin{DoxyCompactList}\small\item\em Put a horizontal line in the analytics accumulator. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_a690efc77ea8e2fa1249e204fcc222b77}{}{\bfseries width}\label{classc_1_1_de_brief_1_1_de_brief_a690efc77ea8e2fa1249e204fcc222b77}
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_af6654a80aff0df225ba6afc0062adcbe}{}{\bfseries arg}\label{classc_1_1_de_brief_1_1_de_brief_af6654a80aff0df225ba6afc0062adcbe}
 
 \item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_abd36ae701bd06720247e9d85d9c5a3f5}{}{\bfseries failpass}\label{classc_1_1_de_brief_1_1_de_brief_abd36ae701bd06720247e9d85d9c5a3f5}
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_a690efc77ea8e2fa1249e204fcc222b77}{}\hyperlink{classc_1_1_de_brief_1_1_de_brief_a690efc77ea8e2fa1249e204fcc222b77}{width}\label{classc_1_1_de_brief_1_1_de_brief_a690efc77ea8e2fa1249e204fcc222b77}
 
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_a81f823707a14c7d6c23aaed2f70cc40b}{}{\bfseries term}\label{classc_1_1_de_brief_1_1_de_brief_a81f823707a14c7d6c23aaed2f70cc40b}
+\begin{DoxyCompactList}\small\item\em text-\/area width of the final summary \end{DoxyCompactList}\item 
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_abd36ae701bd06720247e9d85d9c5a3f5}{}\hyperlink{classc_1_1_de_brief_1_1_de_brief_abd36ae701bd06720247e9d85d9c5a3f5}{failpass}\label{classc_1_1_de_brief_1_1_de_brief_abd36ae701bd06720247e9d85d9c5a3f5}
 
-\item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_ab5fbcfb2eed0334f1c700df98856515c}{}{\bfseries line}\label{classc_1_1_de_brief_1_1_de_brief_ab5fbcfb2eed0334f1c700df98856515c}
+\begin{DoxyCompactList}\small\item\em common display strings \end{DoxyCompactList}\item 
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_a81f823707a14c7d6c23aaed2f70cc40b}{}\hyperlink{classc_1_1_de_brief_1_1_de_brief_a81f823707a14c7d6c23aaed2f70cc40b}{term}\label{classc_1_1_de_brief_1_1_de_brief_a81f823707a14c7d6c23aaed2f70cc40b}
 
+\begin{DoxyCompactList}\small\item\em boundary characters for text-\/area \end{DoxyCompactList}\item 
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_ab5fbcfb2eed0334f1c700df98856515c}{}\hyperlink{classc_1_1_de_brief_1_1_de_brief_ab5fbcfb2eed0334f1c700df98856515c}{line}\label{classc_1_1_de_brief_1_1_de_brief_ab5fbcfb2eed0334f1c700df98856515c}
+
+\begin{DoxyCompactList}\small\item\em accumulator for report lines \end{DoxyCompactList}\item 
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_ab908674f6121220fcdab67a59853608f}{}\hyperlink{classc_1_1_de_brief_1_1_de_brief_ab908674f6121220fcdab67a59853608f}{todo}\label{classc_1_1_de_brief_1_1_de_brief_ab908674f6121220fcdab67a59853608f}
+
+\begin{DoxyCompactList}\small\item\em accumulator for todo messages \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
 \item 
-\hypertarget{classc_1_1_de_brief_1_1_de_brief_ab908674f6121220fcdab67a59853608f}{}{\bfseries todo}\label{classc_1_1_de_brief_1_1_de_brief_ab908674f6121220fcdab67a59853608f}
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_ac1e23c8e9a2c96181b1fba9062d2eb9f}{}int {\bfseries verbose} = 0\label{classc_1_1_de_brief_1_1_de_brief_ac1e23c8e9a2c96181b1fba9062d2eb9f}
 
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class is the core driver of all \hyperlink{classc_1_1_de_brief_1_1_de_brief}{De\+Brief} functionality (run by main). 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_ae66c45d45597942bc0853319a64b8273}{}\index{c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}}
+\subsubsection[{\+\_\+\+\_\+init\+\_\+\+\_\+(self, title=""De\+Brief Results"", kw)}]{\setlength{\rightskip}{0pt plus 5cm}def c.\+De\+Brief.\+De\+Brief.\+\_\+\+\_\+init\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{title = {\ttfamily \char`\"{}DeBrief~Results\char`\"{}}, }
+\item[{}]{kw}
+\end{DoxyParamCaption}
+)}\label{classc_1_1_de_brief_1_1_de_brief_ae66c45d45597942bc0853319a64b8273}
+
+
+Initialize shared resources for all \hyperlink{classc_1_1_de_brief_1_1_de_brief}{De\+Brief} modules. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_ac723c58ba13bd4b52336e5dd047581e1}{}\index{c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}!\+\_\+\+\_\+call\+\_\+\+\_\+@{\+\_\+\+\_\+call\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+call\+\_\+\+\_\+@{\+\_\+\+\_\+call\+\_\+\+\_\+}!c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}}
+\subsubsection[{\+\_\+\+\_\+call\+\_\+\+\_\+(self)}]{\setlength{\rightskip}{0pt plus 5cm}def c.\+De\+Brief.\+De\+Brief.\+\_\+\+\_\+call\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\label{classc_1_1_de_brief_1_1_de_brief_ac723c58ba13bd4b52336e5dd047581e1}
+
+
+Functor to execute module functors. 
+
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_ab0a283d7aed66574ee320844ca2e1cfa}{}\index{c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}!\+\_\+\+\_\+str\+\_\+\+\_\+@{\+\_\+\+\_\+str\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+str\+\_\+\+\_\+@{\+\_\+\+\_\+str\+\_\+\+\_\+}!c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}}
+\subsubsection[{\+\_\+\+\_\+str\+\_\+\+\_\+(self)}]{\setlength{\rightskip}{0pt plus 5cm}def c.\+De\+Brief.\+De\+Brief.\+\_\+\+\_\+str\+\_\+\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\label{classc_1_1_de_brief_1_1_de_brief_ab0a283d7aed66574ee320844ca2e1cfa}
+
+
+Display the accumulated analytics. 
+
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_a5dc5bbc6ab177f82fc5d682b672e5843}{}\index{c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}!dash@{dash}}
+\index{dash@{dash}!c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}}
+\subsubsection[{dash(self)}]{\setlength{\rightskip}{0pt plus 5cm}def c.\+De\+Brief.\+De\+Brief.\+dash (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\label{classc_1_1_de_brief_1_1_de_brief_a5dc5bbc6ab177f82fc5d682b672e5843}
+
+
+Put a horizontal line in the analytics accumulator. 
+
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_aa17666354bdd7236997d346330a95c5a}{}\index{c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}!empty@{empty}}
+\index{empty@{empty}!c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}}
+\subsubsection[{empty(self)}]{\setlength{\rightskip}{0pt plus 5cm}def c.\+De\+Brief.\+De\+Brief.\+empty (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\label{classc_1_1_de_brief_1_1_de_brief_aa17666354bdd7236997d346330a95c5a}
+
+
+Put an empty line in the analytics accumulator. 
+
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_acc4c0719d3ddf7060afaf84667c702c4}{}\index{c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}!report@{report}}
+\index{report@{report}!c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}}
+\subsubsection[{report(self, line)}]{\setlength{\rightskip}{0pt plus 5cm}def c.\+De\+Brief.\+De\+Brief.\+report (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{line}
+\end{DoxyParamCaption}
+)}\label{classc_1_1_de_brief_1_1_de_brief_acc4c0719d3ddf7060afaf84667c702c4}
+
+
+Mechanism used by all modules for accumulating analytics. 
+
+\hypertarget{classc_1_1_de_brief_1_1_de_brief_a9fc39f8add3a4233a20ab9246e385354}{}\index{c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}!summary@{summary}}
+\index{summary@{summary}!c\+::\+De\+Brief\+::\+De\+Brief@{c\+::\+De\+Brief\+::\+De\+Brief}}
+\subsubsection[{summary(self)}]{\setlength{\rightskip}{0pt plus 5cm}def c.\+De\+Brief.\+De\+Brief.\+summary (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}\label{classc_1_1_de_brief_1_1_de_brief_a9fc39f8add3a4233a20ab9246e385354}
+
+
+Assemble accumulated analytics. 
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

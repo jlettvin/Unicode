@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ranges',['ranges',['../classc_1_1_classify_1_1_classify.html#a1e4a9a02e19f108821677534f7e8d60a',1,'c::Classify::Classify']]]
+  ['name',['name',['../classc_1_1_de_brief_1_1_de_brief___module.html#a1893f72f370cbd07d3e048cf60a6b379',1,'c::DeBrief::DeBrief_Module']]]
 ];

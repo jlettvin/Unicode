@@ -200,8 +200,9 @@ clean:
 		*.dylib \
 		*gcda* \
 		*gcno* \
-		*gcov* \
-		*gprof* \
+		*.gcov \
+		gcov_test_* \
+		*.gprof \
 		*.o \
 		*.out \
 		*.pep8 \
@@ -295,6 +296,13 @@ $(LINUXLIB):	$(OBJS)
 	@g++ -shared -Wl,-soname,libjlettvin.so.1 -lc $^ -o $@
 	@$(call T1,$@)
 
+###############################################################################
+
+DeBrief.pep8: DeBrief*.py
+
+DeBrief.pyflakes:	DeBrief*.py
+
+DeBrief.pylint:	DeBrief*.py
 
 ###############################################################################
 Classify.pep8:	Classify.py

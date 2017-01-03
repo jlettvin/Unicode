@@ -91,11 +91,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classc_1_1_de_brief_1_1_de_brief-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">c.DeBrief.DeBrief Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class is the core driver of all <a class="el" href="classc_1_1_de_brief_1_1_de_brief.html" title="This class is the core driver of all DeBrief functionality (run by main). ">DeBrief</a> functionality (run by main).  
+ <a href="classc_1_1_de_brief_1_1_de_brief.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for c.DeBrief.DeBrief:</div>
 <div class="dyncontent">
@@ -107,46 +111,216 @@ Inheritance diagram for c.DeBrief.DeBrief:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae8e09d2674bdfc4190330a3099311973"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae8e09d2674bdfc4190330a3099311973"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self, line=&quot;DeBrief Results&quot;, kw)</td></tr>
-<tr class="separator:ae8e09d2674bdfc4190330a3099311973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac723c58ba13bd4b52336e5dd047581e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac723c58ba13bd4b52336e5dd047581e1"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__call__</b> (self)</td></tr>
+<tr class="memitem:ae66c45d45597942bc0853319a64b8273"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#ae66c45d45597942bc0853319a64b8273">__init__</a> (self, title=&quot;DeBrief Results&quot;, kw)</td></tr>
+<tr class="memdesc:ae66c45d45597942bc0853319a64b8273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize shared resources for all <a class="el" href="classc_1_1_de_brief_1_1_de_brief.html" title="This class is the core driver of all DeBrief functionality (run by main). ">DeBrief</a> modules.  <a href="#ae66c45d45597942bc0853319a64b8273">More...</a><br /></td></tr>
+<tr class="separator:ae66c45d45597942bc0853319a64b8273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac723c58ba13bd4b52336e5dd047581e1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#ac723c58ba13bd4b52336e5dd047581e1">__call__</a> (self)</td></tr>
+<tr class="memdesc:ac723c58ba13bd4b52336e5dd047581e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functor to execute module functors.  <a href="#ac723c58ba13bd4b52336e5dd047581e1">More...</a><br /></td></tr>
 <tr class="separator:ac723c58ba13bd4b52336e5dd047581e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0a283d7aed66574ee320844ca2e1cfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0a283d7aed66574ee320844ca2e1cfa"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__str__</b> (self)</td></tr>
+<tr class="memitem:ab0a283d7aed66574ee320844ca2e1cfa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#ab0a283d7aed66574ee320844ca2e1cfa">__str__</a> (self)</td></tr>
+<tr class="memdesc:ab0a283d7aed66574ee320844ca2e1cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the accumulated analytics.  <a href="#ab0a283d7aed66574ee320844ca2e1cfa">More...</a><br /></td></tr>
 <tr class="separator:ab0a283d7aed66574ee320844ca2e1cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc4c0719d3ddf7060afaf84667c702c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc4c0719d3ddf7060afaf84667c702c4"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>report</b> (self, line)</td></tr>
+<tr class="memitem:acc4c0719d3ddf7060afaf84667c702c4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#acc4c0719d3ddf7060afaf84667c702c4">report</a> (self, <a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#ab5fbcfb2eed0334f1c700df98856515c">line</a>)</td></tr>
+<tr class="memdesc:acc4c0719d3ddf7060afaf84667c702c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mechanism used by all modules for accumulating analytics.  <a href="#acc4c0719d3ddf7060afaf84667c702c4">More...</a><br /></td></tr>
 <tr class="separator:acc4c0719d3ddf7060afaf84667c702c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fc39f8add3a4233a20ab9246e385354"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9fc39f8add3a4233a20ab9246e385354"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>summary</b> (self)</td></tr>
+<tr class="memitem:a9fc39f8add3a4233a20ab9246e385354"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#a9fc39f8add3a4233a20ab9246e385354">summary</a> (self)</td></tr>
+<tr class="memdesc:a9fc39f8add3a4233a20ab9246e385354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assemble accumulated analytics.  <a href="#a9fc39f8add3a4233a20ab9246e385354">More...</a><br /></td></tr>
 <tr class="separator:a9fc39f8add3a4233a20ab9246e385354"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa17666354bdd7236997d346330a95c5a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa17666354bdd7236997d346330a95c5a"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> (self)</td></tr>
+<tr class="memitem:aa17666354bdd7236997d346330a95c5a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#aa17666354bdd7236997d346330a95c5a">empty</a> (self)</td></tr>
+<tr class="memdesc:aa17666354bdd7236997d346330a95c5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put an empty line in the analytics accumulator.  <a href="#aa17666354bdd7236997d346330a95c5a">More...</a><br /></td></tr>
 <tr class="separator:aa17666354bdd7236997d346330a95c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dc5bbc6ab177f82fc5d682b672e5843"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5dc5bbc6ab177f82fc5d682b672e5843"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>dash</b> (self)</td></tr>
+<tr class="memitem:a5dc5bbc6ab177f82fc5d682b672e5843"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#a5dc5bbc6ab177f82fc5d682b672e5843">dash</a> (self)</td></tr>
+<tr class="memdesc:a5dc5bbc6ab177f82fc5d682b672e5843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put a horizontal line in the analytics accumulator.  <a href="#a5dc5bbc6ab177f82fc5d682b672e5843">More...</a><br /></td></tr>
 <tr class="separator:a5dc5bbc6ab177f82fc5d682b672e5843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:af6654a80aff0df225ba6afc0062adcbe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6654a80aff0df225ba6afc0062adcbe"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>arg</b></td></tr>
+<tr class="separator:af6654a80aff0df225ba6afc0062adcbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a690efc77ea8e2fa1249e204fcc222b77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a690efc77ea8e2fa1249e204fcc222b77"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>width</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#a690efc77ea8e2fa1249e204fcc222b77">width</a></td></tr>
+<tr class="memdesc:a690efc77ea8e2fa1249e204fcc222b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">text-area width of the final summary <br /></td></tr>
 <tr class="separator:a690efc77ea8e2fa1249e204fcc222b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd36ae701bd06720247e9d85d9c5a3f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd36ae701bd06720247e9d85d9c5a3f5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>failpass</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#abd36ae701bd06720247e9d85d9c5a3f5">failpass</a></td></tr>
+<tr class="memdesc:abd36ae701bd06720247e9d85d9c5a3f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">common display strings <br /></td></tr>
 <tr class="separator:abd36ae701bd06720247e9d85d9c5a3f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81f823707a14c7d6c23aaed2f70cc40b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81f823707a14c7d6c23aaed2f70cc40b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>term</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#a81f823707a14c7d6c23aaed2f70cc40b">term</a></td></tr>
+<tr class="memdesc:a81f823707a14c7d6c23aaed2f70cc40b"><td class="mdescLeft">&#160;</td><td class="mdescRight">boundary characters for text-area <br /></td></tr>
 <tr class="separator:a81f823707a14c7d6c23aaed2f70cc40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5fbcfb2eed0334f1c700df98856515c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5fbcfb2eed0334f1c700df98856515c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>line</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#ab5fbcfb2eed0334f1c700df98856515c">line</a></td></tr>
+<tr class="memdesc:ab5fbcfb2eed0334f1c700df98856515c"><td class="mdescLeft">&#160;</td><td class="mdescRight">accumulator for report lines <br /></td></tr>
 <tr class="separator:ab5fbcfb2eed0334f1c700df98856515c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab908674f6121220fcdab67a59853608f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab908674f6121220fcdab67a59853608f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>todo</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_1_1_de_brief_1_1_de_brief.html#ab908674f6121220fcdab67a59853608f">todo</a></td></tr>
+<tr class="memdesc:ab908674f6121220fcdab67a59853608f"><td class="mdescLeft">&#160;</td><td class="mdescRight">accumulator for todo messages <br /></td></tr>
 <tr class="separator:ab908674f6121220fcdab67a59853608f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ac1e23c8e9a2c96181b1fba9062d2eb9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1e23c8e9a2c96181b1fba9062d2eb9f"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>verbose</b> = 0</td></tr>
+<tr class="separator:ac1e23c8e9a2c96181b1fba9062d2eb9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class is the core driver of all <a class="el" href="classc_1_1_de_brief_1_1_de_brief.html" title="This class is the core driver of all DeBrief functionality (run by main). ">DeBrief</a> functionality (run by main). </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ae66c45d45597942bc0853319a64b8273"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def c.DeBrief.DeBrief.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>title</em> = <code>&quot;DeBrief&#160;Results&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>kw</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize shared resources for all <a class="el" href="classc_1_1_de_brief_1_1_de_brief.html" title="This class is the core driver of all DeBrief functionality (run by main). ">DeBrief</a> modules. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ac723c58ba13bd4b52336e5dd047581e1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def c.DeBrief.DeBrief.__call__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Functor to execute module functors. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab0a283d7aed66574ee320844ca2e1cfa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def c.DeBrief.DeBrief.__str__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Display the accumulated analytics. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5dc5bbc6ab177f82fc5d682b672e5843"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def c.DeBrief.DeBrief.dash </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Put a horizontal line in the analytics accumulator. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa17666354bdd7236997d346330a95c5a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def c.DeBrief.DeBrief.empty </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Put an empty line in the analytics accumulator. </p>
+
+</div>
+</div>
+<a class="anchor" id="acc4c0719d3ddf7060afaf84667c702c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def c.DeBrief.DeBrief.report </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>line</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mechanism used by all modules for accumulating analytics. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9fc39f8add3a4233a20ab9246e385354"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def c.DeBrief.DeBrief.summary </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assemble accumulated analytics. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>DeBrief.py</li>
 </ul>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['pagebits',['pagebits',['../struct_page_spec__t.html#a83358365cf5e133ff0d48faa28c2ef52',1,'PageSpec_t']]],
-  ['pairs',['pairs',['../classc_1_1_classify_1_1_classify.html#ac670ebd238054400347771255ad5d043',1,'c::Classify::Classify']]],
-  ['prefetch',['prefetch',['../struct_page__t.html#ae4e44564fbf5003c8faf21c0bc0f8736',1,'Page_t']]]
+  ['label',['label',['../classc_1_1_classify_1_1_classify.html#a39504bd936bf5576befb10e0ac43d83f',1,'c::Classify::Classify']]],
+  ['line',['line',['../classc_1_1_de_brief_1_1_de_brief.html#ab5fbcfb2eed0334f1c700df98856515c',1,'c::DeBrief::DeBrief']]]
 ];

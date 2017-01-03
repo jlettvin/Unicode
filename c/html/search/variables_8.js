@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['table',['table',['../structentry__t.html#aee9f08e356b624555bb6101ea4633f3a',1,'entry_t']]],
-  ['text',['text',['../classc_1_1_classify_1_1_classify.html#a301a21d13817bbbbf07d6af1226c244a',1,'c::Classify::Classify']]]
+  ['ranges',['ranges',['../classc_1_1_classify_1_1_classify.html#a1e4a9a02e19f108821677534f7e8d60a',1,'c::Classify::Classify']]],
+  ['report',['report',['../classc_1_1_de_brief_1_1_de_brief___module.html#a307d6fe00c703fedaeab6adbda0de1ff',1,'c::DeBrief::DeBrief_Module']]]
 ];
