@@ -1,4 +1,4 @@
-# Uni Library Overview
+# Unicode Python 2.7 Library Overview
 
 These modules implement useful functions
 for Unicode search, math, and support.
@@ -9,20 +9,20 @@ to perform a variety of useful functions.
 All modules have unit tests and pass PEP8 and PyFlakes quality checks.
 
 ## CORE: Two modules offer the core library value:
-* UniTree performs word searches
+* Tree performs word searches
   * Multiple variations like [hello helo hllo] can canonicalize to hello.
   * Tens of thousands of words can be uniquely identified without slowdown.
   * The complete 21 bit unicode range is supported for words.
 
-* UniDigit performs digit canonicalization across alphabets
+* Digit performs digit canonicalization across alphabets
   * 37 different 0-9 sequences can be freely intermixed.
   * Input and output languages are recognizable and choosable.
   * utoi (similar to atoi) can be constructed using any accepted digit.
 
 ## SUPPORT: Other modules offer support to the core library:
-* Array is used by UniDigit to contain the digit recognition tables.
-* UniDict is used in both core modules to manage options as member names.
-* UniDoc is used in both core modules to support verbose operations.
+* Array is used by Digit to contain the digit recognition tables.
+* Dict is used in both core modules to manage options as member names.
+* Doc is used in both core modules to support verbose operations.
 
 ## FILES:
 ```
@@ -33,13 +33,13 @@ LICENSE                 Gnu V3.0
 Makefile                Run PEP8 and cleanup, recurse into test and make
 README.md               This file
 Array.py                Class ndarray emulation to avoid requirements
-UniClass.py             Class to support fast/compact codepoint classification
-UniCut.py               Class to manage sparse array indexing for codepoints
-UniDict.py              Class for maintaining dict elements as class members
-UniDigit.py             Class for converting digits between languages
-UniDoc.py               Function for accessing function __doc__ string
-UniGrammar.py           Generator for Unicode codepoint classification grammar
-UniTree.py              Class for treeing, pruning, and canonicalizing words
+Class.py                Class to support fast/compact codepoint classification
+Cut.py                  Class to manage sparse array indexing for codepoints
+Dict.py                 Class for maintaining dict elements as class members
+Digit.py                Class for converting digits between languages
+Doc.py                  Function for accessing function __doc__ string
+Grammar.py              Generator for Unicode codepoint classification grammar
+Tree.py                 Class for treeing, pruning, and canonicalizing words
 __init__.py             Root of library
 classify16.g4           Narrow Unicode classification grammar
 classify21.g4           Standard Unicode classification grammar
@@ -48,18 +48,18 @@ test_Codepoint.py       Unit test top-level for Unicode classification grammar
 test/Makefile           Run tests
 test/test_CPT.py        Unit test
 test/test_Array.py      Unit test
-test/test_UniClass.py   Unit test
-test/test_UniCut.py     Unit test
-test/test_UniDict.py    Unit test
-test/test_UniDigit.py   Unit test
-test/test_UniDoc.py     Unit test
-test/test_UniTree.py    Unit test
+test/test_Class.py      Unit test
+test/test_Cut.py        Unit test
+test/test_Dict.py       Unit test
+test/test_Digit.py      Unit test
+test/test_Doc.py        Unit test
+test/test_Tree.py       Unit test
 ```
 
 ## MAKE:
 ```
  $ make clean  # remove intermediate files
- $ make        # run PEP8, pyflakes, pylint and tests on Uni*.py module files
+ $ make        # run PEP8, pyflakes, pylint and tests on *.py module files
 ```
 
 ## MODULES:
@@ -93,10 +93,10 @@ Generate and provide get/set accessors for a simple multidimensional array.
 
 See test_Array.py to see permitted operations.
 
-### UniClass (efficient and compact codepoint classification)
-* UniClass.py:
+### Class (efficient and compact codepoint classification)
+* Class.py:
   * Contains a namespace, manifest constants, and a static method
-  * UniClass.classify(codepoint) returns a valid Unicode classification or '__'
+  * Class.classify(codepoint) returns a valid Unicode classification or '__'
 
 The reason this code works is that Unicode codepoint classification comprises
 huge tracts of codepoints of identical classification making it a candidate for
@@ -177,19 +177,19 @@ Jt4TdgiKWlR/8XckU4UJCdVo7kA=
 
 #### Code to extract classification from manifest constants
 ```python
-    return UniClass.label[ord(UniClass.index[codepoint])]
+    return Class.label[ord(Class.index[codepoint])]
 ```
 
-See test_UniClass.py to see permitted operations.
+See test_Class.py to see permitted operations.
 
-### UniCut (sparse array manager for codepoint fragments)
-* UniCut.py:
+### Cut (sparse array manager for codepoint fragments)
+* Cut.py:
   * init(**kw)      initializes bits and masks
   * cut(codepoint)  divides codepoint according to bits and masks
-  * TODO            make tables in UniDigit intrinsic to this class
+  * TODO            make tables in Digit intrinsic to this class
 
-### UniDict (enhanced dictionary)
-* UniDict.py:
+### Dict (enhanced dictionary)
+* Dict.py:
   * init(**kw)  initializes
   * call(**kw)  updates
 
@@ -197,31 +197,31 @@ Ingest arbitraty dictionaries (i.e. docopt return value) and
 strip out non-alpha characters for keys then
 make those keys available as object member names.
 
-See test_UniDict.py to see permitted operations.
+See test_Dict.py to see permitted operations.
 
-### UniDigit (digit converter: language-independent and canonicalizing)
-* UniDigit.py:
+### Digit (digit converter: language-independent and canonicalizing)
+* Digit.py:
   * call(codepoint)  returns the associated int digit or -1 if not Nd
 
 An efficient multi-language number conversion algorithm
-UniDigit.py is a library class for building and using a fast lookup tree.
+Digit.py is a library class for building and using a fast lookup tree.
 It is a demonstration of canonicalizing digits from all supported languages.
 
-See test_UniDigit.py to see permitted operations.
+See test_Digit.py to see permitted operations.
 
-### UniDoc (functions and methods can verbosely report their __doc__ string)
-* UniDoc.py:
-  * UniDoc()  returns __doc__ of caller
+### Doc (functions and methods can verbosely report their __doc__ string)
+* Doc.py:
+  * Doc()  returns __doc__ of caller
 
-### UniGrammar (antlr4 grammar generator for Unicode codepoint classification)
-* UniGrammar.py
+### Grammar (antlr4 grammar generator for Unicode codepoint classification)
+* Grammar.py
   * classify16.g4  a grammar for 16 bit unicode is produced
   * classify21.g4  a grammar for 21 bit unicode is produced
 
 This code is a means for production, therefore its __main__ is to be executed.
 
-### UniTree (tree builder: fast canonicalizing word tree splice/prune/search)
-* UniTree.py:
+### Tree (tree builder: fast canonicalizing word tree splice/prune/search)
+* Tree.py:
   * init(wordlist)              Insert canonical words into tree
   * tree[word]                  Returns True if word is in tree
   * tree.word(word, variant)    Inserts variant and canonicalize to word
@@ -229,11 +229,11 @@ This code is a means for production, therefore its __main__ is to be executed.
   * tree.delete(word)           Deletes word from tree
 
 An efficient multi-word canonicalizing search algorithm
-UniTree.py is a library class for building and using a fast lookup tree.
+Tree.py is a library class for building and using a fast lookup tree.
 It is a demonstration of a technique for rapid tests for presence of
 a candidate word in a precompiled set.
 
-UniTree converts a list of words into a fast lookup tree on Unicode codepoints
+Tree converts a list of words into a fast lookup tree on Unicode codepoints
 and provides a function for using that tree to lookup words.
 
 Words are added by an functor which allows dynamic updates,
@@ -241,16 +241,16 @@ so that words can be added to the tree while it is in use.
 Words can be deleted and variants on words may lead to a canonical word.
 In threaded operation (other languages) this operation will need mutexes.
 
-See test_UniTree.py to see permitted operations.
+See test_Tree.py to see permitted operations.
 
 # Details
 
-## UniTree: Consider the words:
+## Tree: Consider the words:
 ```python
 [hello, hi, hola, hold, hole, work, world]
 ```
 
-### UniTree.py builds this dictionary tree structure (except with codepoints):
+### Tree.py builds this dictionary tree structure (except with codepoints):
 ```python
 tree = {
     u'h': {u'e': {u'l': {u'l': {u'o': {'$': set([u'hello'])}}}},
@@ -283,9 +283,9 @@ But the structure can be turned into indexing rather than hashing
 for performance close to one or only a few Intel instructions per letter.
 Also, using unicode codepoints rather than letters is likely preferred.
 
-## UniDigit: encapsulate latest Unicode Nd digit translations
+## Digit: encapsulate latest Unicode Nd digit translations
 
-### UniDigit.py builds this table for ASCII only
+### Digit.py builds this table for ASCII only
 ```python
 table = [[0, 0, 0, 0, 0, 0, 0, 0],
  [1, 1, 1, 1, 1, 1, 1, 1],
@@ -307,7 +307,7 @@ table = [[0, 0, 0, 0, 0, 0, 0, 0],
  [8, 9, -1, -1, -1, -1, -1, -1]]
 ```
 
-### UniDigit.py uses this code to access the table
+### Digit.py uses this code to access the table
 Given a codepoint, this code traverses the table and produces
 a valid digit between 0:9 if the codepoint is valid
 or -1 if the codepoint is invalid.
@@ -333,7 +333,7 @@ def toDigit(c):  # c is a codepoint ordinal
     return digit
 ```
 
-### UniGrammar.py uses UniClass as the majority source for data
+### Grammar.py uses Class as the majority source for data
 It also uses PropertyValueAliases.txt and Blocks.txt from unicode.org.
 
 # Future

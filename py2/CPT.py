@@ -16,7 +16,7 @@ __contact__    = "jlettvin@gmail.com"
 __status__     = "Demonstration"
 __date__       = "20161121"
 
-from UniCut import UniCut
+from Cut import Cut
 
 
 class CPT(object):
@@ -28,7 +28,7 @@ class CPT(object):
 
     def __init__(self):
         "Setup sizing, lookup table, and redo dictionary"
-        self.snip = UniCut()
+        self.snip = Cut()
         self.size = self.snip.the.enum
         self._preinit()
         self.redo = {}

@@ -23,7 +23,7 @@ __date__       = "20161113"
 
 
 # Definitions
-MODULES=Array UniClass UniDict UniDigit Self UniGrammar UniTree
+MODULES=Array Class Dict Digit Self Grammar Tree
 PEP8=$(patsubst %, %.pep8, $(MODULES))
 PYFL=$(patsubst %, %.pyfl, $(MODULES))
 PLNT=$(patsubst %, %.plnt, $(MODULES))
@@ -45,6 +45,8 @@ ARTIFACTS=\
 	*.dot \
 	*.js \
 	*.pyc \
+	test/*.pyc \
+	test/__pycache__/*.pyc \
 	*.png \
 	*.out
 
@@ -113,8 +115,8 @@ report:
 		|bc` bytes of error found)
 	@$(call timestamp,$@ generated)
 
-classify16.g4: UniGrammar.py
-	@./UniGrammar.py
+classify16.g4: Grammar.py
+	@./Grammar.py
 	@$(call timestamp,$@ generated)
 
 grammar: classify16.g4 test_Codepoint.g4
@@ -124,9 +126,9 @@ grammar: classify16.g4 test_Codepoint.g4
 
 .PHONY:
 todo:
-	@$(call timestamp,$@ Integrate UniDict replacing)
+	@$(call timestamp,$@ Integrate Dict replacing)
 	@$(call timestamp,$@ Failing unit test in Array top-level block)
-	@$(call timestamp,$@ Replace UniTree dict lookup with CPT)
+	@$(call timestamp,$@ Replace Tree dict lookup with CPT)
 
 .PHONY:
 unittest:

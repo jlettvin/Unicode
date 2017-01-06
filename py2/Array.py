@@ -7,7 +7,7 @@
 This class imitates numpy/scipy ndarray without requiring them.
 It implements an ndarray constructor and element/subset get/set.
 
-Justification: UniDigit uses a multidimensional array.
+Justification: Digit uses a multidimensional array.
 This class will be used to manage that array.
 """
 
