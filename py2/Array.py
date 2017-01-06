@@ -3,7 +3,7 @@
 #: PEP8 -E221
 # pep8: disable=E221
 
-"""UniArray.py
+"""Array.py
 This class imitates numpy/scipy ndarray without requiring them.
 It implements an ndarray constructor and element/subset get/set.
 
@@ -11,7 +11,7 @@ Justification: UniDigit uses a multidimensional array.
 This class will be used to manage that array.
 """
 
-__module__     = "UniArray.py"
+__module__     = "Array.py"
 __author__     = "Jonathan D. Lettvin"
 __copyright__  = "\
 Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
@@ -27,29 +27,29 @@ __date__       = "20161107"
 from json import (dumps)
 
 
-class UniArray(dict):
+class Array(dict):
     "Emulate numpy ndarray without requiring numpy"
 
     requireTuple = "positive int tuple required"
 
     @staticmethod
     def _ndlist(shape, value):
-        "Recursive assembly of UniArray"
+        "Recursive assembly of Array"
         return [
-            UniArray._ndlist(shape[1:], value)
+            Array._ndlist(shape[1:], value)
             for _ in xrange(shape[0])] if shape else value
 
     def __init__(self, *arg):
         "Store shape.  Generate instance values."
-        super(UniArray, self).__init__()
+        super(Array, self).__init__()
         self.__dict__ = self
-        assert len(arg) > 0, UniArray.requireTuple
-        assert isinstance(arg[0], tuple), UniArray.requireTuple
+        assert len(arg) > 0, Array.requireTuple
+        assert isinstance(arg[0], tuple), Array.requireTuple
         self.shape = arg[0]
-        assert all([d > 0 for d in self.shape]), UniArray.requireTuple
+        assert all([d > 0 for d in self.shape]), Array.requireTuple
         self.size = reduce(lambda x, y: x * y, self.shape)
         value = 0 if len(arg) < 2 else arg[1]
-        self.data = UniArray._ndlist(self.shape, value)
+        self.data = Array._ndlist(self.shape, value)
 
     def __call__(self, **kw):
         """
@@ -61,7 +61,7 @@ class UniArray(dict):
         size  = kw.get('size' , False)
         want = reduce(lambda x, y: x * y, shape)
         assert shape and data and size, 'functor: incompatible update'
-        assert all([d > 0 for d in shape]), UniArray.requireTuple
+        assert all([d > 0 for d in shape]), Array.requireTuple
         assert want == size, 'functor: size mismatch'
         temp = data
         total = 1
@@ -107,7 +107,7 @@ class UniArray(dict):
 
 if __name__ == "__main__":
 
-    UNIARRAY = UniArray((5, 3, 2), -1)
+    UNIARRAY = Array((5, 3, 2), -1)
     UNIARRAY[0, 0, 0] = 0
     UNIARRAY[4, 2, 1] = 9
     UNIARRAY[3, 2] = [5, 6]

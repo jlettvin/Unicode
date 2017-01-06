@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-__module__     = "test_UniArray.py"
+__module__     = "test_Array.py"
 __author__     = "Jonathan D. Lettvin"
 __copyright__  = "\
 Copyright(C) 2016 Jonathan D. Lettvin, All Rights Reserved"
@@ -21,10 +21,10 @@ sys.path.append('.')
 sys.path.append('..')
 
 from Self   import ( Self   )
-from UniArray import ( UniArray )
+from Array import ( Array )
 
 
-class UniArrayTestCase(unittest2.TestCase):
+class ArrayTestCase(unittest2.TestCase):
 
     def setUp(self):
         pass
@@ -39,7 +39,7 @@ class UniArrayTestCase(unittest2.TestCase):
         """
         data = [[0]]
         expect = {'shape': (1, 1), 'data': data, 'size': 1}
-        uniarray = UniArray((1,1), 0)
+        uniarray = Array((1,1), 0)
         self.assertEquals(uniarray, expect, Self.doc())
 
     def test_1x2(self):
@@ -49,7 +49,7 @@ class UniArrayTestCase(unittest2.TestCase):
         """
         data = [[-1, -1]]
         expect = {'shape': (1, 2), 'data': data, 'size': 2}
-        uniarray = UniArray((1,2), -1)
+        uniarray = Array((1,2), -1)
         self.assertEquals(uniarray, expect, Self.doc())
 
     def test_2x2x2(self):
@@ -59,7 +59,7 @@ class UniArrayTestCase(unittest2.TestCase):
         """
         data = [[[8, 8], [8, 8]], [[8, 8], [8, 8]]]
         expect = {'shape': (2, 2, 2), 'data': data, 'size': 8}
-        uniarray = UniArray((2, 2, 2), 8)
+        uniarray = Array((2, 2, 2), 8)
         self.assertEquals(uniarray, expect, Self.doc())
 
     def test_2x2x2_modify_element(self):
@@ -69,7 +69,7 @@ class UniArrayTestCase(unittest2.TestCase):
         """
         data = [[[8, 8], [8, 8]], [[8, 8], [8, 9]]]
         expect = {'shape': (2, 2, 2), 'data': data, 'size': 8}
-        uniarray = UniArray((2, 2, 2), 8)
+        uniarray = Array((2, 2, 2), 8)
         uniarray[1,1,1] = 9
         self.assertEquals(uniarray, expect, Self.doc())
 
@@ -80,7 +80,7 @@ class UniArrayTestCase(unittest2.TestCase):
         """
         data = [[[8, 8], [8, 8]], [[8, 8], [7, 9]]]
         expect = {'shape': (2, 2, 2), 'data': data, 'size': 8}
-        uniarray = UniArray((2, 2, 2), 8)
+        uniarray = Array((2, 2, 2), 8)
         uniarray[1,1] = [7, 9]
         self.assertEquals(uniarray, expect, Self.doc())
 
@@ -91,7 +91,7 @@ class UniArrayTestCase(unittest2.TestCase):
         """
         data = [[[0, 0], [0, 0]], [[5, 6], [7, 8]]]
         expect = {'shape': (2, 2, 2), 'data': data, 'size': 8}
-        uniarray = UniArray((2, 2, 2), 0)
+        uniarray = Array((2, 2, 2), 0)
         #uniarray[1] = [[5, 6], [7, 8]]
         #self.assertEquals(uniarray, expect, Self.doc())
 
@@ -103,7 +103,7 @@ class UniArrayTestCase(unittest2.TestCase):
         before = [[2, 2, 2], [2, 2, 2]]
         after  = [[5], [5], [5], [5]]
         expect = {'shape': (4, 1), 'data': after, 'size': 4}
-        uniarray = UniArray((2,3), 2)
+        uniarray = Array((2,3), 2)
         uniarray(**expect)
         self.assertEquals(uniarray, expect, Self.doc())
 

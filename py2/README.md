@@ -20,7 +20,7 @@ All modules have unit tests and pass PEP8 and PyFlakes quality checks.
   * utoi (similar to atoi) can be constructed using any accepted digit.
 
 ## SUPPORT: Other modules offer support to the core library:
-* UniArray is used by UniDigit to contain the digit recognition tables.
+* Array is used by UniDigit to contain the digit recognition tables.
 * UniDict is used in both core modules to manage options as member names.
 * UniDoc is used in both core modules to support verbose operations.
 
@@ -32,7 +32,7 @@ CPT                     Code Point Tree (replacement for segment dict)
 LICENSE                 Gnu V3.0
 Makefile                Run PEP8 and cleanup, recurse into test and make
 README.md               This file
-UniArray.py             Class ndarray emulation to avoid requirements
+Array.py                Class ndarray emulation to avoid requirements
 UniClass.py             Class to support fast/compact codepoint classification
 UniCut.py               Class to manage sparse array indexing for codepoints
 UniDict.py              Class for maintaining dict elements as class members
@@ -47,7 +47,7 @@ test_Codepoint.g4       Grammar for unit test
 test_Codepoint.py       Unit test top-level for Unicode classification grammar
 test/Makefile           Run tests
 test/test_CPT.py        Unit test
-test/test_UniArray.py   Unit test
+test/test_Array.py      Unit test
 test/test_UniClass.py   Unit test
 test/test_UniCut.py     Unit test
 test/test_UniDict.py    Unit test
@@ -83,15 +83,15 @@ This code eliminates this by breaking a codepoint into 7 3 bit segments.
 It then creates a table lookup mechanism that has exactly one cost.
 From a codepoint, 7 dereferences yields either an associated number or 0.
 
-### UniArray (numpy ndarray emulator)
-* UniArray.py:
+### Array (numpy ndarray emulator)
+* Array.py:
   * init(shape, value=0):
     * shape (just like ndarray)
     * value (initialize (default: 0))
 
 Generate and provide get/set accessors for a simple multidimensional array.
 
-See test_UniArray.py to see permitted operations.
+See test_Array.py to see permitted operations.
 
 ### UniClass (efficient and compact codepoint classification)
 * UniClass.py:
