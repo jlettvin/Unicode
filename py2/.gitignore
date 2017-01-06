@@ -1,0 +1,9 @@
+artifacts
+artifacts/*
+*.out
+*.pyc
+*.pep8
+*.pyfl
+__pycache__
+old
+UniData2.py
