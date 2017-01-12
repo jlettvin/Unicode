@@ -37,18 +37,22 @@ table, tr, td {
 }
 
 .check-box {
+  display: table-column;
   width: 20px;
   text-align: left;
   float: left;
 }
 
 .check-priority {
+  font-size: small;
+  display: table-column;
   width: 20px;
   text-align: left;
   float: left;
 }
 
 .check-text {
+  display: table-column;
   text-align: left;
   float: left;
 }

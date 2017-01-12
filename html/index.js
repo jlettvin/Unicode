@@ -14,12 +14,15 @@ $(document).ready(function () {
   //___________________________________________________________________________
   // search contains all search patterns used to re-render markDOWN as markUP.
   var search = {
-    commentN: {pattern: /(!#[^]*#!)/gim, replace: ''},
-    comment1: {pattern: /(!##[^]*$)/gim, replace: ''},
     define  : {pattern: /&([A-Za-z][0-9A-Za-z]*)=([^;]+);/gim },
     verbatim: {pattern: /!V([^]+)V!/},
     entities: {pattern: /(&amp;([A-Za-z][0-9A-Za-z]*);)/gim},
-    indent  : {pattern: /^\s*\.\.\.(.*)$/gim, replace: '&nbsp;&nbsp;&nbsp;$1'},
+    commentN: {pattern: /(!#[^]*#!)/gim,
+               replace: ''},
+    comment1: {pattern: /(!##[^]*$)/gim,
+               replace: ''},
+    indent  : {pattern: /^\s*\.\.\.(.*)$/gim,
+               replace: '&nbsp;&nbsp;&nbsp;$1'},
     heads   : {
         index: [6, 5, 4, 3, 2, 1],  ///< inverse order of indices required.
         1: {pattern: /^\s*=\s*(.+)\s*=\s*$/gim,
@@ -60,22 +63,33 @@ $(document).ready(function () {
         }
     },
     enhance : {
-        b: {pattern: /!=(.*)=!/g,    replace: '<b>$1</b>'   },
-        i: {pattern: /!\/(.*)\/!/g,  replace: '<i>$1</i>'   },
-        s: {pattern: /!-(.*)-!/g,    replace: '<s>$1</s>'   },
-        u: {pattern: /!_(.*)_!/g,    replace: '<u>$1</u>'   }
+        b: {pattern: /!=(.*)=!/g,
+            replace: '<b>$1</b>'   },
+        i: {pattern: /!\/(.*)\/!/g,
+            replace: '<i>$1</i>'   },
+        s: {pattern: /!-(.*)-!/g,
+            replace: '<s>$1</s>'   },
+        u: {pattern: /!_(.*)_!/g,
+            replace: '<u>$1</u>'   }
         },
     space   : {
       index : "hr2,hr1,p,br".split(','),
-      hr2   : {pattern: /_{4,}/g,    replace: '<hr /><hr />'},
-      hr1   : {pattern: /_{3,}/g,    replace: '<hr />'      },
-      p     : {pattern: /\^\^\^\^/g, replace: '<p />'       },
-      br    : {pattern: /\^\^\^/g,   replace: '<br />'      }
+      hr2   : {pattern: /_{4,}/g,
+               replace: '<hr /><hr />'},
+      hr1   : {pattern: /_{3,}/g,
+               replace: '<hr />'      },
+      p     : {pattern: /\^\^\^\^/g,
+               replace: '<p />'       },
+      br    : {pattern: /\^\^\^/g,
+               replace: '<br />'      }
     },
     align   : {
-        center: {pattern: /!C([^]+?)C!/gim, replace: '<div align="center">$1</div>'},
-        left  : {pattern: /!L([^]+?)L!/gim, replace: '<div align="left">$1</div>'},
-        right : {pattern: /!R([^]+?)R!/gim, replace: '<div align="right">$1</div>'},
+      center: {pattern: /!C([^]+?)C!/gim,
+               replace: '<div align="center">$1</div>'},
+      left  : {pattern: /!L([^]+?)L!/gim,
+               replace: '<div align="left">$1</div>'},
+      right : {pattern: /!R([^]+?)R!/gim,
+               replace: '<div align="right">$1</div>'},
     },
     bullets: {
         index: [6, 5, 4, 3, 2, 1],  ///< inverse order of indices required.
@@ -92,7 +106,7 @@ $(document).ready(function () {
         6: {pattern: /^\s*\*\*\*\*\*\*/gim,
             replace: '<br />' + '&nbsp;&nbsp;'.repeat(6) + '&dagger; '}
       },
-    //numberlist
+    // TODO numberlist
     check  : {
       pattern: /^\s*!@(.)(.)\s*([^]*?)@!\s*$/gim,
       box  : {
@@ -101,17 +115,17 @@ $(document).ready(function () {
         'v': '<b style="color:green">&#x2611;</b>'
       },
       num  : {
-        ' ': '&nbsp;'.repeat(2),  ///< Fix size using CSS
-        '0': '&#x24ff;',
-        '1': '&#x2460;',
-        '2': '&#x2461;',
-        '3': '&#x2462;',
-        '4': '&#x2463;',
-        '5': '&#x2464;',
-        '6': '&#x2465;',
-        '7': '&#x2466;',
-        '8': '&#x2467;',
-        '9': '&#x2468;'
+        ' ': '&nbsp;',
+        '0': '&#9450;',
+        '1': '&#9312;',
+        '2': '&#9313;',
+        '3': '&#9314;',
+        '4': '&#9315;',
+        '5': '&#9316;',
+        '6': '&#9317;',
+        '7': '&#9318;',
+        '8': '&#9319;',
+        '9': '&#9320;'
       }
     }
   };
