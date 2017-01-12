@@ -14,7 +14,8 @@ $(document).ready(function () {
   //___________________________________________________________________________
   // search contains all search patterns used to re-render markDOWN as markUP.
   var search = {
-    comment : {pattern: /(^\s*!#[^]*$)/gim, replace: ''},
+    commentN: {pattern: /(!#[^]*#!)/gim, replace: ''},
+    comment1: {pattern: /(!#[^]*$)/gim, replace: ''},
     define  : {pattern: /&([A-Za-z][0-9A-Za-z]*)=([^;]+);/gim },
     verbatim: {pattern: /!V([^]+)V!/},
     entities: {pattern: /(&amp;([A-Za-z][0-9A-Za-z]*);)/gim},
@@ -182,8 +183,15 @@ $(document).ready(function () {
     };
 
     //_________________________________________________________________________
-    // Find and eliminate comment data
-    follow("comment", function(name) {
+    // Find and eliminate multi-line comment data
+    follow("commentN", function(name) {
+      var my = search[name];
+      target = target.replace(my.pattern, my.replace);
+    });
+
+    //_________________________________________________________________________
+    // Find and eliminate single-line comment data
+    follow("comment1", function(name) {
       var my = search[name];
       target = target.replace(my.pattern, my.replace);
     });
