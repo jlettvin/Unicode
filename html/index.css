@@ -45,6 +45,7 @@ table, tr, td {
 
 .check-priority {
   font-size: small;
+  font-weight: bold;
   display: table-column;
   width: 20px;
   text-align: left;
