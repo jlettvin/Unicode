@@ -15,7 +15,7 @@ $(document).ready(function () {
   // search contains all search patterns used to re-render markDOWN as markUP.
   var search = {
     commentN: {pattern: /(!#[^]*#!)/gim, replace: ''},
-    comment1: {pattern: /(!#[^]*$)/gim, replace: ''},
+    comment1: {pattern: /(!##[^]*$)/gim, replace: ''},
     define  : {pattern: /&([A-Za-z][0-9A-Za-z]*)=([^;]+);/gim },
     verbatim: {pattern: /!V([^]+)V!/},
     entities: {pattern: /(&amp;([A-Za-z][0-9A-Za-z]*);)/gim},
