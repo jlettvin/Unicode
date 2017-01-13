@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+  document.jlettvin = document.jlettvin || {};
+  document.jlettvin.fuzzytree = document.jlettvin.fuzzytree || {};
+  document.jlettvin.fuzzytree.code = {};
+
   //___________________________________________________________________________
   // Local variables used to control re-rendering.
 
@@ -7,9 +11,11 @@ $(document).ready(function () {
   var urlParams   = new URLSearchParams(window.location.search);
 
   var timestamp   = new Date();     ///< Used by copyright.
-  var debug  = (urlParams.get('debug') == 'true');
-  var cover = {};                   ///< Used by waypoints to support coverage.
-  var entity = {};                  ///< Storage for custom entities.
+  var debug       = (urlParams.get('debug') == 'true');
+  var stable      = null;
+  var hover       = null;
+  var cover       = {};             ///< Used by waypoints to support coverage.
+  var entity      = {};             ///< Storage for custom entities.
 
   //___________________________________________________________________________
   // search contains all search patterns used to re-render markDOWN as markUP.
@@ -365,6 +371,7 @@ $(document).ready(function () {
     var sections    = document.getElementsByTagName("section");
     var page        = document.getElementById(urlParams.get('page'));
     page            = page ? page : sections[0];
+    stable          = page;
     var pageid      = page.getAttribute("id");
     var count       = 0;
     var perline     = 5;
@@ -386,15 +393,23 @@ $(document).ready(function () {
       var chosen = + (pageid == id);
       var tdstyle = style[chosen]['td'];
       var astyle = style[chosen]['a'];
+      var path = 'document.jlettvin.fuzzytree.code.';
       waypoint(name, id);
       if ((count % perline) == 0) html += '</tr><tr>';
       count++;
-      html +=
-        '<td class="nav" align="center" style="' + tdstyle + '">' +
+      var td =
+        '<td class="nav" align="center" style="' + tdstyle + '"' +
+        ' id="mouse' + id + '"' +
+        ' onmouseenter="'  + path + 'mouseEnter(\'' + id + '\')"' +
+        ' onclick="'       + path + 'mouseClick(\'' + id + '\')"' +
+        ' onmouseleave="'  + path + 'mouseLeave(\'' + id + '\')"' +
+        '>' +
         '<a href="?page=' + id + '" style="' + astyle + '">' +
         '<big>' + id + '</big>' +
         '</a>' +
         '</td>';
+      html += td;
+      // console.log(td);
       section.style.display = "none";
     });
     html += "</tr></table>";
@@ -422,6 +437,42 @@ $(document).ready(function () {
   follow("HTML5:footer", function(name) {
     var elements    = document.getElementsByTagName("footer");
   });
+
+  var code = document.jlettvin.fuzzytree.code;
+  code.hover = hover;
+  code.stable = stable;
+
+  code.mouseEnter = function(hover) {
+    // console.log('Enter: ' + key);
+    /*
+    var code = document.jlettvin.fuzzytree.code;
+    code.hover = hover
+    var stable = code.stable;
+
+    document.getElementById('hover').innerHTML = hover;
+    if (stable) document.getElementById(stable).style.display = "none";
+    if (hover ) document.getElementById(hover ).style.display = "inline";
+    */
+  }
+  code.mouseClick = function(key) {
+    // console.log('Click: ' + key);
+    /*
+    stable = hover = key;
+    */
+  }
+  code.mouseLeave = function(key) {
+    // console.log('Leave: ' + key);
+    /*
+    var code = document.jlettvin.fuzzytree.code;
+    var stable = code.stable;
+    var hover  = code.hover;
+
+    document.getElementById('hover').innerHTML = '_';
+    if (stable) document.getElementById(stable).style.display = "inline";
+    if (hover ) document.getElementById(hover).style.display = "none";
+    code.hover = null
+    */
+  }
 
   waypoint(null);
 });
