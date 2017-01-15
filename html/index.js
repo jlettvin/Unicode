@@ -20,15 +20,18 @@ $(document).ready(function () {
   //___________________________________________________________________________
   // search contains all search patterns used to re-render markDOWN as markUP.
   var search = {
-    define  : {pattern: /&([A-Za-z][0-9A-Za-z]*)=([^;]+);/gim },
+    define  : {pattern: /\{([A-Za-z][0-9A-Za-z]*)=([^]+?)\}/gim },
     verbatim: {pattern: /!V([^]+)V!/},
     entities: {pattern: /(&amp;([A-Za-z][0-9A-Za-z]*);)/gim},
     commentN: {pattern: /(!#[^]*#!)/gim,
                replace: ''},
     comment1: {pattern: /(!##[^]*$)/gim,
                replace: ''},
-    indent  : {pattern: /^\s*\.\.\.(.*)$/gim,
+    indent  : {pattern: /^\s*\.\.\.+(.*)$/gim,
                replace: '&nbsp;&nbsp;&nbsp;$1'},
+    URL :     {pattern: /!url\s*([^]+?)\s*@\s*([^]+?)\s*url!/gim,
+               replace: '<a href="$2">$1</a>'
+    },
     heads   : {
         index: [6, 5, 4, 3, 2, 1],  ///< inverse order of indices required.
         1: {pattern: /^\s*=\s*(.+)\s*=\s*$/gim,
@@ -69,14 +72,22 @@ $(document).ready(function () {
         }
     },
     enhance : {
-        b: {pattern: /!=(.*)=!/g,
-            replace: '<b>$1</b>'   },
-        i: {pattern: /!\/(.*)\/!/g,
-            replace: '<i>$1</i>'   },
-        s: {pattern: /!-(.*)-!/g,
-            replace: '<s>$1</s>'   },
-        u: {pattern: /!_(.*)_!/g,
-            replace: '<u>$1</u>'   }
+        bold:       {pattern: /!bold(.*)bold!/g,
+                     replace: '<b>$1</b>'   },
+        b:          {pattern: /!=(.*)=!/g,
+                     replace: '<b>$1</b>'   },
+        italic:     {pattern: /!italic(.*)italic!/g,
+                     replace: '<i>$1</i>'   },
+        i:          {pattern: /!\/(.*)\/!/g,
+                     replace: '<i>$1</i>'   },
+        strike:     {pattern: /!strike(.*)strike!/g,
+                     replace: '<s>$1</s>'   },
+        s:          {pattern: /!-(.*)-!/g,
+                     replace: '<s>$1</s>'   },
+        underscore: {pattern: /!underscore(.*)underscore_!/g,
+                     replace: '<u>$1</u>'   },
+        u:          {pattern: /!_(.*)_!/g,
+                     replace: '<u>$1</u>'   }
         },
     space   : {
       index : "hr2,hr1,p,br".split(','),
@@ -84,8 +95,10 @@ $(document).ready(function () {
                replace: '<hr /><hr />'},
       hr1   : {pattern: /_{3,}/g,
                replace: '<hr />'      },
-      p     : {pattern: /\^\^\^\^/g,
+      p:      {pattern: /\^\^\^\^/g,
                replace: '<p />'       },
+      //nl2   : {pattern: /\n[[ \t]*\n]+/m,
+               //replace: "<p />"       },
       br    : {pattern: /\^\^\^/g,
                replace: '<br />'      }
     },
@@ -248,8 +261,8 @@ $(document).ready(function () {
     });
 
     //_________________________________________________________________________
-    // Indent paragraphs
-    follow("indent", function(name) {
+    // URL expression
+    follow("URL", function(name) {
       var the = search[name];
       target = target.replace(the.pattern, the.replace);
     });
@@ -282,8 +295,20 @@ $(document).ready(function () {
       var my = search[name];
       for (var index in my.index) {
         var the = my[my.index[index]];
+        //console.log(index);
+        //console.log(my.index[index]);
+        //console.log(the.pattern);
+        //console.log(the.replace);
+        //console.log("----");
         target = target.replace(the.pattern, the.replace);
       }
+    });
+
+    //_________________________________________________________________________
+    // Indent paragraphs
+    follow("indent", function(name) {
+      var the = search[name];
+      target = target.replace(the.pattern, the.replace);
     });
 
     //_________________________________________________________________________
@@ -375,13 +400,16 @@ $(document).ready(function () {
     var pageid      = page.getAttribute("id");
     var count       = 0;
     var perline     = 5;
+    var owner       = 'Jonathan D. Lettvin';
+    if (typeof __legal__ !== "undefined" && __legal__.owner === "undefined")
+      owner = __legal__.owner;
 
     // Generate the list of sections to populate the Nav bar.
     var html =
       '<small><small><small><small>' +
       'Copyright&copy; 2016-' +
       timestamp.getFullYear() +
-      ' Jonathan D. Lettvin, All Rights Reserved' +
+      ' ' + owner + ', All Rights Reserved' +
       '</small></small></small></small>';
     html +=
       '<table class="nav" align="center"><tr>';
@@ -389,22 +417,31 @@ $(document).ready(function () {
       var style = [
         {'td': 'background-color:white;', 'a': 'color:black;'},
         {'td': 'background-color:black;', 'a': 'color:white;'}];
+
+      var css = ['ignore', 'chosen'];
+
       var id = section.getAttribute("id");
       var chosen = + (pageid == id);
       var tdstyle = style[chosen]['td'];
+      var tdcss = css[chosen];
       var astyle = style[chosen]['a'];
       var path = 'document.jlettvin.fuzzytree.code.';
       waypoint(name, id);
       if ((count % perline) == 0) html += '</tr><tr>';
       count++;
       var td =
-        '<td class="nav" align="center" style="' + tdstyle + '"' +
+        '<td class="nav"' +
+        //' class="' + css[+!chosen] + '"' +
+        ' style="' + tdstyle + '"' +
         ' id="mouse' + id + '"' +
         ' onmouseenter="'  + path + 'mouseEnter(\'' + id + '\')"' +
         ' onclick="'       + path + 'mouseClick(\'' + id + '\')"' +
         ' onmouseleave="'  + path + 'mouseLeave(\'' + id + '\')"' +
         '>' +
-        '<a href="?page=' + id + '" style="' + astyle + '">' +
+        '<a href="?page=' + id + '"' +
+        //' class="' + css[+chosen] + '"' +
+        ' style="' + astyle + '"' +
+        '>' +
         '<big>' + id + '</big>' +
         '</a>' +
         '</td>';

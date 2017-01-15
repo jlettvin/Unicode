@@ -31,6 +31,16 @@ table, tr, td {
   border: 1px solid black;
 }
 
+.chosen {
+  background-color: black;
+  text-color: white;
+}
+
+.ignore {
+  background-color: white;
+  text-color: black;
+}
+
 .check {
   display: table;
   width: 100%;
