@@ -162,6 +162,7 @@ if __name__ == "__main__":
     special = {
         '\x09': "<TAB>", '\x0a': "<NL>", '\x0d': "<CR>",
         # '\x0b': "", '\x0c': ""
+        '\x20': "<SP>"
     }
 
     def show(c):
