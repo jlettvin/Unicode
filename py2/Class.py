@@ -145,6 +145,6 @@ if __name__ == "__main__":
         for arg in sys.argv[1:]:
             with open(arg, "rb") as source:
                 for line in source:
-                    for c in line:
+                    for c in line.decode("UTF8"):
                         # print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
                         print "%06x\t%s" % (ord(c), Class.classify(c))
