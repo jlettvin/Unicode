@@ -146,4 +146,5 @@ if __name__ == "__main__":
             with open(arg, "rb") as source:
                 for line in source:
                     for c in line:
-                        print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
+                        # print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
+                        print "%06x\t%s" % (ord(c), Class.classify(c))
