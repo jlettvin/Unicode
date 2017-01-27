@@ -160,15 +160,13 @@ if __name__ == "__main__":
     opt = docopt(__doc__, version=__version__)
     showchars = opt['--character']
     special = {
-        '\x09': "<TAB>", '\x0a': "<NL>", '\x0d': "<CR>",
-        # '\x0b': "", '\x0c': ""
-        '\x20': "<SP>"
+        '\x09': "<TAB>", '\x0a': "<NL>", '\x0d': "<CR>", '\x20': "<SP>"
     }
 
     def show(c):
         if showchars:
             if c in special:
-                print special[c] + '\t',
+                print "%s\t" % (special[c]),
             else:
                 print "%s\t" % (c.encode("UTF8")),
         print "%06x\t%s" % (ord(c), Class.classify(c))
