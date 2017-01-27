@@ -3,6 +3,19 @@
 # pylint: disable=too-few-public-methods
 
 """Class.py
+
+Usage:
+    Class.py [-c] FILENAME...
+    Class.py [-t]
+
+Options:
+    -t --test                       Show initial ASCII and Chinese classifiers
+    -c --character                  Show the characters first on line
+    -h --help                       Show this Usage message
+    --version                       Show version
+
+Concepts:
+
 A namespace for identifying a codepoint character class.
 
 This module has been hand-crafted for Unicode 9.0.0.
@@ -41,6 +54,11 @@ there is one character for each valid codepoint in all of Unicode 9.0.0.
 
 Each character is actually an ordinal which is a direct index into label.
 label could be a list instead of a dictionary.
+
+Author  : Jonathan D. Lettvin (jlettvin@gmail.com)
+Date    : 20161106
+Legal   : Copyright(c)2016 Jonathan D. Lettvin, All Rights Reserved
+License : GPL 3.0
 """
 
 __module__     = "Class.py"
@@ -137,14 +155,33 @@ Jt4TdgiKWlR/8XckU4UJCdVo7kA=
 if __name__ == "__main__":
 
     import sys
+    from docopt import docopt
 
-    if len(sys.argv) == 1:
+    opt = docopt(__doc__, version=__version__)
+    showchars = opt['--character']
+    special = {
+        '\x09': "<TAB>", '\x0a': "<NL>", '\x0d': "<CR>",
+        # '\x0b': "", '\x0c': ""
+    }
+
+    def show(c):
+        if showchars:
+            if c in special:
+                print special[c] + '\t',
+            else:
+                print "%s\t" % (c.encode("UTF8")),
+        print "%06x\t%s" % (ord(c), Class.classify(c))
+
+    if opt['--test']:
         for c in u"ABCabc012$=*愚公移山":
-            print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
+            show(c)
     else:
-        for arg in sys.argv[1:]:
-            with open(arg, "rb") as source:
-                for line in source:
-                    for c in line.decode("UTF8"):
-                        # print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
-                        print "%06x\t%s" % (ord(c), Class.classify(c))
+        files = opt['FILENAME']
+        if not files:
+            print __doc__
+        else:
+            for arg in files:
+                with open(arg, "rb") as source:
+                    for line in source:
+                        for c in line.decode("UTF8"):
+                            show(c)
