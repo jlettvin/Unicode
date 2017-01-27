@@ -136,5 +136,14 @@ Jt4TdgiKWlR/8XckU4UJCdVo7kA=
 
 if __name__ == "__main__":
 
-    for c in u"ABCabc012$=*愚公移山":
-        print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
+    import sys
+
+    if len(sys.argv) == 1:
+        for c in u"ABCabc012$=*愚公移山":
+            print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
+    else:
+        for arg in sys.argv[1:]:
+            with open(arg, "rb") as source:
+                for line in source:
+                    for c in line:
+                        print "%s\t%06x\t%s" % (c, ord(c), Class.classify(c))
